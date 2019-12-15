@@ -2,11 +2,66 @@
 <html lang="en-US">
   <head>
     <title>Webpack Starter Kit</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
   </head>
   <body>
-    <h1>Jeopardy</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    <header>
+      <h1>Jeopardy</h1>
+    </header>
+      <main>
+      <section class="player-name-input">
+        <label class="player-name-label" for="player-name-input">Player 1</label>
+        <input class="player-name-input player1" type="text" name="name-input" placeholder="Name">
+        <p class="player-name-error">Please enter your name to continue.</p>
+        <label class="player-name-label" for="player-name-input">Player 2</label>
+        <input class="player-name-input player2" type="text" name="name-input" placeholder="Name">
+        <p class="player-name-error">Please enter your name to continue.</p>
+        <label class="player-name-label" for="player-name-input">Player 3</label>
+        <input class="player-name-input player3" type="text" name="name-input" placeholder="Name">
+        <p class="player-name-error">Please enter your name to continue.</p>
+        <button class="continue-button" type="button" name="button">Continue</button>
+      </section>
+      <section class="game-rules">
+        <h2>Rules of the Game</h2>
+        <p>RULES---------------------------</p>
+        <button class="play-button" type="button" name="button">Play Game</button>
+      </section>
+      <section class="gameboard">
+        <form class="player-score-section">
+          <div class="player1">
+            <h3 class="player1-name">PLAYER 1</h3>
+            <p class="player1-score">SCORE</p>
+          </div>
+          <div class="player2">
+            <h3 class="player2-name">PLAYER 2</h3>
+            <p class="player2-score">SCORE</p>
+          </div>
+          <div class="player3">
+            <h3 class="player3-name">PLAYER 3</h3>
+            <p class="player3-score">SCORE</p>
+          </div>
+        </form>
+        <form class="game-card-section">
+          <!-- Dynamically fill with cards -->
+        </form>
+        <form class="clue-info">
+          <div class="category-points">
+            <h3 class="clue-category">CATEGORY</h3>
+            <p class="clue-points">POINTS</p>
+          </div>
+          <div class="clue-quesiton">
+            <p class="question">QUESTION</p>
+          </div>
+          <div class="quess-input">
+            <input class="player-guess" type="text" name="guess-input" placeholder="Submit your guess">
+            <button class="submit-guess">SUBMIT ANSWER</button>
+            
+          </div>
+        </form>
+      </section>
+      </main>
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
