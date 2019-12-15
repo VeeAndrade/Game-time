@@ -4,13 +4,13 @@ class Game {
     this.roundCount = 0;
   }
 
-  determineWinner() {
-    this.players.sort(function(a, b){return b.score - a.score}))
-    return this.players[0];
-  }
-
   updateRound() {
     this.roundCount++;
+  }
+
+  determineWinner() {
+    let sortedScores = this.players.slice().sort(function(a, b) { return  b.score - a.score})
+    return sortedScores[0];
   }
 }
 
