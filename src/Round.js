@@ -4,6 +4,10 @@ class Round {
     this.clues = [];
     this.count = 0;
   }
+
+  updateCount() {
+    this.count++;
+  }
 }
 
 module.exports = Round;
