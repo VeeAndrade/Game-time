@@ -61,7 +61,6 @@ h4 {
 }
 
 .player3 {
-
   grid-area: player3;
 }
 
@@ -80,7 +79,7 @@ h4 {
   grid-area: category;
 }
 
-.clue-question {
+.selected-clue-question {
   border-bottom: solid 2px #35477D;
   grid-area: clue;
 }
