@@ -9,7 +9,7 @@ body {
 }
 
 header {
-  background-color: #C06C84;
+  background-color: #F67280;
   height: 80px;
   padding-top: 20px;
   text-align: center;
@@ -26,11 +26,21 @@ h1 {
   margin: 0;
 }
 
+h4 {
+  color: #F67280;
+  font-size: 25px;
+  margin: 10px;
+}
 
+.score {
+  color: #F67280;
+  font-size: 50px;
+  margin: 10px;
+}
 
 .gameboard {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 4fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
   'player1 game category'
@@ -40,10 +50,13 @@ h1 {
 }
 
 .player1 {
+  border-bottom: solid 2px #35477D;
   grid-area: player1;
+
 }
 
 .player2 {
+  border-bottom: solid 2px #35477D;
   grid-area: player2;
 }
 
@@ -53,14 +66,22 @@ h1 {
 }
 
 .game-card-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   grid-area: game;
+  justify-content: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .category-points {
+  border-bottom: solid 2px #35477D;
   grid-area: category;
 }
 
 .clue-question {
+  border-bottom: solid 2px #35477D;
   grid-area: clue;
 }
 
@@ -70,5 +91,55 @@ h1 {
 
 .sidebar {
   background-color: #6C5B7B;
+  padding-top: 20px;
   text-align: center;
+}
+
+.question {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.player-guess {
+  border: 0;
+  height: 30px;
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+.submit-guess {
+  border: 0;
+  border-radius: 3%;
+  cursor: pointer;
+  font-size: 10pt;
+  font-weight: bold;
+  height: 25px;
+  padding-top: 5px;
+  width: 60%;
+}
+
+.submit-guess:hover {
+  background-color: #F67280;
+}
+
+.clue-categories {
+  align-items: center;
+  background-color: #F67280;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  margin: 15px 15px 0px 15px;
+  width: 200px;
+}
+
+.clue-points {
+  align-items: center;
+  background-color: #C06C84;
+  display: flex;
+  font-size: 40px;
+  font-weight: bold;
+  height: 100px;
+  justify-content: center;
+  margin: 15px 15px 0px 15px;
+  width: 200px;
 }
