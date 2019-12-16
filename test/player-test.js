@@ -26,4 +26,7 @@ describe('Player', () => {
     expect(player.score).to.equal(0)
   });
 
+  // it('should be able to start a new game', () => {
+  //   expect(player.startGame()).to.equal()
+  // });
 });
