@@ -5,9 +5,57 @@
 
 body {
   background-color: #35477D;
+  margin: 0;
+}
+
+header {
+  background-color: #C06C84;
+  height: 80px;
+  padding-top: 20px;
+  text-align: center;
 }
 
 h1 {
-  background-color: #C06C84;
+  color: #35477D;
   font-family: 'Montserrat', sans-serif;
+  font-size: 50px;
+  margin: 0;
+}
+
+.gameboard {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+  'player1 game category'
+  'player2 game clue'
+  'player3 game answer'
+}
+
+.player1 {
+  grid-area: player1;
+}
+
+.player2 {
+  grid-area: player2;
+}
+
+.player3 {
+  grid-area: player3;
+}
+
+.game-card-section {
+  grid-area: game;
+}
+
+.category-points {
+  grid-area: category;
+}
+
+.clue-question {
+  grid-area: clue;
+}
+
+.guess-input {
+  grid-area: answer;
 }

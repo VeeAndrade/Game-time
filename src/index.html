@@ -8,10 +8,10 @@
   </head>
   <body>
     <header>
-      <h1>Jeopardy</h1>
+      <h1>Jeopardy!</h1>
     </header>
       <main>
-      <section class="player-name-input">
+      <!-- <section class="player-name-input">
         <label class="player-name-label" for="player-name-input">Player 1</label>
         <input class="player-name-input player1" type="text" name="name-input" placeholder="Name">
         <p class="player-name-error">Please enter your name to continue.</p>
@@ -27,42 +27,36 @@
         <h2>Rules of the Game</h2>
         <p>RULES---------------------------</p>
         <button class="play-button" type="button" name="button">Play Game</button>
-      </section>
+      </section> -->
       <section class="gameboard">
-        <form class="player-score-section">
-          <div class="player1">
-            <h3 class="player1-name">PLAYER 1</h3>
-            <p class="player1-score">SCORE</p>
-          </div>
-          <div class="player2">
-            <h3 class="player2-name">PLAYER 2</h3>
-            <p class="player2-score">SCORE</p>
-          </div>
-          <div class="player3">
-            <h3 class="player3-name">PLAYER 3</h3>
-            <p class="player3-score">SCORE</p>
-          </div>
-        </form>
-        <form class="game-card-section">
-          <!-- Dynamically fill with cards -->
-        </form>
-        <form class="clue-info">
-          <div class="category-points">
-            <h3 class="clue-category">CATEGORY</h3>
-            <p class="clue-points">POINTS</p>
-          </div>
-          <div class="clue-quesiton">
-            <p class="question">QUESTION</p>
-          </div>
-          <div class="quess-input">
-            <input class="player-guess" type="text" name="guess-input" placeholder="Submit your guess">
-            <button class="submit-guess">SUBMIT ANSWER</button>
-            
-          </div>
-        </form>
+        <div class="player1">
+          <h3 class="player1-name">PLAYER 1</h3>
+          <p class="player1-score">SCORE</p>
+        </div>
+        <div class="player2">
+          <h3 class="player2-name">PLAYER 2</h3>
+          <p class="player2-score">SCORE</p>
+        </div>
+        <div class="player3">
+          <h3 class="player3-name">PLAYER 3</h3>
+          <p class="player3-score">SCORE</p>
+        </div>>
+      <section class="game-card-section">
+        <!-- Dynamically fill with cards -->
+      </section>
+        <div class="category-points">
+          <h3 class="clue-category">CATEGORY</h3>
+          <p class="clue-points">POINTS</p>
+        </div>
+        <div class="clue-quesiton">
+          <p class="question">QUESTION</p>
+        </div>
+        <div class="quess-input">
+          <input class="player-guess" type="text" name="guess-input" placeholder="Submit your guess">
+          <button class="submit-guess">SUBMIT ANSWER</button>
+        </div>
       </section>
       </main>
-
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
 </html>
