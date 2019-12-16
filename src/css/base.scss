@@ -15,12 +15,18 @@ header {
   text-align: center;
 }
 
+main {
+  height: 90vh;
+}
+
 h1 {
   color: #35477D;
   font-family: 'Montserrat', sans-serif;
   font-size: 50px;
   margin: 0;
 }
+
+
 
 .gameboard {
   display: grid;
@@ -29,7 +35,8 @@ h1 {
   grid-template-areas:
   'player1 game category'
   'player2 game clue'
-  'player3 game answer'
+  'player3 game answer';
+  height: 100%;
 }
 
 .player1 {
@@ -41,6 +48,7 @@ h1 {
 }
 
 .player3 {
+
   grid-area: player3;
 }
 
@@ -58,4 +66,9 @@ h1 {
 
 .guess-input {
   grid-area: answer;
+}
+
+.sidebar {
+  background-color: #6C5B7B;
+  text-align: center;
 }
