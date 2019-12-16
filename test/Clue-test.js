@@ -34,12 +34,24 @@ describe('Clue', function () {
         clue.activateDailyDouble();
 
         expect(clue.dailyDouble).to.equal(true);
+        expect(clue.pointValue).to.equal(200);
     });
 
-    it('should toggle its already selectd value once selected', function() {
-        clue.selectCard();
+    it('should toggle its already selectd value once checkAnswer is envoked', function() {
+        clue.checkAnswer();
 
         expect(clue.alreadySelected).to.equal(true);
-    })
+    });
 
+    it('should evaluate a correct answer', function() {
+        clue.checkAnswer();
+
+        expect(player.points).to.equal(100);
+    });
+
+    it('should evaluate an incorrect answer', function () {
+        clue.checkAnswer();
+
+        expect(player.points).to.equal(-100);
+    });
 });
