@@ -26,6 +26,7 @@ let player3;
 let clue;
 let clueCategories = [];
 let clueInfo = [];
+let clueId = 1;
 
 function categoryFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -58,7 +59,9 @@ function getFetches() {
 
 function instantiateClues() {
   return clueInfo.map(c => {
-    clue = new Clue(c)
+    c.id = clueId;
+    clue = new Clue(c);
+    clueId++;
     console.log(clue)
   })
 }
@@ -66,7 +69,7 @@ function instantiateClues() {
 getFetches()
   .then(() => instantiateClues())
 
-instantiateClues()
+// instantiateClues()
 
 nameInputs.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
@@ -108,4 +111,3 @@ function showGame() {
   gameRules.style.display = "none";
   gameBoard.style.display = "grid";
 }
-
