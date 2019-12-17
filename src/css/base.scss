@@ -33,6 +33,11 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
 h4 {
   color: #F67280;
   font-size: 25px;
@@ -49,8 +54,8 @@ p {
   margin: 10px;
 }
 
-.gameboard {
-  display: grid;
+.game-board {
+  display: none;
   grid-template-columns: 1fr 5fr 2fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
@@ -163,4 +168,54 @@ p {
 
 .selected-clue-question {
   font-size: 60px;
+}
+
+#active {
+  cursor: pointer;
+}
+
+.game-rules {
+  display: none;
+}
+
+.error {
+  display: none;
+}
+
+// instructions
+
+.instructional-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instructions-section {
+  width: 60%;
+  height: 70%;
+  text-align: center;
+}
+
+.instruction-heading-container {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.instructions-article {
+  font-size: 1.3em;
+  justify-content: space-around;
+}
+
+.instructions-list {
+  list-style: none;
+}
+
+.play-button {
+  width: 70%;
+  height: 8%;
+  border-radius: 5px;
+  font-size: 1.3em;
+  margin-top: 5%;
 }
