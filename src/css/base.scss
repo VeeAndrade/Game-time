@@ -1,26 +1,33 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
+
 * {
   font-family: 'Josefin Sans', sans-serif;
 }
 
 body {
-  background-color: #35477D;
+  background-image: url('../images/underwater.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #35477D;
   margin: 0;
 }
 
 header {
-  background-color: #F67280;
-  height: 80px;
-  padding-top: 20px;
+  background-color: #1F2E58;
+  height: 70px;
+  padding-top: 10px;
   text-align: center;
 }
 
 main {
   height: 90vh;
+  margin-bottom: 10px;
 }
 
 h1 {
-  color: #35477D;
+  color: white;
+  background: url('../images/underwater-light.jpg') no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-family: 'Montserrat', sans-serif;
   font-size: 50px;
   margin: 0;
@@ -32,6 +39,10 @@ h4 {
   margin: 10px;
 }
 
+p {
+  margin: 0;
+}
+
 .score {
   color: #F67280;
   font-size: 50px;
@@ -40,7 +51,7 @@ h4 {
 
 .gameboard {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr 5fr 2fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
   'player1 game category'
@@ -50,18 +61,19 @@ h4 {
 }
 
 .player1 {
-  border-bottom: solid 2px #35477D;
   grid-area: player1;
-
+  height: 140px;
+  margin-top: 20px;
 }
 
 .player2 {
-  border-bottom: solid 2px #35477D;
   grid-area: player2;
+  height: 140px;
 }
 
 .player3 {
   grid-area: player3;
+  height: 140px;
 }
 
 .game-card-section {
@@ -70,33 +82,33 @@ h4 {
   flex-wrap: wrap;
   grid-area: game;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
 }
 
 .category-points {
-  border-bottom: solid 2px #35477D;
   grid-area: category;
 }
 
 .selected-clue-question {
-  border-bottom: solid 2px #35477D;
   grid-area: clue;
 }
 
 .guess-input {
   grid-area: answer;
+  height: 140px;
 }
 
 .sidebar {
-  background-color: #6C5B7B;
+  background: rgba(212,229,255,0.9);
+  margin: 20px 20px 0px 20px;
   padding-top: 20px;
   text-align: center;
 }
 
 .question {
   font-size: 20px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .player-guess {
@@ -123,22 +135,32 @@ h4 {
 
 .clue-categories {
   align-items: center;
-  background-color: #F67280;
+  background: rgba(212,229,255,0.9);
   display: flex;
   height: 50px;
   justify-content: center;
   margin: 15px 15px 0px 15px;
-  width: 200px;
+  padding: 2px;
+  width: 20%;
 }
 
 .clue-points {
   align-items: center;
-  background-color: #C06C84;
+  background: rgba(246,114,128,0.9);
+  color: white;
   display: flex;
   font-size: 40px;
   font-weight: bold;
   height: 100px;
   justify-content: center;
   margin: 15px 15px 0px 15px;
-  width: 200px;
+  width: 20%;
+}
+
+.selected-clue-category {
+  font-size: 35px;
+}
+
+.selected-clue-question {
+  font-size: 60px;
 }
