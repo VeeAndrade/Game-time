@@ -34,26 +34,28 @@ let clueCategories = [];
 let clueInfo = [];
 
 function categoryFetch() {
- return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
-  .then(data => data.json())
-  .then(data => data.data.categories)
-  .then(categories => {
-    let catKeys = Object.keys(categories)
-    catKeys.forEach(key => clueCategories.push({[key]: categories[key]}))
-  })
-  .catch(error => console.log('failure'))
+  return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
+    .then(data => data.json())
+    .then(data => data.data.categories)
+    .then(categories => {
+      let catKeys = Object.keys(categories)
+      catKeys.forEach(key => clueCategories.push({
+        [key]: categories[key]
+      }))
+    })
+    .catch(error => console.log('failure'))
 }
 
 
-function clueFetch() { 
+function clueFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
-  .then(data => data.json())
-  .then(data => data.data.clues)
-  .then(clues => {
-    let clueKeys = Object.keys(clues)
-    clueKeys.forEach(key => clueInfo.push(clues[key]))
-  })
-  .catch(error => console.log('failure'))
+    .then(data => data.json())
+    .then(data => data.data.clues)
+    .then(clues => {
+      let clueKeys = Object.keys(clues)
+      clueKeys.forEach(key => clueInfo.push(clues[key]))
+    })
+    .catch(error => console.log('failure'))
 }
 
 function getFetches() {
@@ -61,14 +63,14 @@ function getFetches() {
 }
 
 function instantiateClues() {
-  return clueInfo.map(c => { 
+  return clueInfo.map(c => {
     clue = new Clue(c)
-    console.log(clue) 
+    console.log(clue)
   })
 }
 
 getFetches()
-.then(() => instantiateClues())
+  .then(() => instantiateClues())
 
 instantiateClues()
 
@@ -112,4 +114,3 @@ function showGame() {
   gameRules.style.display = "none";
   gameBoard.style.display = "grid";
 }
-
