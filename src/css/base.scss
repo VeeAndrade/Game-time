@@ -26,6 +26,11 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
 h4 {
   color: #F67280;
   font-size: 25px;
@@ -38,8 +43,8 @@ h4 {
   margin: 10px;
 }
 
-.gameboard {
-  display: grid;
+.game-board {
+  display: none;
   grid-template-columns: 1fr 4fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
@@ -141,4 +146,16 @@ h4 {
   justify-content: center;
   margin: 15px 15px 0px 15px;
   width: 200px;
+}
+
+#active {
+  cursor: pointer;
+}
+
+.game-rules {
+  display: none;
+}
+
+.error {
+  display: none;
 }
