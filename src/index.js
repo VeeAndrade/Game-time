@@ -11,6 +11,9 @@ import './css/base.scss';
 import './images/turing-logo.png'
 import Player from '../src/Player'
 import Game from '../src/Game'
+import Clue from '../src/Clue'
+import '../src/Round'
+// import { promises } from 'dns';
 
 let nameInputs = document.querySelector(".player-name-input");
 let gameRules = document.querySelector(".game-rules");
@@ -26,6 +29,48 @@ let playBtn = document.querySelector(".play-button");
 let player1;
 let player2;
 let player3;
+let clue;
+let clueCategories = [];
+let clueInfo = [];
+
+function categoryFetch() {
+ return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
+  .then(data => data.json())
+  .then(data => data.data.categories)
+  .then(categories => {
+    let catKeys = Object.keys(categories)
+    catKeys.forEach(key => clueCategories.push({[key]: categories[key]}))
+  })
+  .catch(error => console.log('failure'))
+}
+
+
+function clueFetch() { 
+  return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
+  .then(data => data.json())
+  .then(data => data.data.clues)
+  .then(clues => {
+    let clueKeys = Object.keys(clues)
+    clueKeys.forEach(key => clueInfo.push(clues[key]))
+  })
+  .catch(error => console.log('failure'))
+}
+
+function getFetches() {
+  return Promise.all([clueFetch(), categoryFetch()])
+}
+
+function instantiateClues() {
+  return clueInfo.map(c => { 
+    clue = new Clue(c)
+    console.log(clue) 
+  })
+}
+
+getFetches()
+.then(() => instantiateClues())
+
+instantiateClues()
 
 nameInputs.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
@@ -67,3 +112,4 @@ function showGame() {
   gameRules.style.display = "none";
   gameBoard.style.display = "grid";
 }
+
