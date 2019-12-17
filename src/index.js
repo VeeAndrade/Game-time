@@ -9,5 +9,61 @@ import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
+import Player from '../src/Player'
+import Game from '../src/Game'
 
-console.log('This is the JavaScript entry file - your code begins here.');
+let nameInputs = document.querySelector(".player-name-input");
+let gameRules = document.querySelector(".game-rules");
+let player1Input = document.querySelector(".player1");
+let player2Input = document.querySelector(".player2");
+let player3Input = document.querySelector(".player3");
+let player1Name = document.querySelector(".player1-name");
+let player2Name = document.querySelector(".player2-name");
+let player3Name = document.querySelector(".player3-name");
+let continueBtn = document.querySelector(".continue-button");
+let gameBoard = document.querySelector(".game-board");
+let playBtn = document.querySelector(".play-button");
+let player1;
+let player2;
+let player3;
+
+nameInputs.addEventListener("keyup", checkInputs);
+continueBtn.addEventListener("click", instantiatePlayers);
+playBtn.addEventListener("click", instantiateGame);
+
+function checkInputs() {
+  if (player1Input.value && player2Input.value && player3Input.value) {
+    continueBtn.id = "active";
+  }
+};
+
+function instantiatePlayers() {
+  if (continueBtn.id === "active") {
+    player1 = new Player(player1Input.value);
+    player2 = new Player(player2Input.value);
+    player3 = new Player(player3Input.value);
+    showRules();
+  } else {
+    document.querySelector(".error").style.display = "block";
+  }
+};
+
+function showRules() {
+  let welcomeMsg = `<h3>Welcome ${player1Input.value}, ${player2Input.value}, & ${player3Input.value}!`
+  gameRules.insertAdjacentHTML("afterbegin", welcomeMsg);
+  nameInputs.style.display = "none";
+  gameRules.style.display = "block";
+};
+
+function instantiateGame() {
+  let game = new Game([player1, player2, player3]);
+  showGame();
+}
+
+function showGame() {
+  player1Name.innerText = `${player1Input.value}`;
+  player2Name.innerText = `${player2Input.value}`;
+  player3Name.innerText = `${player3Input.value}`;
+  gameRules.style.display = "none";
+  gameBoard.style.display = "grid";
+}
