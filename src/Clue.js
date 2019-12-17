@@ -1,3 +1,4 @@
+const Player = require('../src/Player');
 class Clue {
     constructor(clueInfo) {
         this.question = clueInfo.question;
@@ -18,8 +19,7 @@ class Clue {
         this.alreadySelected = true;
     }
 
-    checkAnswer(guess) {
-        this.alreadySelected = true;
+    checkAnswer(player, guess) {
         if (guess === this.answer) {
             player.increaseScore(this.pointValue)
         } else {
