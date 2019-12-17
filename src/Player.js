@@ -6,6 +6,14 @@ class Player {
     this.score = 0
   }
 
+  increaseScore(pointValue) {
+    return this.score = this.score + pointValue;
+  }
+
+  decreaseScore(pointValue) {
+    return this.score = this.score - pointValue;
+  }
+
   // startGame(playersArr) {
   //   game = new Game(playersArr)
   //   return game;

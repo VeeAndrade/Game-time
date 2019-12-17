@@ -9,8 +9,6 @@ import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
-
-
 import Player from '../src/Player'
 import Game from '../src/Game'
 import Clue from '../src/Clue'
@@ -34,10 +32,6 @@ let player3;
 let clue;
 let clueCategories = [];
 let clueInfo = [];
-
-nameInputs.addEventListener("keyup", checkInputs);
-continueBtn.addEventListener("click", instantiatePlayers);
-playBtn.addEventListener("click", instantiateGame);
 
 function categoryFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -68,7 +62,6 @@ function getFetches() {
   return Promise.all([clueFetch(), categoryFetch()])
 }
 
-
 function instantiateClues() {
   return clueInfo.map(c => {
     clue = new Clue(c)
@@ -79,8 +72,11 @@ function instantiateClues() {
 getFetches()
   .then(() => instantiateClues())
 
-
 instantiateClues()
+
+nameInputs.addEventListener("keyup", checkInputs);
+continueBtn.addEventListener("click", instantiatePlayers);
+playBtn.addEventListener("click", instantiateGame);
 
 function checkInputs() {
   if (player1Input.value && player2Input.value && player3Input.value) {
