@@ -28,6 +28,12 @@ let clueCategories = [];
 let clueInfo = [];
 let clueId = 1;
 
+
+nameInputs.addEventListener("keyup", checkInputs);
+continueBtn.addEventListener("click", instantiatePlayers);
+playBtn.addEventListener("click", instantiateGame);
+
+
 function categoryFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
     .then(data => data.json())
@@ -40,7 +46,6 @@ function categoryFetch() {
     })
     .catch(error => console.log('failure'))
 }
-
 
 function clueFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -57,23 +62,16 @@ function getFetches() {
   return Promise.all([clueFetch(), categoryFetch()])
 }
 
+getFetches()
+  .then(() => instantiateClues())
+
 function instantiateClues() {
   return clueInfo.map(c => {
     c.id = clueId;
     clue = new Clue(c);
     clueId++;
-    console.log(clue)
   })
 }
-
-getFetches()
-  .then(() => instantiateClues())
-
-// instantiateClues()
-
-nameInputs.addEventListener("keyup", checkInputs);
-continueBtn.addEventListener("click", instantiatePlayers);
-playBtn.addEventListener("click", instantiateGame);
 
 function checkInputs() {
   if (player1Input.value && player2Input.value && player3Input.value) {
@@ -82,6 +80,7 @@ function checkInputs() {
 };
 
 function instantiatePlayers() {
+  console.log(clueCategories);
   if (continueBtn.id === "active") {
     player1 = new Player(player1Input.value);
     player2 = new Player(player2Input.value);
@@ -101,8 +100,27 @@ function showRules() {
 
 function instantiateGame() {
   let game = new Game([player1, player2, player3]);
+  pickCategories();
   showGame();
 }
+
+function pickCategories() {
+  shuffleArray(clueCategories);
+}
+
+function shuffleArray(arr) {
+	let currentIndex = arr.length;
+	let temporaryValue;
+  let randomIndex;
+
+	while (0 !== currentIndex) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = arr[currentIndex];
+		arr[currentIndex] = arr[randomIndex];
+		arr[randomIndex] = temporaryValue;
+	}
+};
 
 function showGame() {
   player1Name.innerText = `${player1Input.value}`;
