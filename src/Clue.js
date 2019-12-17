@@ -1,4 +1,3 @@
-const Player = require('../src/Player');
 class Clue {
     constructor(clueInfo) {
         this.question = clueInfo.question;

@@ -7,7 +7,6 @@ class Player {
   }
 
   increaseScore(pointValue) {
-    console.log(pointValue)
     return this.score = this.score + pointValue;
   }
 

@@ -65,4 +65,10 @@ describe('Clue', function () {
 
         expect(player.score).to.equal(-100);
     });
-});
+
+
+    // unsure if we will use the following functionality reading that it's the final round of the game
+//     it('should be the final clue if it is round 3', function() {
+
+//     })
+// });
