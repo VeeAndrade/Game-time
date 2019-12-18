@@ -121,7 +121,6 @@ function shuffleArray(arr) {
 	let currentIndex = arr.length;
 	let temporaryValue;
   let randomIndex;
-
 	while (0 !== currentIndex) {
 		randomIndex = Math.floor(Math.random() * currentIndex);
 		currentIndex -= 1;
@@ -133,16 +132,12 @@ function shuffleArray(arr) {
 
 function findCategoryClues(categories) {
   categories.forEach(category => {
-    let categoryClues = clueInfo.filter(clue => {
-      return clue.categoryId === category.id;
-    })
+    let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id)
     shuffleArray(categoryClues);
     let currentClues = [];
     let pointLevel = 1;
     while (pointLevel !== 5) {
-      let clue = categoryClues.find(clue => {
-        return clue.pointValue == `${pointLevel}00`;
-      })
+      let clue = categoryClues.find(clue => clue.pointValue == `${pointLevel}00`)
       currentClues.push(clue);
       pointLevel++;
     }
@@ -171,14 +166,9 @@ function showGame() {
 }
 
 function displaySelectedClue(event) {
-  console.log(clueInfo)
   let clickedCard = event.target.closest(".clue-card");
-  let selectedClue = clueInfo.find(clue => {
-    return clue.id == clickedCard.id;
-  })
-  let selectedCategory = clueCategories.find(category => {
-    return category.id === selectedClue.categoryId;
-  })
+  let selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
+  let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedClue.pointValue}`);
   $('.question').text(`${selectedClue.question}`);
