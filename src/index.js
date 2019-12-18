@@ -30,12 +30,15 @@ let clue;
 let clueCategories = [];
 let clueInfo = [];
 let clueId = 1;
+let selectedClue;
+let submitGuessBtn = document.querySelector(".submit-guess")
 
 
 nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
 playBtn.addEventListener("click", instantiateGame);
 clueCards.addEventListener("click", displaySelectedClue)
+submitGuessBtn.addEventListener("click", evaluateGuess)
 
 
 function categoryFetch() {
@@ -177,9 +180,17 @@ function updatePlayerScore() {
 
 function displaySelectedClue(event) {
   let clickedCard = event.target.closest(".clue-card");
-  let selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
+  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedClue.pointValue}`);
   $('.question').text(`${selectedClue.question}`);
+}
+
+function evaluateGuess() {
+  if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
+    console.log(`Correct! You get ${selectedClue.pointValue} points!`)
+  } else {
+    console.log(`Inorrect! The correct answer is ${selectedClue.answer}. You lose ${selectedClue.pointValue} points!`)
+  }
 }
