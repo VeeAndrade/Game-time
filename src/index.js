@@ -41,7 +41,7 @@ function categoryFetch() {
     .then(categories => {
       let catKeys = Object.keys(categories)
       catKeys.forEach(key => clueCategories.push({
-        [key]: categories[key]
+        category: key, id: categories[key]
       }))
     })
     .catch(error => console.log('failure'))
@@ -80,7 +80,6 @@ function checkInputs() {
 };
 
 function instantiatePlayers() {
-  console.log(clueCategories);
   if (continueBtn.id === "active") {
     player1 = new Player(player1Input.value);
     player2 = new Player(player2Input.value);
@@ -106,6 +105,11 @@ function instantiateGame() {
 
 function pickCategories() {
   shuffleArray(clueCategories);
+  let currentIndex = 0;
+  while (4 !== currentIndex) {
+    $(`.category${currentIndex + 1}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+    currentIndex++;
+  }
 }
 
 function shuffleArray(arr) {
