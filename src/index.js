@@ -18,6 +18,9 @@ let player3Input = document.querySelector(".player3");
 let player1Name = document.querySelector(".player1-name");
 let player2Name = document.querySelector(".player2-name");
 let player3Name = document.querySelector(".player3-name");
+let player1Score = document.querySelector(".player1-score");
+let player2Score = document.querySelector(".player2-score");
+let player3Score = document.querySelector(".player3-score");
 let continueBtn = document.querySelector(".continue-button");
 let gameBoard = document.querySelector(".game-board");
 let playBtn = document.querySelector(".play-button");
@@ -108,5 +111,11 @@ function showGame() {
   player3Name.innerText = `${player3Input.value}`;
   gameRules.style.display = "none";
   gameBoard.style.display = "grid";
+  updatePlayerScore();
 }
 
+function updatePlayerScore() {
+    player1Score.innerText = `${player1.score}`
+    player2Score.innerText = `${player2.score}`
+    player3Score.innerText = `${player3.score}`
+}
