@@ -67,15 +67,14 @@ p {
 .clue-cards {
   display: grid;
   grid-area: clues;
-  grid-column-gap: 5%;
   grid-template-areas:
   "100 100 100 100"
   "200 200 200 200"
   "300 300 300 300"
   "400 400 400 400";
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  justify-content: space-around;
-  width: 90%;
+  padding-left: 5%;
+  width: 95%;
 }
 
 .value100 {
@@ -224,6 +223,7 @@ p {
   height: 100px;
   justify-content: center;
   margin-top: 15px;
+  width: 80%;
 }
 
 .selected-clue-category {
