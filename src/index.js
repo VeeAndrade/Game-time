@@ -20,6 +20,7 @@ let player3Name = document.querySelector(".player3-name");
 let continueBtn = document.querySelector(".continue-button");
 let gameBoard = document.querySelector(".game-board");
 let playBtn = document.querySelector(".play-button");
+let clueCards = document.querySelector(".clue-cards");
 let player1;
 let player2;
 let player3;
@@ -32,6 +33,7 @@ let clueId = 1;
 nameInputs.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
 playBtn.addEventListener("click", instantiateGame);
+clueCards.addEventListener("click", displaySelectedClue)
 
 
 function categoryFetch() {
@@ -153,7 +155,7 @@ function addCluesToDom(clues) {
   while (pointLevel !== 5) {
     clues.forEach(clue => {
       if (clue.pointValue == `${pointLevel}00`) {
-        $( ".clue-cards" ).append(`<div class="clue-points value${pointLevel}00" id="${clue.id}">${pointLevel}00</div>`);
+        $( ".clue-cards" ).append(`<div class="clue-card clue-points value${pointLevel}00" id="${clue.id}">${pointLevel}00</div>`);
       }
     })
     pointLevel++;
@@ -166,4 +168,18 @@ function showGame() {
   player3Name.innerText = `${player3Input.value}`;
   gameRules.style.display = "none";
   gameBoard.style.display = "grid";
+}
+
+function displaySelectedClue(event) {
+  console.log(clueInfo)
+  let clickedCard = event.target.closest(".clue-card");
+  let selectedClue = clueInfo.find(clue => {
+    return clue.id == clickedCard.id;
+  })
+  let selectedCategory = clueCategories.find(category => {
+    return category.id === selectedClue.categoryId;
+  })
+  $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+  $('.selected-clue-points').text(`${selectedClue.pointValue}`);
+  $('.question').text(`${selectedClue.question}`);
 }
