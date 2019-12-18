@@ -46,54 +46,43 @@
         </section>
       </section>
       <section class="game-board">
-        <div class="player1 sidebar">
+      <section class="players sidebar">
+        <div class="player1">
           <h3 class="player1-name"></h3>
           <h4 class="player1-score score">200</h4>
         </div>
-        <div class="player2 sidebar">
+        <div class="player2">
           <h3 class="player2-name"></h3>
           <h4 class="player2-score score">100</h4>
         </div>
-        <div class="player3 sidebar">
+        <div class="player3">
           <h3 class="player3-name"></h3>
           <h4 class="player3-score score">300</h4>
         </div>
-        <section class="game-card-section">
+      </section>
+        <section class="game-categories">
           <h3 class="clue-categories category1"></h3>
           <h3 class="clue-categories category2"></h3>
           <h3 class="clue-categories category3"></h3>
           <h3 class="clue-categories category4"></h3>
-          <div class="clue-points">100</div>
-          <div class="clue-points">100</div>
-          <div class="clue-points">100</div>
-          <div class="clue-points">100</div>
-          <div class="clue-points">200</div>
-          <div class="clue-points">200</div>
-          <div class="clue-points">200</div>
-          <div class="clue-points">200</div>
-          <div class="clue-points">300</div>
-          <div class="clue-points">300</div>
-          <div class="clue-points">300</div>
-          <div class="clue-points">300</div>
-          <div class="clue-points">400</div>
-          <div class="clue-points">400</div>
-          <div class="clue-points">400</div>
-          <div class="clue-points">400</div>
+          <section class="clue-cards"></section>
         </section>
-        <div class="category-points sidebar">
+        <section class="selected-clue-info sidebar">
+        <div class="category-points">
           <h4 class="selected-clue-category">FOOD</h4>
           <h3>FOR</h3>
           <h4 class="selected-clue-points score">400</h4>
         </div>
-        <div class="selected-clue-question sidebar">
+        <div class="selected-clue-question">
           <h4>QUESTION</h4>
           <p class="question">Color of the beans you'd find in a feijoada, the national dish of Brazil</p>
         </div>
-        <div class="guess-input sidebar">
+        <div class="guess-input">
           <h4>YOUR ANSWER</h4>
           <input class="player-guess" type="text" name="guess-input" placeholder=" Type your answer...">
           <button class="submit-guess">SUBMIT</button>
         </div>
+      </section>
       </section>
       </main>
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->

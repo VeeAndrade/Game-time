@@ -106,10 +106,13 @@ function instantiateGame() {
 function pickCategories() {
   shuffleArray(clueCategories);
   let currentIndex = 0;
+  let currentCategories = [];
   while (4 !== currentIndex) {
     $(`.category${currentIndex + 1}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+    currentCategories.push(clueCategories[`${currentIndex}`]);
     currentIndex++;
   }
+  findCategoryClues(currentCategories);
 }
 
 function shuffleArray(arr) {
@@ -125,6 +128,37 @@ function shuffleArray(arr) {
 		arr[randomIndex] = temporaryValue;
 	}
 };
+
+function findCategoryClues(categories) {
+  categories.forEach(category => {
+    let categoryClues = clueInfo.filter(clue => {
+      return clue.categoryId === category.id;
+    })
+    shuffleArray(categoryClues);
+    let currentClues = [];
+    let pointLevel = 1;
+    while (pointLevel !== 5) {
+      let clue = categoryClues.find(clue => {
+        return clue.pointValue == `${pointLevel}00`;
+      })
+      currentClues.push(clue);
+      pointLevel++;
+    }
+    addCluesToDom(currentClues)
+  })
+}
+
+function addCluesToDom(clues) {
+  let pointLevel = 1;
+  while (pointLevel !== 5) {
+    clues.forEach(clue => {
+      if (clue.pointValue == `${pointLevel}00`) {
+        $( ".clue-cards" ).append(`<div class="clue-points value${pointLevel}00" id="${clue.id}">${pointLevel}00</div>`);
+      }
+    })
+    pointLevel++;
+  }
+}
 
 function showGame() {
   player1Name.innerText = `${player1Input.value}`;
