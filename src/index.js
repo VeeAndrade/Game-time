@@ -22,12 +22,21 @@ let player3Score = document.querySelector(".player3-score");
 let continueBtn = document.querySelector(".continue-button");
 let gameBoard = document.querySelector(".game-board");
 let playBtn = document.querySelector(".play-button");
+let clueCards = document.querySelector(".clue-cards");
 let player1;
 let player2;
 let player3;
 let clue;
 let clueCategories = [];
 let clueInfo = [];
+let clueId = 1;
+
+
+nameInputSection.addEventListener("keyup", checkInputs);
+continueBtn.addEventListener("click", instantiatePlayers);
+playBtn.addEventListener("click", instantiateGame);
+clueCards.addEventListener("click", displaySelectedClue)
+
 
 function categoryFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -36,12 +45,11 @@ function categoryFetch() {
     .then(categories => {
       let catKeys = Object.keys(categories)
       catKeys.forEach(key => clueCategories.push({
-        [key]: categories[key]
+        category: key, id: categories[key]
       }))
     })
     .catch(error => console.log('failure'))
 }
-
 
 function clueFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -58,20 +66,16 @@ function getFetches() {
   return Promise.all([clueFetch(), categoryFetch()])
 }
 
-function instantiateClues() {
-  return clueInfo.map(c => {
-    clue = new Clue(c)
-  })
-}
-
 getFetches()
   .then(() => instantiateClues())
 
-instantiateClues()
-
-nameInputSection.addEventListener("keyup", checkInputs);
-continueBtn.addEventListener("click", instantiatePlayers);
-playBtn.addEventListener("click", instantiateGame);
+function instantiateClues() {
+  return clueInfo.map(c => {
+    c.id = clueId;
+    clue = new Clue(c);
+    clueId++;
+  })
+}
 
 function checkInputs() {
   if (player1Input.value && player2Input.value && player3Input.value) {
@@ -99,7 +103,60 @@ function showRules() {
 
 function instantiateGame() {
   let game = new Game([player1, player2, player3]);
+  pickCategories();
   showGame();
+}
+
+function pickCategories() {
+  shuffleArray(clueCategories);
+  let currentIndex = 0;
+  let currentCategories = [];
+  while (4 !== currentIndex) {
+    $(`.category${currentIndex + 1}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+    currentCategories.push(clueCategories[`${currentIndex}`]);
+    currentIndex++;
+  }
+  findCategoryClues(currentCategories);
+}
+
+function shuffleArray(arr) {
+	let currentIndex = arr.length;
+	let temporaryValue;
+  let randomIndex;
+	while (0 !== currentIndex) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = arr[currentIndex];
+		arr[currentIndex] = arr[randomIndex];
+		arr[randomIndex] = temporaryValue;
+	}
+};
+
+function findCategoryClues(categories) {
+  categories.forEach(category => {
+    let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id)
+    shuffleArray(categoryClues);
+    let currentClues = [];
+    let pointLevel = 1;
+    while (pointLevel !== 5) {
+      let clue = categoryClues.find(clue => clue.pointValue == `${pointLevel}00`)
+      currentClues.push(clue);
+      pointLevel++;
+    }
+    addCluesToDom(currentClues)
+  })
+}
+
+function addCluesToDom(clues) {
+  let pointLevel = 1;
+  while (pointLevel !== 5) {
+    clues.forEach(clue => {
+      if (clue.pointValue == `${pointLevel}00`) {
+        $( ".clue-cards" ).append(`<div class="clue-card clue-points value${pointLevel}00" id="${clue.id}">${pointLevel}00</div>`);
+      }
+    })
+    pointLevel++;
+  }
 }
 
 function showGame() {
@@ -111,8 +168,18 @@ function showGame() {
   updatePlayerScore();
 }
 
+
 function updatePlayerScore() {
-    player1Score.innerText = `${player1.score}`
-    player2Score.innerText = `${player2.score}`
-    player3Score.innerText = `${player3.score}`
+  player1Score.innerText = `${player1.score}`
+  player2Score.innerText = `${player2.score}`
+  player3Score.innerText = `${player3.score}`
+}
+
+function displaySelectedClue(event) {
+  let clickedCard = event.target.closest(".clue-card");
+  let selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
+  let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
+  $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+  $('.selected-clue-points').text(`${selectedClue.pointValue}`);
+  $('.question').text(`${selectedClue.question}`);
 }
