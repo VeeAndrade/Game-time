@@ -10,6 +10,7 @@ import '../src/Round'
 
 
 let nameInputs = document.querySelector(".player-name-input");
+let nameInputSection = document.querySelector(".player-name-input-section")
 let gameRules = document.querySelector(".game-rules");
 let player1Input = document.querySelector(".player1");
 let player2Input = document.querySelector(".player2");
@@ -85,14 +86,14 @@ function instantiatePlayers() {
     player3 = new Player(player3Input.value);
     showRules();
   } else {
-    document.querySelector(".error").style.display = "block";
+    document.querySelector(".error").style.visibility = "visible";
   }
 };
 
 function showRules() {
   let welcomeMsg = `<h3>Welcome ${player1Input.value}, ${player2Input.value}, & ${player3Input.value}!`
   gameRules.insertAdjacentHTML("afterbegin", welcomeMsg);
-  nameInputs.style.display = "none";
+  nameInputSection.style.display = "none";
   gameRules.style.display = "block";
 };
 
