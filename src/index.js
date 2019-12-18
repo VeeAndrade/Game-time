@@ -8,8 +8,6 @@ import Game from '../src/Game'
 import Clue from '../src/Clue'
 import '../src/Round'
 
-
-let nameInputs = document.querySelector(".player-name-input");
 let nameInputSection = document.querySelector(".player-name-input-section")
 let gameRules = document.querySelector(".game-rules");
 let player1Input = document.querySelector(".player1");
@@ -63,7 +61,6 @@ function getFetches() {
 function instantiateClues() {
   return clueInfo.map(c => {
     clue = new Clue(c)
-    console.log(clue)
   })
 }
 
@@ -72,7 +69,7 @@ getFetches()
 
 instantiateClues()
 
-nameInputs.addEventListener("keyup", checkInputs);
+nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
 playBtn.addEventListener("click", instantiateGame);
 
