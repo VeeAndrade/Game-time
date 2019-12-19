@@ -89,6 +89,7 @@ function checkInputs() {
 function instantiatePlayers() {
   if (continueBtn.id === "active") {
     player1 = new Player(player1Input.value);
+    
     player2 = new Player(player2Input.value);
     player3 = new Player(player3Input.value);
     showRules();
