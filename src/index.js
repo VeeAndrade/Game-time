@@ -28,19 +28,20 @@ let leaderButton = document.querySelector(".leaderboard-button");
 let dropdownMenuSection = document.querySelector(".dropdown-menu");
 let restartButton = document.querySelector(".restart-button");
 let main = document.querySelector("main");
-let player1;
-let player2;
-let player3;
+let players = [];
 let clue;
 let clueCategories = [];
 let clueInfo = [];
 let clueId = 1;
+let selectedClue;
+let submitGuessBtn = document.querySelector(".submit-guess")
 
 
 nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
 playBtn.addEventListener("click", instantiateGame);
 clueCards.addEventListener("click", displaySelectedClue)
+submitGuessBtn.addEventListener("click", evaluateGuess)
 
 
 function categoryFetch() {
@@ -90,9 +91,10 @@ function checkInputs() {
 
 function instantiatePlayers() {
   if (continueBtn.id === "active") {
-    player1 = new Player(player1Input.value);
-    player2 = new Player(player2Input.value);
-    player3 = new Player(player3Input.value);
+    let player1 = new Player(player1Input.value);
+    let player2 = new Player(player2Input.value);
+    let player3 = new Player(player3Input.value);
+    players.push(player1, player2, player3);
     showRules();
   } else {
     document.querySelector(".error").style.visibility = "visible";
@@ -107,8 +109,10 @@ function showRules() {
 };
 
 function instantiateGame() {
-  let game = new Game([player1, player2, player3]);
+  let game = new Game(players);
   pickCategories();
+  players[0].takeTurn();
+  $(`.player1-sidebar`).css("background-color", "#88A5E9");
   showGame();
 }
 
@@ -173,16 +177,15 @@ function showGame() {
   updatePlayerScore();
 }
 
-
 function updatePlayerScore() {
-  player1Score.innerText = `${player1.score}`
-  player2Score.innerText = `${player2.score}`
-  player3Score.innerText = `${player3.score}`
+  player1Score.innerText = `${players[0].score}`
+  player2Score.innerText = `${players[1].score}`
+  player3Score.innerText = `${players[2].score}`
 }
 
 function displaySelectedClue(event) {
   let clickedCard = event.target.closest(".clue-card");
-  let selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
+  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedClue.pointValue}`);
@@ -202,4 +205,44 @@ function restartGame() {
   gameRules.style.display = "none";
   gameBoard.style.display = "none";
   winnerScreen.style.display = "none";
+}
+
+function evaluateGuess() {
+  let response;
+  $('.answer-response').css("display", "flex");
+  if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
+    $(".response").text(`Correct! \n You get ${selectedClue.pointValue} points!`);
+    response = "correct";
+  } else {
+    $(".response").text(`Incorrect! \n The answer is ${selectedClue.answer}. \n You lose ${selectedClue.pointValue} points!`)
+    response = "incorrect";
+  }
+  $(".player-guess").val('');
+  calculateScore(response);
+}
+
+function calculateScore(response) {
+  let currentPlayer = players.find(player => player.turn);
+  if (response === 'correct') {
+    currentPlayer.score += selectedClue.pointValue;
+  } else {
+    currentPlayer.score -= selectedClue.pointValue;
+  }
+  updatePlayerScore();
+  $(`#${selectedClue.id}`).css("visibility", "hidden");
+  setTimeout(function() { $('.answer-response').css("display", "none")}, 2000);
+  setTimeout(function () { switchPlayer(currentPlayer); }, 2000);
+}
+
+function switchPlayer(player) {
+  player.takeTurn();
+  let i = players.indexOf(player);
+  $(`.player${i + 1}-sidebar`).css("background-color", "transparent");
+  if (players[players.indexOf(player) + 1]) {
+    players[players.indexOf(player) + 1].takeTurn();
+    $(`.player${i + 2}-sidebar`).css("background-color", "#88A5E9");
+  } else {
+    players[0].takeTurn();
+    $(`.player1-sidebar`).css("background-color", "#88A5E9");
+  }
 }

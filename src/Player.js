@@ -14,6 +14,10 @@ class Player {
     return this.score = this.score - pointValue;
   }
 
+  takeTurn() {
+    this.turn = !this.turn;
+  }
+
   // startGame(playersArr) {
   //   game = new Game(playersArr)
   //   return game;
