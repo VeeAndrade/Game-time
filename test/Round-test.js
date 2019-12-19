@@ -1,6 +1,6 @@
 import chai from 'chai';
 const expect = chai.expect;
-const Round = require('../src/round');
+const Round = require('../src/Round');
 
 describe('Round', function() {
   let round = new Round;
