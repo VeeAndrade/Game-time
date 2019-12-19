@@ -188,9 +188,11 @@ function displaySelectedClue(event) {
 }
 
 function evaluateGuess() {
+  $('.answer-response').css("display", "flex");
   if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
-    console.log(`Correct! You get ${selectedClue.pointValue} points!`)
+    $(".response").text(`Correct! You get ${selectedClue.pointValue} points!`);
   } else {
-    console.log(`Inorrect! The correct answer is ${selectedClue.answer}. You lose ${selectedClue.pointValue} points!`)
+    $(".response").text(`Incorrect! The answer is ${selectedClue.answer}. You lose ${selectedClue.pointValue} points!`)
   }
+  $(".player-guess").val('');
 }
