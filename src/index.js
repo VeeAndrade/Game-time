@@ -102,8 +102,6 @@ function instantiatePlayers() {
 };
 
 function showRules() {
-  let welcomeMsg = `<h3>Welcome ${player1Input.value}, ${player2Input.value}, & ${player3Input.value}!`
-  gameRules.insertAdjacentHTML("afterbegin", welcomeMsg);
   nameInputSection.style.display = "none";
   gameRules.style.display = "block";
 };
@@ -205,9 +203,22 @@ function restartGame() {
   gameRules.style.display = "none";
   gameBoard.style.display = "none";
   winnerScreen.style.display = "none";
+  clueCards.innerHTML = "";
+  resetValues();
+}
+
+function resetValues() {
+    players = [];
+    $('.selected-clue-category').text('');
+    $('.selected-clue-points').text('');
+    $('.question').text('');
+    $('.player1').val("");
+    $('.player2').val("");
+    $('.player3').val("");
 }
 
 function evaluateGuess() {
+    if ($(".player-guess").val() && $(`#${selectedClue.id}`).css("visibility") === "visible") {
   let response;
   $('.answer-response').css("display", "flex");
   if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
@@ -217,8 +228,9 @@ function evaluateGuess() {
     $(".response").text(`Incorrect! \n The answer is ${selectedClue.answer}. \n You lose ${selectedClue.pointValue} points!`)
     response = "incorrect";
   }
-  $(".player-guess").val('');
   calculateScore(response);
+}
+$(".player-guess").val('');
 }
 
 function calculateScore(response) {
@@ -230,8 +242,10 @@ function calculateScore(response) {
   }
   updatePlayerScore();
   $(`#${selectedClue.id}`).css("visibility", "hidden");
+  $('.game-board').css("pointer-events", "none")
   setTimeout(function() { $('.answer-response').css("display", "none")}, 2000);
   setTimeout(function () { switchPlayer(currentPlayer); }, 2000);
+  setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 2000);
 }
 
 function switchPlayer(player) {
