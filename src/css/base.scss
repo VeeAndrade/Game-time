@@ -16,6 +16,8 @@ header {
   height: 70px;
   padding-top: 10px;
   text-align: center;
+  width: 100%;
+  display: flex;
 }
 
 main {
@@ -30,7 +32,9 @@ h1 {
   -webkit-text-fill-color: transparent;
   font-family: 'Montserrat', sans-serif;
   font-size: 50px;
-  margin: 0;
+  align-self: center;
+  text-align: center;
+  margin: 0 auto;
 }
 
 h2 {
@@ -314,4 +318,110 @@ p {
   border-radius: 5px;
   font-size: 1.3em;
   margin-top: 5%;
+}
+
+.delete-this-section {
+  // display: none;
+}
+
+.congrats-message {
+  color: black;
+  font-size: 50px;
+  text-align: center;
+  margin-top: 35px;
+}
+
+.winner-screen {
+  height: 85%;
+  display: none;
+}
+
+.podium-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 85%;
+}
+
+.left-column {
+  width: 250px;
+  height: 200px;
+}
+
+.middle-column {
+  width: 250px;
+  height: 350px;
+}
+
+.right-column {
+  width: 250px;
+  height: 100px;
+}
+
+.podium {
+  background-color: black;
+}
+
+.dropdown-menu {
+  background-color: white;
+  height: 300px;
+  margin-top: 70px;
+  position: absolute;
+  text-align: center;
+  width: 30%;
+  z-index: 5;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.leaderboard-button {
+  position: absolute;
+  height: 45px;
+  width: 200px;
+  font-size: 25px;
+  margin-top: 15px;
+  margin-left: 25px;
+  border-radius: 4px;
+  color: white;
+  background: url('../images/underwater-light.jpg') no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+}
+
+.restart-button {
+  justify-self: flex-end;
+  // position: absolute;
+  height: 45px;
+  width: 200px;
+  font-size: 25px;
+  margin-top: 15px;
+  margin-right: 25px;
+  border-radius: 4px;
+  color: white;
+  background: url('../images/underwater-light.jpg') no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+}
+
+.send-to-back{
+  filter: brightness(30%);
+  pointer-events: none;
+}
+
+.delete {
+  display: none;
+}
+
+.no-clicks {
+  pointer-events: none;
 }
