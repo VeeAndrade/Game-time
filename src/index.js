@@ -202,15 +202,23 @@ function evaluateGuess() {
 }
 
 function calculateScore(response) {
-  let currentPlayer = players.find(player => {
-    return player.turn;
-  })
+  let currentPlayer = players.find(player => player.turn);
   if (response === 'correct') {
     currentPlayer.score += selectedClue.pointValue;
   } else {
     currentPlayer.score -= selectedClue.pointValue;
   }
   updatePlayerScore();
+  switchPlayer(currentPlayer);
   $(`#${selectedClue.id}`).css("visibility", "hidden");
   setTimeout(function() { $('.answer-response').css("display", "none")}, 2000);
+}
+
+function switchPlayer(player) {
+  player.takeTurn();
+  if (players[players.indexOf(player) + 1]) {
+    players[players.indexOf(player) + 1].takeTurn();
+  } else {
+    players[0].takeTurn();
+  }
 }
