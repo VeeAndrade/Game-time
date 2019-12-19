@@ -62,20 +62,21 @@ p {
   'players categories selected'
   'players clues selected';
   height: 100%;
+  position: relative;
 }
 
 .clue-cards {
   display: grid;
   grid-area: clues;
-  grid-column-gap: 5%;
   grid-template-areas:
   "100 100 100 100"
   "200 200 200 200"
   "300 300 300 300"
   "400 400 400 400";
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  justify-content: space-around;
-  width: 90%;
+  margin-bottom: 150px;
+  padding-left: 5%;
+  width: 95%;
 }
 
 .value100 {
@@ -107,6 +108,7 @@ p {
 }
 
 .player1-sidebar {
+  background-color: transparent;
   padding-top: 20px;
 }
 
@@ -118,7 +120,12 @@ p {
 
 .player2-sidebar,
 .player3-sidebar {
+  background-color: transparent;
   padding-top: 20px;
+}
+
+.player3-sidebar {
+  height: 150px;
 }
 
 .game-categories {
@@ -224,6 +231,8 @@ p {
   height: 100px;
   justify-content: center;
   margin-top: 15px;
+  visibility: visible;
+  width: 80%;
 }
 
 .selected-clue-category {
@@ -245,6 +254,29 @@ p {
 .error {
   visibility: hidden;
 }
+
+.answer-response {
+  align-content: center;
+  background: rgba(212,229,255,0.9);
+  display: none;
+  flex-wrap: wrap;
+  height: 480px;
+  justify-content: center;
+  margin-left: 15%;
+  margin-top: 100px;
+  padding: 15px;
+  position: absolute;
+  text-align: center;
+  width: 56%;
+  white-space: pre-wrap;
+  z-index: 5;
+}
+
+.response {
+  font-size: 60px;
+}
+
+
 
 // instructions
 

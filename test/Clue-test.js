@@ -4,7 +4,7 @@ const Clue = require('../src/clue');
 const Player = require('../src/player');
 
 describe('Clue', function () {
-    
+
     let clue;
     let question;
 
@@ -71,4 +71,4 @@ describe('Clue', function () {
 //     it('should be the final clue if it is round 3', function() {
 
 //     })
-// });
+});
