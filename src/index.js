@@ -23,9 +23,7 @@ let continueBtn = document.querySelector(".continue-button");
 let gameBoard = document.querySelector(".game-board");
 let playBtn = document.querySelector(".play-button");
 let clueCards = document.querySelector(".clue-cards");
-let player1;
-let player2;
-let player3;
+let players = [];
 let clue;
 let clueCategories = [];
 let clueInfo = [];
@@ -88,10 +86,10 @@ function checkInputs() {
 
 function instantiatePlayers() {
   if (continueBtn.id === "active") {
-    player1 = new Player(player1Input.value);
-    
-    player2 = new Player(player2Input.value);
-    player3 = new Player(player3Input.value);
+    let player1 = new Player(player1Input.value);
+    let player2 = new Player(player2Input.value);
+    let player3 = new Player(player3Input.value);
+    players.push(player1, player2, player3);
     showRules();
   } else {
     document.querySelector(".error").style.visibility = "visible";
@@ -106,8 +104,9 @@ function showRules() {
 };
 
 function instantiateGame() {
-  let game = new Game([player1, player2, player3]);
+  let game = new Game(players);
   pickCategories();
+  players[0].takeTurn();
   showGame();
 }
 
@@ -174,9 +173,9 @@ function showGame() {
 
 
 function updatePlayerScore() {
-  player1Score.innerText = `${player1.score}`
-  player2Score.innerText = `${player2.score}`
-  player3Score.innerText = `${player3.score}`
+  player1Score.innerText = `${players[0].score}`
+  player2Score.innerText = `${players[1].score}`
+  player3Score.innerText = `${players[2].score}`
 }
 
 function displaySelectedClue(event) {
@@ -189,11 +188,28 @@ function displaySelectedClue(event) {
 }
 
 function evaluateGuess() {
+  let response;
   $('.answer-response').css("display", "flex");
   if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
-    $(".response").text(`Correct! You get ${selectedClue.pointValue} points!`);
+    $(".response").text(`Correct! \n You get ${selectedClue.pointValue} points!`);
+    response = "correct";
   } else {
-    $(".response").text(`Incorrect! The answer is ${selectedClue.answer}. You lose ${selectedClue.pointValue} points!`)
+    $(".response").text(`Incorrect! \n The answer is ${selectedClue.answer}. \n You lose ${selectedClue.pointValue} points!`)
+    response = "incorrect";
   }
   $(".player-guess").val('');
+  calculateScore(response);
+}
+
+function calculateScore(response) {
+  let currentPlayer = players.find(player => {
+    return player.turn;
+  })
+  if (response === 'correct') {
+    currentPlayer.score += selectedClue.pointValue;
+  } else {
+    currentPlayer.score -= selectedClue.pointValue;
+  }
+  updatePlayerScore();
+  setTimeout(function() { $('.answer-response').css("display", "none")}, 2000);
 }
