@@ -211,5 +211,6 @@ function calculateScore(response) {
     currentPlayer.score -= selectedClue.pointValue;
   }
   updatePlayerScore();
+  $(`#${selectedClue.id}`).css("visibility", "hidden");
   setTimeout(function() { $('.answer-response').css("display", "none")}, 2000);
 }
