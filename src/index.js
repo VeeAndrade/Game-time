@@ -23,6 +23,11 @@ let continueBtn = document.querySelector(".continue-button");
 let gameBoard = document.querySelector(".game-board");
 let playBtn = document.querySelector(".play-button");
 let clueCards = document.querySelector(".clue-cards");
+let winnerScreen = document.querySelector(".winner-screen");
+let leaderButton = document.querySelector(".leaderboard-button");
+let dropdownMenuSection = document.querySelector(".dropdown-menu");
+let restartButton = document.querySelector(".restart-button");
+let main = document.querySelector("main");
 let player1;
 let player2;
 let player3;
@@ -182,4 +187,19 @@ function displaySelectedClue(event) {
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedClue.pointValue}`);
   $('.question').text(`${selectedClue.question}`);
+}
+
+leaderButton.addEventListener('click', dropdownMenu);
+restartButton.addEventListener("click", restartGame);
+
+function dropdownMenu() {
+    dropdownMenuSection.classList.toggle('hide');
+    main.classList.toggle('no-clicks')
+}
+
+function restartGame() {
+  nameInputSection.style.display = "block";
+  gameRules.style.display = "none";
+  gameBoard.style.display = "none";
+  winnerScreen.style.display = "none";
 }
