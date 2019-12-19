@@ -1,7 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
-const Clue = require('../src/clue');
-const Player = require('../src/player');
+const Clue = require('../src/clue')
+const Player = require('../src/player')
 
 describe('Clue', function () {
     
@@ -71,4 +71,4 @@ describe('Clue', function () {
 //     it('should be the final clue if it is round 3', function() {
 
 //     })
-// });
+});

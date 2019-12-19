@@ -4,7 +4,6 @@ class Clue {
         this.pointValue = clueInfo.pointValue;
         this.answer = clueInfo.answer;
         this.categoryId = clueInfo.categoryId;
-        this.dailyDouble = false;
         this.alreadySelected = false;
         this.finalClue = false;
     }
