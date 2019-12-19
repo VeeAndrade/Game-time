@@ -57,51 +57,88 @@ p {
 .game-board {
   display: none;
   grid-template-columns: 1fr 5fr 2fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-areas:
-  'player1 game category'
-  'player2 game clue'
-  'player3 game answer';
+  'players categories selected'
+  'players clues selected';
   height: 100%;
 }
 
-.player1 {
-  grid-area: player1;
-  height: 140px;
-  margin-top: 20px;
+.clue-cards {
+  display: grid;
+  grid-area: clues;
+  grid-column-gap: 5%;
+  grid-template-areas:
+  "100 100 100 100"
+  "200 200 200 200"
+  "300 300 300 300"
+  "400 400 400 400";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: space-around;
+  width: 90%;
 }
 
-.player2 {
-  grid-area: player2;
-  height: 140px;
+.value100 {
+  grid-area: 100;
 }
 
-.player3 {
-  grid-area: player3;
-  height: 140px;
+.value200 {
+  grid-area: 200;
 }
 
-.game-card-section {
+.value300 {
+  grid-area: 300;
+}
+
+.value400 {
+  grid-area: 400;
+}
+
+.players {
+  grid-area: players;
+  height: 500px;
+  padding: 10px;
+}
+
+.selected-clue-info {
+  grid-area: selected;
+  height: 600px;
+  padding: 15px;
+}
+
+.player1-sidebar {
+  padding-top: 20px;
+}
+
+.player1-sidebar,
+.player2-sidebar {
+  padding-bottom: 20px;
+  border-bottom: solid 2px #35477D;
+}
+
+.player2-sidebar,
+.player3-sidebar {
+  padding-top: 20px;
+}
+
+.game-categories {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  grid-area: game;
+  grid-area: categories;
   justify-content: center;
   margin-top: 10px;
   text-align: center;
 }
 
-.category-points {
-  grid-area: category;
-}
-
+.category-points,
 .selected-clue-question {
-  grid-area: clue;
+  border-bottom: solid 2px #35477D;
 }
 
+.selected-clue-question,
 .guess-input {
-  grid-area: answer;
-  height: 140px;
+  padding-top: 20px;
 }
 
 .sidebar {
@@ -109,6 +146,34 @@ p {
   margin: 20px 20px 0px 20px;
   padding-top: 20px;
   text-align: center;
+}
+
+.player-name-input-section {
+  background: rgba(212,229,255,0.9);
+  margin: 50px auto;
+  width: 50%;
+  padding-top: 20px;
+  text-align: center;
+  height: 520px;;
+}
+
+.player-name-label {
+  font-size: 35px;;
+}
+
+.player-name-input {
+  height: 35px;
+  margin: 5px auto 60px;
+  display: block;
+  font-size: 25px;
+  padding-left: 5px;
+}
+
+.continue-button {
+  width: 70%;
+  height: 8%;
+  border-radius: 5px;
+  font-size: 25px;
 }
 
 .question {
@@ -158,8 +223,7 @@ p {
   font-weight: bold;
   height: 100px;
   justify-content: center;
-  margin: 15px 15px 0px 15px;
-  width: 20%;
+  margin-top: 15px;
 }
 
 .selected-clue-category {
@@ -179,7 +243,7 @@ p {
 }
 
 .error {
-  display: none;
+  visibility: hidden;
 }
 
 // instructions
