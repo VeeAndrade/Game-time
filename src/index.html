@@ -8,7 +8,14 @@
   </head>
   <body>
     <header>
-      <h1>JEOPAR-SEA!</h1>
+      <button class="leaderboard-button" type="button" name="button">Leaderboard</button>
+      <div class="dropdown-menu hide">
+        <h2 class="winner-board-header">Global Leader Board</h1>
+        <ol class="winners-list">
+        </ol>
+      </div>
+      <h1 class="main-header-heading">JEOPAR-SEA!</h1>
+      <button class="restart-button" type="button" name="button">Restart Game</button>
     </header>
       <main>
         <svg class="fish" id="fish">
@@ -106,6 +113,14 @@
           <button class="submit-guess">SUBMIT</button>
         </div>
       </section>
+      </section>
+      <section class="winner-screen">
+        <h2 class="congrats-message">Congrats, PlayerName, you are the winner!</h1>
+          <section class="podium-section">
+            <div class="left-column podium"></div>
+            <div class="middle-column podium"></div>
+            <div class="right-column podium"></div>
+          </section>
       </section>
       </main>
   </body>
