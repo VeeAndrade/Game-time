@@ -102,8 +102,6 @@ function instantiatePlayers() {
 };
 
 function showRules() {
-  let welcomeMsg = `<h3>Welcome ${player1Input.value}, ${player2Input.value}, & ${player3Input.value}!`
-  gameRules.insertAdjacentHTML("afterbegin", welcomeMsg);
   nameInputSection.style.display = "none";
   gameRules.style.display = "block";
 };
