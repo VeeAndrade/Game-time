@@ -108,6 +108,7 @@ p {
 }
 
 .player1-sidebar {
+  background-color: transparent;
   padding-top: 20px;
 }
 
@@ -119,7 +120,12 @@ p {
 
 .player2-sidebar,
 .player3-sidebar {
+  background-color: transparent;
   padding-top: 20px;
+}
+
+.player3-sidebar {
+  height: 150px;
 }
 
 .game-categories {

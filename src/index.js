@@ -107,6 +107,7 @@ function instantiateGame() {
   let game = new Game(players);
   pickCategories();
   players[0].takeTurn();
+  $(`.player1-sidebar`).css("background-color", "#88A5E9");
   showGame();
 }
 
@@ -171,7 +172,6 @@ function showGame() {
   updatePlayerScore();
 }
 
-
 function updatePlayerScore() {
   player1Score.innerText = `${players[0].score}`
   player2Score.innerText = `${players[1].score}`
@@ -209,16 +209,20 @@ function calculateScore(response) {
     currentPlayer.score -= selectedClue.pointValue;
   }
   updatePlayerScore();
-  switchPlayer(currentPlayer);
   $(`#${selectedClue.id}`).css("visibility", "hidden");
   setTimeout(function() { $('.answer-response').css("display", "none")}, 2000);
+  setTimeout(function () { switchPlayer(currentPlayer); }, 2000);
 }
 
 function switchPlayer(player) {
   player.takeTurn();
+  let i = players.indexOf(player);
+  $(`.player${i + 1}-sidebar`).css("background-color", "transparent");
   if (players[players.indexOf(player) + 1]) {
     players[players.indexOf(player) + 1].takeTurn();
+    $(`.player${i + 2}-sidebar`).css("background-color", "#88A5E9");
   } else {
     players[0].takeTurn();
+    $(`.player1-sidebar`).css("background-color", "#88A5E9");
   }
 }
