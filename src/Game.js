@@ -14,4 +14,4 @@ class Game {
   }
 }
 
-export default Game;
+module.exports = Game;

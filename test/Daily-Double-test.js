@@ -1,8 +1,10 @@
 import chai from 'chai';
 const expect = chai.expect;
+const Clue = require('../src/Clue')
 const DailyDouble = require('../src/Daily-Double')
 let dailyDoubleClue;
 let question;
+let clue;
 
 describe('DailyDouble', () => {
   
@@ -13,11 +15,13 @@ describe('DailyDouble', () => {
       answer: "golf",
       categoryId: 10
     }
-    // clue = new Clue(question)
+    clue = new Clue(question)
     dailyDoubleClue = new DailyDouble(question)
    });
-  
-   it('should have a wager of 0', () => {
-    expect(dailyDoubleClue.wager).to.equal(0)
+
+  it('should take a wager and change point value', () => {
+    dailyDoubleClue.takeWager(300)
+    expect(dailyDoubleClue.pointValue).to.equal(300)
   });
+
 });

@@ -1,7 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
-const Clue = require('../src/clue')
-const Player = require('../src/player')
+const Clue = require('../src/Clue')
+const Player = require('../src/Player')
 
 describe('Clue', function () {
     
@@ -30,18 +30,6 @@ describe('Clue', function () {
         expect(clue.pointValue).to.equal(100);
         expect(clue.answer).to.equal("golf");
         expect(clue.categoryId).to.equal(10);
-    });
-
-    it('should have Daily Double and already selected default to false', function () {
-        expect(clue.dailyDouble).to.equal(false);
-        expect(clue.alreadySelected).to.equal(false);
-    });
-
-    it('should be able to be a Daily Double clue', function() {
-        clue.activateDailyDouble();
-
-        expect(clue.dailyDouble).to.equal(true);
-        expect(clue.pointValue).to.equal(200);
     });
 
     it('should toggle its already selectd value once checkAnswer is envoked', function() {

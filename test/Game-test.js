@@ -1,6 +1,6 @@
 import chai from 'chai';
 const expect = chai.expect;
-const Game = require('../src/game');
+const Game = require('../src/Game');
 
 describe('Game', function() {
   let players = [{name: 'Carla', score: 10},
