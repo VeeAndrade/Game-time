@@ -241,7 +241,7 @@ p {
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 
@@ -299,9 +299,13 @@ p {
 }
 
 .instructions-section {
-  width: 60%;
-  height: 70%;
+  width: 80%;
+  height: 100%;
   text-align: center;
+  background: url('../images/shell.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .instruction-heading-container {
@@ -312,6 +316,7 @@ p {
 .instructions-article {
   font-size: 1.3em;
   justify-content: space-around;
+  margin-top: 10%;
 }
 
 .instructions-list {
@@ -327,5 +332,137 @@ p {
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+
+// animation
+
+svg#fish {
+  top: 15em;
+}
+
+/* Fish Animation */
+svg.fish {
+  overflow: visible;
+}
+
+@-webkit-keyframes swim {
+  0% {
+    margin-left: -235px
+  }
+
+  90% {
+    margin-left: 100%;
+  }
+
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@keyframes swim {
+  0% {
+    margin-left: -235px
+  }
+
+  70% {
+    margin-left: 100%;
+  }
+
+  100% {
+    margin-left: 100%;
+  }
+}
+
+.fish {
+  width: 235px;
+  height: 104px;
+  margin-left: -235px;
+  position: absolute;
+  animation: swim 20s;
+  -webkit-animation: swim 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+svg #fish1,
+svg #fish2,
+svg #fish3,
+svg #fish4,
+svg #fish5,
+svg #fish6 {
+  fill: #bf7cbb;
+  animation: bounce 2s infinite;
+}
+
+svg #fish2 {
+  animation-delay: 0.5s;
+}
+
+svg #fish3 {
+  animation-delay: 0.2s;
+}
+
+svg #fish4 {
+  animation-delay: 0.4s;
+}
+
+svg #fish5 {
+  animation-delay: 0.1s;
+}
+
+svg #fish6 {
+  animation-delay: 0.3s;
+}
+
+@-moz-keyframes bounce {
+
+  0%,
+  50%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-5px);
+  }
+
+  75% {
+    transform: translateY(-3px);
+  }
+}
+
+@-webkit-keyframes bounce {
+
+  0%,
+  50%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-5px);
+  }
+
+  75% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  50%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-5px);
+  }
+
+  75% {
+    transform: translateY(-3px);
   }
 }
