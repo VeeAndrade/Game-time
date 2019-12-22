@@ -106,6 +106,7 @@ p {
 }
 
 .selected-clue-info {
+  display: grid;
   grid-area: selected;
   height: 600px;
   padding: 15px;
@@ -159,23 +160,62 @@ p {
   text-align: center;
 }
 
+
+.final-round-question,
+.final-round-wagers {
+  background: rgba(212,229,255,0.9);
+  display: none;
+  height: 480px;
+  margin-left: 15%;
+  margin-top: 20px;
+  padding: 15px;
+  text-align: center;
+  width: 56%;
+}
+
 .player-name-input-section {
   background: rgba(212,229,255,0.9);
   margin: 50px auto;
   width: 50%;
   padding-top: 20px;
   text-align: center;
-  height: 520px;;
+  height: 520px;
+}
+
+.final-wager-input {
+  background: 0;
+}
+
+.final-clue-question {
+  margin-bottom: 20px;
+}
+
+.player-final-label,
+.player-wager-label,
+.player-name-label {
+  font-size: 35px;;
+}
+
+.player-wager-label,
+.player-final-label {
+  display: none;
 }
 
 .player-name-label {
-  font-size: 35px;;
+  display: block;
+}
+
+.player-final-input,
+.player-wager-input {
+  height: 35px;
+  margin: 5px auto 20px;
+  font-size: 25px;
+  padding-left: 5px;
 }
 
 .player-name-input {
   height: 35px;
   margin: 5px auto 60px;
-  display: block;
   font-size: 25px;
   padding-left: 5px;
 }
@@ -203,6 +243,8 @@ p {
   width: 80%;
 }
 
+.submit-final,
+.submit-wager,
 .submit-guess {
   border: 0;
   border-radius: 3%;
@@ -214,6 +256,8 @@ p {
   width: 60%;
 }
 
+.submit-final:hover,
+.submit-wager:hover,
 .submit-guess:hover {
   background-color: #F67280;
 }
@@ -268,6 +312,16 @@ p {
 .error {
   visibility: hidden;
 }
+
+.final-round-question {
+  display: none;
+}
+
+.final-round-wagers {
+  display: none;
+}
+
+
 
 .answer-response {
   align-content: center;
