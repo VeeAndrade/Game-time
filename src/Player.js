@@ -4,6 +4,8 @@ class Player {
     this.name = name,
     this.turn = false,
     this.score = 0
+    this.wager;
+    this.finalGuess;
   }
 
   increaseScore(pointValue) {
