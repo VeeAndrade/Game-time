@@ -100,8 +100,9 @@ p {
 }
 
 .players {
+  display: grid;
   grid-area: players;
-  height: 500px;
+  height: 550px;
   padding: 10px;
 }
 

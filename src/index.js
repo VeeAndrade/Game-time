@@ -120,7 +120,7 @@ function instantiateGame() {
   game.updateRound();
   pickCategories();
   players[0].takeTurn();
-  $(`.player1-sidebar`).css("background-color", "#88A5E9");
+  $('.player1-sidebar').css("background-color", "#88A5E9");
   showGame();
 }
 
@@ -195,6 +195,8 @@ function showGame() {
   player3Name.innerText = `${player3Input.value}`;
   gameRules.style.display = "none";
   gameBoard.style.display = "grid";
+  $('.selected-clue-info').css("display", "grid");
+  $('.game-categories').css("display", "flex");
   updatePlayerScore();
 }
 
@@ -215,10 +217,10 @@ function displaySelectedClue(event) {
 }
 
 function displayFinal(clue, category) {
-  console.log(category)
-  $(`.final-round-wagers`).css("display", "block");
-  $(`.final-clue-category`).text(`${category.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
-  $(`.final-clue-question`).text(`${clue.question}`);
+  selectedClue = clue;
+  $('.final-round-wagers').css("display", "block");
+  $('.final-clue-category').text(`${category.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+  $('.final-clue-question').text(`${clue.question}`);
 }
 
 function dropdownMenu() {
@@ -236,14 +238,18 @@ function restartGame() {
 }
 
 function resetValues() {
-    players = [];
-    clueCount = 0;
-    $('.selected-clue-category').text('');
-    $('.selected-clue-points').text('');
-    $('.question').text('');
-    $('.player1').val("");
-    $('.player2').val("");
-    $('.player3').val("");
+  players = [];
+  clueCount = 0;
+  $('.player1').val("");
+  $('.player2').val("");
+  $('.player3').val("");
+  $('.player1Wager').val("");
+  $('.player2Wager').val("");
+  $('.player3Wager').val("");
+  $('.player1Final').val("");
+  $('.player2Final').val("");
+  $('.player3Final').val("");
+  resetClue();
 }
 
 function evaluateGuess() {
@@ -264,18 +270,38 @@ function evaluateGuess() {
 }
 
 function collectWagers() {
-  $(`.final-round-wagers`).css("display", "none");
-  $(`.final-round-question`).css("display", "block");
-  let player1Wager = document.querySelector(".player1Wager");
-  let player2Wager = document.querySelector(".player2Wager");
-  let player3Wager = document.querySelector(".player3Wager");
+  $('.final-round-wagers').css("display", "none");
+  $('.final-round-question').css("display", "block");
+  players[0].wager = $('.player1Wager').val();
+  players[1].wager = $('.player2Wager').val();
+  players[2].wager = $('.player3Wager').val();
 }
 
 function evaluateFinalGuess() {
-  let player1Final = document.querySelector(".player1Final");
-  let player2Final = document.querySelector(".player2Final");
-  let player3Final = document.querySelector(".player3Final");
-  console.log($(`.player1Final`).val(), $(`.player2Final`).val(), $(`.player3Final`).val())
+  players[0].finalGuess = $('.player1Final').val().toUpperCase();
+  players[1].finalGuess = $('.player2Final').val().toUpperCase();
+  players[2].finalGuess = $('.player3Final').val().toUpperCase();
+  players.forEach(player => {
+    if (player.finalGuess === selectedClue.answer.toUpperCase()) {
+      player.increaseScore(player.wager);
+    } else {
+      player.decreaseScore(player.wager);
+    }
+  })
+  determineWinner();
+}
+
+function determineWinner() {
+  players.sort((a,b) => b.score - a.score);
+  let winner = players[0];
+  displayWinner(winner);
+}
+
+function displayWinner(winner) {
+  $('.final-round-question').css("display", "none");
+  $('.game-board').css("display", "none");
+  $('.winner-screen').css("display", "block");
+  $('.winner').text(`${winner.name}`);
 }
 
 function calculateScore(response) {
@@ -290,6 +316,7 @@ function calculateScore(response) {
 }
 
 function updateClueCount() {
+  resetClue();
   clueCount++;
   if (clueCount === 16) {
     game.updateRound();
@@ -301,13 +328,19 @@ function updateClueCount() {
   };
 }
 
+function resetClue() {
+  $('.selected-clue-category').text('');
+  $('.selected-clue-points').text('');
+  $('.question').text('');
+}
+
 function updateGameDisplay(player) {
   $(`#${selectedClue.id}`).css("visibility", "hidden");
   $('.game-board').css("pointer-events", "none")
-  setTimeout(function() { $('.answer-response').css("display", "none")}, 200);
-  setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 200);
-  setTimeout(function() { updateClueCount(); }, 300);
-  setTimeout(function () { switchPlayer(player); }, 200);
+  setTimeout(function() { $('.answer-response').css("display", "none")}, 1500);
+  setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 1500);
+  setTimeout(function() { updateClueCount(); }, 2000);
+  setTimeout(function () { switchPlayer(player); }, 1500);
 }
 
 function switchPlayer(player) {
@@ -319,12 +352,12 @@ function switchPlayer(player) {
     $(`.player${i + 2}-sidebar`).css("background-color", "#88A5E9");
   } else {
     players[0].takeTurn();
-    $(`.player1-sidebar`).css("background-color", "#88A5E9");
+    $('.player1-sidebar').css("background-color", "#88A5E9");
   }
 }
 
 function startRound2() {
-  $(`.clue-cards`).html("");
+  $('.clue-cards').html("");
   $('.selected-clue-category').text('');
   $('.selected-clue-points').text('');
   $('.question').text('');
@@ -332,7 +365,7 @@ function startRound2() {
 }
 
 function startFinalRound() {
-  $(`.clue-cards`).html("");
+  $('.clue-cards').html("");
   $('.selected-clue-info').css("display", "none");
   $('.game-categories').css("display", "none");
   findFinalCategory();
