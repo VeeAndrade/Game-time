@@ -34,7 +34,7 @@ let game;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 0;
+let clueCount = 15;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -236,7 +236,16 @@ function createDailyDouble() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = Math.floor(Math.random() * (max - min + 1)) - 1;
+  randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+}
+
+function twoRandomInts(min, max) {
+  randomNumber2 = Math.floor(Math.random() * (max - min) + min);
+  if (randomNumber2 > 24) {
+    randomNumber3 = randomNumber2 - 8
+  } else {
+    randomNumber3 = randomNumber2 + 8
+  }
 }
 
 function displayFinal(clue, category) {
@@ -341,7 +350,7 @@ function calculateScore(response) {
 function updateClueCount() {
   resetClue();
   clueCount++;
-  console.log(clueCount)
+  // console.log(clueCount)
   if (clueCount === 16) {
     game.updateRound();
     startRound2();
@@ -381,6 +390,9 @@ function switchPlayer(player) {
 }
 
 function startRound2() {
+  twoRandomInts(17, 32)
+  console.log(randomNumber2);
+  console.log(randomNumber3);
   $('.clue-cards').html("");
   $('.selected-clue-category').text('');
   $('.selected-clue-points').text('');
