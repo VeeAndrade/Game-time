@@ -30,18 +30,27 @@ let restartButton = document.querySelector(".restart-button");
 let main = document.querySelector("main");
 let players = [];
 let clue;
+let game;
+let clueCount = 0;
 let clueCategories = [];
+let usedCategories = [];
 let clueInfo = [];
 let clueId = 1;
 let selectedClue;
-let submitGuessBtn = document.querySelector(".submit-guess")
+let submitGuessBtn = document.querySelector(".submit-guess");
+let submitWagerBtn = document.querySelector(".submit-wager");
+let submitFinalBtn = document.querySelector(".submit-final");
 
 
 nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
 playBtn.addEventListener("click", instantiateGame);
-clueCards.addEventListener("click", displaySelectedClue)
-submitGuessBtn.addEventListener("click", evaluateGuess)
+clueCards.addEventListener("click", displaySelectedClue);
+submitGuessBtn.addEventListener("click", evaluateGuess);
+leaderButton.addEventListener('click', dropdownMenu);
+restartButton.addEventListener("click", restartGame);
+submitWagerBtn.addEventListener("click", collectWagers)
+submitFinalBtn.addEventListener("click", evaluateFinalGuess)
 
 
 function categoryFetch() {
@@ -107,10 +116,11 @@ function showRules() {
 };
 
 function instantiateGame() {
-  let game = new Game(players);
+  game = new Game(players);
+  game.updateRound();
   pickCategories();
   players[0].takeTurn();
-  $(`.player1-sidebar`).css("background-color", "#88A5E9");
+  $('.player1-sidebar').css("background-color", "#88A5E9");
   showGame();
 }
 
@@ -118,12 +128,23 @@ function pickCategories() {
   shuffleArray(clueCategories);
   let currentIndex = 0;
   let currentCategories = [];
-  while (4 !== currentIndex) {
-    $(`.category${currentIndex + 1}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
-    currentCategories.push(clueCategories[`${currentIndex}`]);
+  while (currentCategories.length !== 4) {
+    if (!usedCategories.includes(clueCategories[`${currentIndex}`])) {
+      $(`.category${currentIndex + 1}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+      currentCategories.push(clueCategories[`${currentIndex}`]);
+      usedCategories.push(clueCategories[`${currentIndex}`]);
+    }
     currentIndex++;
   }
   findCategoryClues(currentCategories);
+}
+
+function findFinalCategory() {
+  let finalCategory = clueCategories.find(category => !usedCategories.includes(category));
+  let allCategoryClues = clueInfo.filter(clue => clue.categoryId === finalCategory.id);
+  shuffleArray(allCategoryClues);
+  let finalClue = allCategoryClues[0];
+  displayFinal(finalClue, finalCategory);
 }
 
 function shuffleArray(arr) {
@@ -158,8 +179,10 @@ function addCluesToDom(clues) {
   let pointLevel = 1;
   while (pointLevel !== 5) {
     clues.forEach(clue => {
-      if (clue.pointValue == `${pointLevel}00`) {
+      if (clue.pointValue == `${pointLevel}00` && game.roundCount === 1) {
         $( ".clue-cards" ).append(`<div class="clue-card clue-points value${pointLevel}00" id="${clue.id}">${pointLevel}00</div>`);
+      } else if (clue.pointValue == `${pointLevel}00` && game.roundCount === 2) {
+        $( ".clue-cards" ).append(`<div class="clue-card clue-points value${pointLevel}00" id="${clue.id}">${pointLevel * 2}00</div>`);
       }
     })
     pointLevel++;
@@ -172,6 +195,8 @@ function showGame() {
   player3Name.innerText = `${player3Input.value}`;
   gameRules.style.display = "none";
   gameBoard.style.display = "grid";
+  $('.selected-clue-info').css("display", "grid");
+  $('.game-categories').css("display", "flex");
   updatePlayerScore();
 }
 
@@ -185,13 +210,18 @@ function displaySelectedClue(event) {
   let clickedCard = event.target.closest(".clue-card");
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
+  let selectedPoints = selectedClue.pointValue * game.roundCount;
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
-  $('.selected-clue-points').text(`${selectedClue.pointValue}`);
+  $('.selected-clue-points').text(`${selectedPoints}`);
   $('.question').text(`${selectedClue.question}`);
 }
 
-leaderButton.addEventListener('click', dropdownMenu);
-restartButton.addEventListener("click", restartGame);
+function displayFinal(clue, category) {
+  selectedClue = clue;
+  $('.final-round-wagers').css("display", "block");
+  $('.final-clue-category').text(`${category.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+  $('.final-clue-question').text(`${clue.question}`);
+}
 
 function dropdownMenu() {
     dropdownMenuSection.classList.toggle('hide');
@@ -208,44 +238,109 @@ function restartGame() {
 }
 
 function resetValues() {
-    players = [];
-    $('.selected-clue-category').text('');
-    $('.selected-clue-points').text('');
-    $('.question').text('');
-    $('.player1').val("");
-    $('.player2').val("");
-    $('.player3').val("");
+  players = [];
+  clueCount = 0;
+  $('.player1').val("");
+  $('.player2').val("");
+  $('.player3').val("");
+  $('.player1Wager').val("");
+  $('.player2Wager').val("");
+  $('.player3Wager').val("");
+  $('.player1Final').val("");
+  $('.player2Final').val("");
+  $('.player3Final').val("");
+  resetClue();
 }
 
 function evaluateGuess() {
-    if ($(".player-guess").val() && $(`#${selectedClue.id}`).css("visibility") === "visible") {
-  let response;
-  $('.answer-response').css("display", "flex");
-  if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
-    $(".response").text(`Correct! \n You get ${selectedClue.pointValue} points!`);
-    response = "correct";
-  } else {
-    $(".response").text(`Incorrect! \n The answer is ${selectedClue.answer}. \n You lose ${selectedClue.pointValue} points!`)
-    response = "incorrect";
-  }
+  if ($(".player-guess").val() && $(`#${selectedClue.id}`).css("visibility") === "visible") {
+    let response;
+    let points = selectedClue.pointValue * game.roundCount
+    $('.answer-response').css("display", "flex");
+    if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
+      $(".response").text(`Correct! \n You get ${points} points!`);
+      response = "correct";
+    } else {
+      $(".response").text(`Incorrect! \n The answer is ${selectedClue.answer}. \n You lose ${points} points!`)
+      response = "incorrect";
+    }
   calculateScore(response);
+  }
+  $(".player-guess").val('');
 }
-$(".player-guess").val('');
+
+function collectWagers() {
+  $('.final-round-wagers').css("display", "none");
+  $('.final-round-question').css("display", "block");
+  players[0].wager = $('.player1Wager').val();
+  players[1].wager = $('.player2Wager').val();
+  players[2].wager = $('.player3Wager').val();
+}
+
+function evaluateFinalGuess() {
+  players[0].finalGuess = $('.player1Final').val().toUpperCase();
+  players[1].finalGuess = $('.player2Final').val().toUpperCase();
+  players[2].finalGuess = $('.player3Final').val().toUpperCase();
+  players.forEach(player => {
+    if (player.finalGuess === selectedClue.answer.toUpperCase()) {
+      player.increaseScore(player.wager);
+    } else {
+      player.decreaseScore(player.wager);
+    }
+  })
+  determineWinner();
+}
+
+function determineWinner() {
+  players.sort((a,b) => b.score - a.score);
+  let winner = players[0];
+  displayWinner(winner);
+}
+
+function displayWinner(winner) {
+  $('.final-round-question').css("display", "none");
+  $('.game-board').css("display", "none");
+  $('.winner-screen').css("display", "block");
+  $('.winner').text(`${winner.name}`);
 }
 
 function calculateScore(response) {
   let currentPlayer = players.find(player => player.turn);
   if (response === 'correct') {
-    currentPlayer.score += selectedClue.pointValue;
+    currentPlayer.score += (selectedClue.pointValue * game.roundCount);
   } else {
-    currentPlayer.score -= selectedClue.pointValue;
+    currentPlayer.score -= (selectedClue.pointValue * game.roundCount);
   }
   updatePlayerScore();
+  updateGameDisplay(currentPlayer);
+}
+
+function updateClueCount() {
+  resetClue();
+  clueCount++;
+  if (clueCount === 16) {
+    game.updateRound();
+    startRound2();
+  };
+  if (clueCount === 32) {
+    game.updateRound();
+    startFinalRound()
+  };
+}
+
+function resetClue() {
+  $('.selected-clue-category').text('');
+  $('.selected-clue-points').text('');
+  $('.question').text('');
+}
+
+function updateGameDisplay(player) {
   $(`#${selectedClue.id}`).css("visibility", "hidden");
   $('.game-board').css("pointer-events", "none")
-  setTimeout(function() { $('.answer-response').css("display", "none")}, 2000);
-  setTimeout(function () { switchPlayer(currentPlayer); }, 2000);
-  setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 2000);
+  setTimeout(function() { $('.answer-response').css("display", "none")}, 1500);
+  setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 1500);
+  setTimeout(function() { updateClueCount(); }, 2000);
+  setTimeout(function () { switchPlayer(player); }, 1500);
 }
 
 function switchPlayer(player) {
@@ -257,6 +352,21 @@ function switchPlayer(player) {
     $(`.player${i + 2}-sidebar`).css("background-color", "#88A5E9");
   } else {
     players[0].takeTurn();
-    $(`.player1-sidebar`).css("background-color", "#88A5E9");
+    $('.player1-sidebar').css("background-color", "#88A5E9");
   }
+}
+
+function startRound2() {
+  $('.clue-cards').html("");
+  $('.selected-clue-category').text('');
+  $('.selected-clue-points').text('');
+  $('.question').text('');
+  pickCategories(2);
+}
+
+function startFinalRound() {
+  $('.clue-cards').html("");
+  $('.selected-clue-info').css("display", "none");
+  $('.game-categories').css("display", "none");
+  findFinalCategory();
 }
