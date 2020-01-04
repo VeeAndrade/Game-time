@@ -31,7 +31,11 @@ let main = document.querySelector("main");
 let players = [];
 let clue;
 let game;
+let randomNumber1;
+let randomNumber2;
+let randomNumber3;
 let clueCount = 0;
+let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
 let clueInfo = [];
@@ -116,6 +120,7 @@ function showRules() {
 };
 
 function instantiateGame() {
+  oneRandomInt(1, 16)
   game = new Game(players);
   game.updateRound();
   pickCategories();
@@ -207,6 +212,9 @@ function updatePlayerScore() {
 }
 
 function displaySelectedClue(event) {
+  turns ++;
+  console.log(randomNumber1)
+  checkDailyDouble(turns);
   let clickedCard = event.target.closest(".clue-card");
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
@@ -214,6 +222,21 @@ function displaySelectedClue(event) {
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedPoints}`);
   $('.question').text(`${selectedClue.question}`);
+}
+
+function checkDailyDouble(turns) {
+  // console.log(turns);
+  if (turns === randomNumber1) {
+    createDailyDouble();
+  }
+}
+
+function createDailyDouble() {
+  console.log(selectedClue);
+}
+
+function oneRandomInt(min, max) {
+  randomNumber1 = Math.floor(Math.random() * (max - min + 1)) - 1;
 }
 
 function displayFinal(clue, category) {
@@ -318,6 +341,7 @@ function calculateScore(response) {
 function updateClueCount() {
   resetClue();
   clueCount++;
+  console.log(clueCount)
   if (clueCount === 16) {
     game.updateRound();
     startRound2();
