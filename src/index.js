@@ -34,7 +34,7 @@ let game;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 15;
+let clueCount = 0;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -212,8 +212,9 @@ function updatePlayerScore() {
 }
 
 function displaySelectedClue(event) {
+  clueCards.classList.add('no-clicks');
   turns ++;
-  console.log(randomNumber1)
+  console.log(turns)
   checkDailyDouble(turns);
   let clickedCard = event.target.closest(".clue-card");
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
@@ -227,6 +228,7 @@ function displaySelectedClue(event) {
 function checkDailyDouble(turns) {
   // console.log(turns);
   if (turns === randomNumber1) {
+    console.log('DOUBLE');
     createDailyDouble();
   }
 }
@@ -271,6 +273,7 @@ function restartGame() {
 
 function resetValues() {
   players = [];
+  turns = 0;
   clueCount = 0;
   $('.player1').val("");
   $('.player2').val("");
@@ -374,6 +377,7 @@ function updateGameDisplay(player) {
   setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 1500);
   setTimeout(function() { updateClueCount(); }, 2000);
   setTimeout(function () { switchPlayer(player); }, 1500);
+  clueCards.classList.remove('no-clicks');
 }
 
 function switchPlayer(player) {
