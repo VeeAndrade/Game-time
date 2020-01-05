@@ -235,6 +235,7 @@ function checkDailyDouble(turns) {
 
 function createDailyDouble() {
   console.log(selectedClue);
+  console.log(player)
 }
 
 function oneRandomInt(min, max) {
@@ -377,7 +378,7 @@ function updateGameDisplay(player) {
   setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 1500);
   setTimeout(function() { updateClueCount(); }, 2000);
   setTimeout(function () { switchPlayer(player); }, 1500);
-  clueCards.classList.remove('no-clicks');
+  setTimeout(function () { clueCards.classList.remove('no-clicks'); }, 2000);
 }
 
 function switchPlayer(player) {
