@@ -9,6 +9,7 @@ import './images/shark.png'
 import Player from '../src/Player'
 import Game from '../src/Game'
 import Clue from '../src/Clue'
+import DailyDouble from '../src/Daily-Double'
 import '../src/Round'
 
 let nameInputSection = document.querySelector(".player-name-input-section")
@@ -33,7 +34,10 @@ let restartButton = document.querySelector(".restart-button");
 let main = document.querySelector("main");
 let players = [];
 let clue;
+let clickedCard;
 let game;
+let allClues = [];
+let currentClues;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
@@ -47,7 +51,7 @@ let selectedClue;
 let submitGuessBtn = document.querySelector(".submit-guess");
 let submitWagerBtn = document.querySelector(".submit-wager");
 let submitFinalBtn = document.querySelector(".submit-final");
-
+let totalClues;
 
 nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
@@ -172,15 +176,17 @@ function findCategoryClues(categories) {
   categories.forEach(category => {
     let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id)
     shuffleArray(categoryClues);
-    let currentClues = [];
+    currentClues = [];
     let pointLevel = 1;
     while (pointLevel !== 5) {
       let clue = categoryClues.find(clue => clue.pointValue == `${pointLevel}00`)
       currentClues.push(clue);
       pointLevel++;
     }
+    allClues.push(currentClues)
     addCluesToDom(currentClues)
   })
+  totalClues = allClues.reduce((acc, val) => acc.concat(val), [])
 }
 
 function addCluesToDom(clues) {
@@ -212,24 +218,60 @@ function updatePlayerScore() {
   player1Score.innerText = `${players[0].score}`
   player2Score.innerText = `${players[1].score}`
   player3Score.innerText = `${players[2].score}`
+
 }
 
 function displaySelectedClue(event) {
+  console.log('222222', totalClues)
+  let currentPlayer = players.find(player => player.turn);
+  console.log(currentPlayer)
+  clickedCard = event.target.closest(".clue-card");
+  if (!clickedCard) {
+    return;
+  }
+  console.log(clickedCard)
+  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   clueCards.classList.add('no-clicks');
   turns ++;
-  let clickedCard = event.target.closest(".clue-card");
-  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
+  if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
+    makeDailyDouble(currentPlayer);
+  } else {
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
   let selectedPoints = selectedClue.pointValue * game.roundCount;
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedPoints}`);
   $('.question').text(`${selectedClue.question}`);
+  }
 }
 
-function checkDailyDouble(turns) {
-  if (turns === randomNumber1) {
-    createDailyDouble();
-  }
+function removeCardFromTotal(card) {
+  let cardToRemove = totalClues.find(clue => clue.id == card.id)
+  let indexOfCard = totalClues.indexOf(cardToRemove)
+  totalClues.splice(indexOfCard, 1)
+}
+
+function makeDailyDouble(player) {
+  console.log(player)
+  let dailyDouble = new DailyDouble(selectedClue)
+  console.log(dailyDouble)
+  let highestPointClue = sortClues();
+  let wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
+  displayDailyDouble(dailyDouble, wagerAmount);
+}
+
+function sortClues() {
+  let sortedClues = totalClues.sort((a, b) => {
+    return b.pointValue - a.pointValue;
+  });
+  return sortedClues[0].pointValue;
+}
+
+function displayDailyDouble(clue, wagerAmount) {
+  let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
+  $('.daily-double-wager').css("display", "block");
+  $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+  $('.daily-double-question').text(`${clue.question}`);
+  $('.daily-double-wager-amount').text(`${wagerAmount}`)
 }
 
 function createDailyDouble() {
@@ -238,7 +280,8 @@ function createDailyDouble() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+  randomNumber1 = 2;
+  // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
 function twoRandomInts(min, max) {
@@ -386,6 +429,9 @@ function updateGameDisplay(player) {
 }
 
 function switchPlayer(player) {
+  console.log(clickedCard)
+  removeCardFromTotal(clickedCard)
+  console.log('0000000', totalClues)
   player.takeTurn();
   let i = players.indexOf(player);
   $(`.player${i + 1}-sidebar`).css("background-color", "transparent");

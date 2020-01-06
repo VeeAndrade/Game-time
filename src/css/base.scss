@@ -163,7 +163,9 @@ p {
 
 
 .final-round-question,
-.final-round-wagers {
+.final-round-wagers,
+.daily-double-wager,
+.daily-double-question {
   background: rgba(212,229,255,0.9);
   display: none;
   height: 480px;
@@ -315,13 +317,13 @@ p {
   visibility: hidden;
 }
 
-.final-round-question {
-  display: none;
-}
+// .final-round-question {
+//   display: none;
+// }
 
-.final-round-wagers {
-  display: none;
-}
+// .final-round-wagers {
+//   display: none;
+// }
 
 
 
