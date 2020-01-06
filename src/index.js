@@ -325,12 +325,12 @@ function resetValues() {
   $('.player1').val("");
   $('.player2').val("");
   $('.player3').val("");
-  $('.player1Wager').val("");
-  $('.player2Wager').val("");
-  $('.player3Wager').val("");
-  $('.player1Final').val("");
-  $('.player2Final').val("");
-  $('.player3Final').val("");
+  $('.player1-wager').val("");
+  $('.player2-wager').val("");
+  $('.player3-wager').val("");
+  $('.player1-final').val("");
+  $('.player2-final').val("");
+  $('.player3-final').val("");
   resetClue();
 }
 
@@ -354,15 +354,15 @@ function evaluateGuess() {
 function collectWagers() {
   $('.final-round-wagers').css("display", "none");
   $('.final-round-question').css("display", "block");
-  players[0].wager = $('.player1Wager').val();
-  players[1].wager = $('.player2Wager').val();
-  players[2].wager = $('.player3Wager').val();
+  players[0].wager = $('.player1-wager').val();
+  players[1].wager = $('.player2-wager').val();
+  players[2].wager = $('.player3-wager').val();
 }
 
 function evaluateFinalGuess() {
-  players[0].finalGuess = $('.player1Final').val().toUpperCase();
-  players[1].finalGuess = $('.player2Final').val().toUpperCase();
-  players[2].finalGuess = $('.player3Final').val().toUpperCase();
+  players[0].finalGuess = $('.player1-final').val().toUpperCase();
+  players[1].finalGuess = $('.player2-final').val().toUpperCase();
+  players[2].finalGuess = $('.player3-final').val().toUpperCase();
   players.forEach(player => {
     if (player.finalGuess === selectedClue.answer.toUpperCase()) {
       player.increaseScore(player.wager);
