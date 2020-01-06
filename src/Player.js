@@ -4,26 +4,22 @@ class Player {
     this.name = name,
     this.turn = false,
     this.score = 0
-    this.wager;
+    this.wager = 0;
     this.finalGuess;
   }
 
   increaseScore(pointValue) {
-    return this.score = this.score + pointValue;
+    return this.score += Number(pointValue);
   }
 
   decreaseScore(pointValue) {
-    return this.score = this.score - pointValue;
+    return this.score -= Number(pointValue);
   }
 
   takeTurn() {
     this.turn = !this.turn;
   }
 
-  // startGame(playersArr) {
-  //   game = new Game(playersArr)
-  //   return game;
-  // }
 }
 
 module.exports = Player;

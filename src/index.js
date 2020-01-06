@@ -3,6 +3,9 @@ import './css/base.scss';
 
 import './images/underwater.jpg'
 import './images/underwater-light.jpg'
+import './images/fish.png'
+import './images/starfish.png'
+import './images/shark.png'
 import Player from '../src/Player'
 import Game from '../src/Game'
 import Clue from '../src/Clue'
@@ -377,7 +380,12 @@ function displayWinner(winner) {
   $('.final-round-question').css("display", "none");
   $('.game-board').css("display", "none");
   $('.winner-screen').css("display", "block");
-  $('.winner').text(`${winner.name}`);
+  $('.winner').text(winner.name);
+  $('.first-place-score').text(`${winner.score} Points`);
+  $('.second-place-score').text(`${players[1].score} Points`);
+  $('.second-place-name').text(players[1].name);
+  $('.third-place-score').text(`${players[2].score} Points`);
+  $('.third-place-name').text(players[1].name);
 }
 
 function calculateScore(response) {
@@ -394,7 +402,6 @@ function calculateScore(response) {
 function updateClueCount() {
   resetClue();
   clueCount++;
-  // console.log(clueCount)
   if (clueCount === 16) {
     game.updateRound();
     startRound2();
