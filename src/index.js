@@ -3,6 +3,9 @@ import './css/base.scss';
 
 import './images/underwater.jpg'
 import './images/underwater-light.jpg'
+import './images/fish.png'
+import './images/starfish.png'
+import './images/shark.png'
 import Player from '../src/Player'
 import Game from '../src/Game'
 import Clue from '../src/Clue'
@@ -34,7 +37,7 @@ let game;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 15;
+let clueCount = 0;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -214,8 +217,6 @@ function updatePlayerScore() {
 function displaySelectedClue(event) {
   clueCards.classList.add('no-clicks');
   turns ++;
-  console.log(turns)
-  // checkDailyDouble(turns);
   let clickedCard = event.target.closest(".clue-card");
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
@@ -226,9 +227,7 @@ function displaySelectedClue(event) {
 }
 
 function checkDailyDouble(turns) {
-  // console.log(turns);
   if (turns === randomNumber1) {
-    console.log('DOUBLE');
     createDailyDouble();
   }
 }
@@ -338,7 +337,12 @@ function displayWinner(winner) {
   $('.final-round-question').css("display", "none");
   $('.game-board').css("display", "none");
   $('.winner-screen').css("display", "block");
-  $('.winner').text(`${winner.name}`);
+  $('.winner').text(winner.name);
+  $('.first-place-score').text(`${winner.score} Points`);
+  $('.second-place-score').text(`${players[1].score} Points`);
+  $('.second-place-name').text(players[1].name);
+  $('.third-place-score').text(`${players[2].score} Points`);
+  $('.third-place-name').text(players[1].name);
 }
 
 function calculateScore(response) {
@@ -355,7 +359,6 @@ function calculateScore(response) {
 function updateClueCount() {
   resetClue();
   clueCount++;
-  // console.log(clueCount)
   if (clueCount === 16) {
     game.updateRound();
     startRound2();
@@ -397,8 +400,6 @@ function switchPlayer(player) {
 
 function startRound2() {
   twoRandomInts(17, 32)
-  console.log(randomNumber2);
-  console.log(randomNumber3);
   $('.clue-cards').html("");
   $('.selected-clue-category').text('');
   $('.selected-clue-points').text('');
