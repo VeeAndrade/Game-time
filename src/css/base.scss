@@ -535,22 +535,26 @@ svg #fish6 {
 
 
 .congrats-message {
-  color: black;
+  color: #35477D;
   font-size: 50px;
   text-align: center;
   margin-top: 35px;
 }
 
 .winner-screen {
-  height: 85%;
+  height: 80%;
   display: none;
+  margin: 3%;
+  padding: 3%;
+  background: rgba(212,229,255,0.9);
 }
 
 .podium-section {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 85%;
+  height: 70%;
+  margin-bottom: 2%;
 }
 
 .left-column {
