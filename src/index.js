@@ -31,7 +31,11 @@ let main = document.querySelector("main");
 let players = [];
 let clue;
 let game;
-let clueCount = 0;
+let randomNumber1;
+let randomNumber2;
+let randomNumber3;
+let clueCount = 15;
+let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
 let clueInfo = [];
@@ -116,6 +120,7 @@ function showRules() {
 };
 
 function instantiateGame() {
+  oneRandomInt(1, 16)
   game = new Game(players);
   game.updateRound();
   pickCategories();
@@ -207,6 +212,10 @@ function updatePlayerScore() {
 }
 
 function displaySelectedClue(event) {
+  clueCards.classList.add('no-clicks');
+  turns ++;
+  console.log(turns)
+  // checkDailyDouble(turns);
   let clickedCard = event.target.closest(".clue-card");
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
@@ -214,6 +223,33 @@ function displaySelectedClue(event) {
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedPoints}`);
   $('.question').text(`${selectedClue.question}`);
+}
+
+function checkDailyDouble(turns) {
+  // console.log(turns);
+  if (turns === randomNumber1) {
+    console.log('DOUBLE');
+    createDailyDouble();
+  }
+}
+
+function createDailyDouble() {
+  console.log(selectedClue);
+  console.log(player)
+}
+
+function oneRandomInt(min, max) {
+  randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+}
+
+function twoRandomInts(min, max) {
+  randomNumber2 = Math.floor(Math.random() * (max - min) + min);
+  randomNumber3 = Math.floor(Math.random() * (max - min) + min);
+  if (randomNumber2 === randomNumber3) {
+    twoRandomInts(17, 32)
+  } else {
+    return;
+  }
 }
 
 function displayFinal(clue, category) {
@@ -239,6 +275,7 @@ function restartGame() {
 
 function resetValues() {
   players = [];
+  turns = 0;
   clueCount = 0;
   $('.player1').val("");
   $('.player2').val("");
@@ -318,6 +355,7 @@ function calculateScore(response) {
 function updateClueCount() {
   resetClue();
   clueCount++;
+  // console.log(clueCount)
   if (clueCount === 16) {
     game.updateRound();
     startRound2();
@@ -341,6 +379,7 @@ function updateGameDisplay(player) {
   setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 1500);
   setTimeout(function() { updateClueCount(); }, 2000);
   setTimeout(function () { switchPlayer(player); }, 1500);
+  setTimeout(function () { clueCards.classList.remove('no-clicks'); }, 2000);
 }
 
 function switchPlayer(player) {
@@ -357,6 +396,9 @@ function switchPlayer(player) {
 }
 
 function startRound2() {
+  twoRandomInts(17, 32)
+  console.log(randomNumber2);
+  console.log(randomNumber3);
   $('.clue-cards').html("");
   $('.selected-clue-category').text('');
   $('.selected-clue-points').text('');
