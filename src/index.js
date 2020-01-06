@@ -34,7 +34,7 @@ let game;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 0;
+let clueCount = 15;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -215,7 +215,7 @@ function displaySelectedClue(event) {
   clueCards.classList.add('no-clicks');
   turns ++;
   console.log(turns)
-  checkDailyDouble(turns);
+  // checkDailyDouble(turns);
   let clickedCard = event.target.closest(".clue-card");
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
@@ -244,10 +244,11 @@ function oneRandomInt(min, max) {
 
 function twoRandomInts(min, max) {
   randomNumber2 = Math.floor(Math.random() * (max - min) + min);
-  if (randomNumber2 > 24) {
-    randomNumber3 = randomNumber2 - 8
+  randomNumber3 = Math.floor(Math.random() * (max - min) + min);
+  if (randomNumber2 === randomNumber3) {
+    twoRandomInts(17, 32)
   } else {
-    randomNumber3 = randomNumber2 + 8
+    return;
   }
 }
 
