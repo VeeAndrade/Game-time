@@ -37,7 +37,7 @@ let game;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 15;
+let clueCount = 30;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -323,8 +323,10 @@ function evaluateFinalGuess() {
   players[2].finalGuess = $('.player3Final').val().toUpperCase();
   players.forEach(player => {
     if (player.finalGuess === selectedClue.answer.toUpperCase()) {
+      // console.log(player.score, player.wager)
       player.increaseScore(player.wager);
     } else {
+      // console.log(player.score, player.wager)
       player.decreaseScore(player.wager);
     }
   })
@@ -334,6 +336,7 @@ function evaluateFinalGuess() {
 function determineWinner() {
   players.sort((a,b) => b.score - a.score);
   let winner = players[0];
+  console.log(winner.score)
   displayWinner(winner);
 }
 
@@ -342,10 +345,10 @@ function displayWinner(winner) {
   $('.game-board').css("display", "none");
   $('.winner-screen').css("display", "block");
   $('.winner').text(winner.name);
-  $('.first-place-score').text(winner.score);
-  $('.second-place-score').text(players[1].score);
+  $('.first-place-score').text(`${winner.score} Points`);
+  $('.second-place-score').text(`${players[1].score} Points`);
   $('.second-place-name').text(players[1].name);
-  $('.third-place-score').text(players[2].score);
+  $('.third-place-score').text(`${players[2].score} Points`);
   $('.third-place-name').text(players[1].name);
 }
 
