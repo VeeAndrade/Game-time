@@ -538,13 +538,13 @@ svg #fish6 {
   color: #35477D;
   font-size: 50px;
   text-align: center;
-  margin-top: 35px;
+  margin: 0;
 }
 
 .winner-screen {
   height: 80%;
   display: none;
-  margin: 3%;
+  margin: 3% 10% 3% 10%;
   padding: 3%;
   background: rgba(212,229,255,0.9);
 }
@@ -553,33 +553,42 @@ svg #fish6 {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 70%;
-  margin-bottom: 2%;
+  height: 30%;
+  margin-top: 28%;
   text-align: center;
 }
 
 .left-column {
-  width: 250px;
-  height: 200px;
+  width: 200px;
+  height: 300px;
+  background-color: #FDB1B9;
 }
 
 .middle-column {
-  width: 250px;
-  height: 350px;
+  width: 200px;
+  height: 420px;
+  background-color: #F67280;
 }
 
 .right-column {
-  width: 250px;
-  height: 100px;
+  width: 200px;
+  height: 220px;
+  background-color: #E1737E;
 }
 
 .podium {
-  background-color: #F67280;
+
+  padding: 15px;
 }
 
 .places {
   color: white;
-  font-size: 60px;
+  font-size: 30px;
+  margin: 10px;
+}
+
+.icon {
+  height: 100px;
 }
 
 .dropdown-menu {
