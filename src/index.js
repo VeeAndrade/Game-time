@@ -37,7 +37,7 @@ let game;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 30;
+let clueCount = 0;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -217,8 +217,6 @@ function updatePlayerScore() {
 function displaySelectedClue(event) {
   clueCards.classList.add('no-clicks');
   turns ++;
-  console.log(turns)
-  // checkDailyDouble(turns);
   let clickedCard = event.target.closest(".clue-card");
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
@@ -229,9 +227,7 @@ function displaySelectedClue(event) {
 }
 
 function checkDailyDouble(turns) {
-  // console.log(turns);
   if (turns === randomNumber1) {
-    console.log('DOUBLE');
     createDailyDouble();
   }
 }
@@ -323,10 +319,8 @@ function evaluateFinalGuess() {
   players[2].finalGuess = $('.player3Final').val().toUpperCase();
   players.forEach(player => {
     if (player.finalGuess === selectedClue.answer.toUpperCase()) {
-      // console.log(player.score, player.wager)
       player.increaseScore(player.wager);
     } else {
-      // console.log(player.score, player.wager)
       player.decreaseScore(player.wager);
     }
   })
@@ -336,7 +330,6 @@ function evaluateFinalGuess() {
 function determineWinner() {
   players.sort((a,b) => b.score - a.score);
   let winner = players[0];
-  console.log(winner.score)
   displayWinner(winner);
 }
 
@@ -366,7 +359,6 @@ function calculateScore(response) {
 function updateClueCount() {
   resetClue();
   clueCount++;
-  // console.log(clueCount)
   if (clueCount === 16) {
     game.updateRound();
     startRound2();
@@ -408,8 +400,6 @@ function switchPlayer(player) {
 
 function startRound2() {
   twoRandomInts(17, 32)
-  console.log(randomNumber2);
-  console.log(randomNumber3);
   $('.clue-cards').html("");
   $('.selected-clue-category').text('');
   $('.selected-clue-points').text('');

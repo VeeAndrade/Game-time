@@ -13,7 +13,7 @@ class Player {
   }
 
   decreaseScore(pointValue) {
-    return this.score += Number(pointValue);
+    return this.score -= Number(pointValue);
   }
 
   takeTurn() {
