@@ -41,7 +41,7 @@ let currentClues;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 0;
+let clueCount = 30;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -222,14 +222,14 @@ function updatePlayerScore() {
 }
 
 function displaySelectedClue(event) {
-  console.log('222222', totalClues)
+  // console.log('222222', totalClues)
   let currentPlayer = players.find(player => player.turn);
-  console.log(currentPlayer)
+  // console.log(currentPlayer)
   clickedCard = event.target.closest(".clue-card");
   if (!clickedCard) {
     return;
   }
-  console.log(clickedCard)
+  // console.log(clickedCard)
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   clueCards.classList.add('no-clicks');
   turns ++;
@@ -251,9 +251,9 @@ function removeCardFromTotal(card) {
 }
 
 function makeDailyDouble(player) {
-  console.log(player)
+  // console.log(player)
   let dailyDouble = new DailyDouble(selectedClue)
-  console.log(dailyDouble)
+  // console.log(dailyDouble)
   let highestPointClue = sortClues();
   let wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
   displayDailyDouble(dailyDouble, wagerAmount);
@@ -275,12 +275,12 @@ function displayDailyDouble(clue, wagerAmount) {
 }
 
 function createDailyDouble() {
-  console.log(selectedClue);
-  console.log(player)
+  // console.log(selectedClue);
+  // console.log(player)
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = 2;
+  randomNumber1 = 5;
   // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -297,6 +297,9 @@ function twoRandomInts(min, max) {
 function displayFinal(clue, category) {
   selectedClue = clue;
   $('.final-round-wagers').css("display", "block");
+  $('.player1-label').text(players[0].name);
+  $('.player2-label').text(players[1].name);
+  $('.player3-label').text(players[2].name);
   $('.final-clue-category').text(`${category.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.final-clue-question').text(`${clue.question}`);
 }
@@ -429,9 +432,9 @@ function updateGameDisplay(player) {
 }
 
 function switchPlayer(player) {
-  console.log(clickedCard)
+  // console.log(clickedCard)
   removeCardFromTotal(clickedCard)
-  console.log('0000000', totalClues)
+  // console.log('0000000', totalClues)
   player.takeTurn();
   let i = players.indexOf(player);
   $(`.player${i + 1}-sidebar`).css("background-color", "transparent");

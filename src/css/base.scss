@@ -168,7 +168,7 @@ p {
 .daily-double-question {
   background: rgba(212,229,255,0.9);
   display: none;
-  height: 480px;
+  height: 500px;
   margin-left: 15%;
   margin-top: 20px;
   padding: 15px;
@@ -196,16 +196,16 @@ p {
 .player-final-label,
 .player-wager-label,
 .player-name-label {
-  font-size: 35px;;
+  display: block;
 }
 
 .player-wager-label,
 .player-final-label {
-  display: none;
+  font-size: 25px;
 }
 
 .player-name-label {
-  display: block;
+  font-size: 35px;
 }
 
 .player-final-input,
