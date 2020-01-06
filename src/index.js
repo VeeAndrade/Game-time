@@ -31,12 +31,15 @@ let restartButton = document.querySelector(".restart-button");
 let main = document.querySelector("main");
 let players = [];
 let clue;
+let clickedCard;
 let game;
+let allClues = [];
+let currentClues;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
 let clueCount = 0;
-let turns = 0;
+let turns = 16;
 let clueCategories = [];
 let usedCategories = [];
 let clueInfo = [];
@@ -45,7 +48,7 @@ let selectedClue;
 let submitGuessBtn = document.querySelector(".submit-guess");
 let submitWagerBtn = document.querySelector(".submit-wager");
 let submitFinalBtn = document.querySelector(".submit-final");
-
+let totalClues;
 
 nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
@@ -166,19 +169,23 @@ function shuffleArray(arr) {
 	}
 };
 
+// let allClues
+
 function findCategoryClues(categories) {
   categories.forEach(category => {
     let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id)
     shuffleArray(categoryClues);
-    let currentClues = [];
+    currentClues = [];
     let pointLevel = 1;
     while (pointLevel !== 5) {
       let clue = categoryClues.find(clue => clue.pointValue == `${pointLevel}00`)
       currentClues.push(clue);
       pointLevel++;
     }
+    allClues.push(currentClues)
     addCluesToDom(currentClues)
   })
+  totalClues = allClues.reduce((acc, val) => acc.concat(val), [])
 }
 
 function addCluesToDom(clues) {
@@ -210,10 +217,14 @@ function updatePlayerScore() {
   player1Score.innerText = `${players[0].score}`
   player2Score.innerText = `${players[1].score}`
   player3Score.innerText = `${players[2].score}`
+
 }
 
 function displaySelectedClue(event) {
-  let clickedCard = event.target.closest(".clue-card");
+  console.log('222222', totalClues)
+  let currentPlayer = players.find(player => player.turn);
+  console.log(currentPlayer)
+  clickedCard = event.target.closest(".clue-card");
   if (!clickedCard) {
     return;
   }
@@ -222,10 +233,8 @@ function displaySelectedClue(event) {
   clueCards.classList.add('no-clicks');
   turns ++;
   if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
-    makeDailyDouble();
+    makeDailyDouble(currentPlayer);
   } else {
-  console.log(turns)
-  // checkDailyDouble(turns);
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
   let selectedPoints = selectedClue.pointValue * game.roundCount;
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
@@ -234,17 +243,25 @@ function displaySelectedClue(event) {
   }
 }
 
-function makeDailyDouble() {
-  let dailyDouble = new DailyDouble(selectedClue)
-  console.log(dailyDouble)
+function removeCardFromTotal(card) {
+  let cardToRemove = totalClues.indexOf(clue => clue.id === card.id)
+  totalClues.splice(cardToRemove, 1)
 }
 
-function checkDailyDouble(turns) {
-  // console.log(turns);
-  if (turns === randomNumber1) {
-    console.log('DOUBLE');
-    createDailyDouble();
-  }
+function makeDailyDouble(player) {
+  console.log(player)
+  let dailyDouble = new DailyDouble(selectedClue)
+  console.log(dailyDouble)
+  let highestScore = 
+  dailyDouble.determineWager(turns, player);
+  displayDailyDouble(dailyDouble);
+}
+
+function displayDailyDouble(clue) {
+  let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
+  $('.daily-double-wager').css("display", "block");
+  $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
+  $('.daily-double-question').text(`${clue.question}`);
 }
 
 function createDailyDouble() {
@@ -253,7 +270,7 @@ function createDailyDouble() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = 2;
+  randomNumber1 = 18;
   // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -398,6 +415,8 @@ function updateGameDisplay(player) {
 }
 
 function switchPlayer(player) {
+  removeCardFromTotal(clickedCard)
+  console.log('0000000', totalClues)
   player.takeTurn();
   let i = players.indexOf(player);
   $(`.player${i + 1}-sidebar`).css("background-color", "transparent");
@@ -412,8 +431,6 @@ function switchPlayer(player) {
 
 function startRound2() {
   twoRandomInts(17, 32)
-  console.log(randomNumber2);
-  console.log(randomNumber3);
   $('.clue-cards').html("");
   $('.selected-clue-category').text('');
   $('.selected-clue-points').text('');
