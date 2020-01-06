@@ -6,6 +6,7 @@ import './images/underwater-light.jpg'
 import Player from '../src/Player'
 import Game from '../src/Game'
 import Clue from '../src/Clue'
+import DailyDouble from '../src/Daily-Double'
 import '../src/Round'
 
 let nameInputSection = document.querySelector(".player-name-input-section")
@@ -34,7 +35,7 @@ let game;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 15;
+let clueCount = 0;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
@@ -212,17 +213,30 @@ function updatePlayerScore() {
 }
 
 function displaySelectedClue(event) {
+  let clickedCard = event.target.closest(".clue-card");
+  if (!clickedCard) {
+    return;
+  }
+  console.log(clickedCard)
+  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   clueCards.classList.add('no-clicks');
   turns ++;
+  if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
+    makeDailyDouble();
+  } else {
   console.log(turns)
   // checkDailyDouble(turns);
-  let clickedCard = event.target.closest(".clue-card");
-  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
   let selectedPoints = selectedClue.pointValue * game.roundCount;
   $('.selected-clue-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.selected-clue-points').text(`${selectedPoints}`);
   $('.question').text(`${selectedClue.question}`);
+  }
+}
+
+function makeDailyDouble() {
+  let dailyDouble = new DailyDouble(selectedClue)
+  console.log(dailyDouble)
 }
 
 function checkDailyDouble(turns) {
@@ -239,7 +253,8 @@ function createDailyDouble() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+  randomNumber1 = 2;
+  // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
 function twoRandomInts(min, max) {
