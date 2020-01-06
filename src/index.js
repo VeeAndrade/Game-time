@@ -74,7 +74,7 @@ function categoryFetch() {
         category: key, id: categories[key]
       }))
     })
-    .catch(error => console.log('failure'))
+    .catch(error => console.log(error))
 }
 
 function clueFetch() {
@@ -85,7 +85,7 @@ function clueFetch() {
       let clueKeys = Object.keys(clues)
       clueKeys.forEach(key => clueInfo.push(clues[key]))
     })
-    .catch(error => console.log('failure'))
+    .catch(error => console.log(error))
 }
 
 function getFetches() {
