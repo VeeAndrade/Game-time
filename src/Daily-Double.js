@@ -6,13 +6,17 @@ class DailyDouble extends Clue{
     this.ddPointValue = 0;
   }
 
-  determineWager(turns, player) {
-    console.log('1111111111', player.score)
-    console.log(turns)
+  determineWager(turns, player, cluePoints) {
+    let wagerLimit = 0;
     if (turns > 16) {
       this.pointValue = this.pointValue * 2;
     }
-    
+    if (player.score > cluePoints) {
+      wagerLimit = player.score
+    } else {
+      wagerLimit = cluePoints;
+    }
+    return `Set a wager between 5 and ${wagerLimit} points.`
   }
 
   takeWager(wager) {

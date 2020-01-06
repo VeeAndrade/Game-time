@@ -39,7 +39,7 @@ let randomNumber1;
 let randomNumber2;
 let randomNumber3;
 let clueCount = 0;
-let turns = 16;
+let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
 let clueInfo = [];
@@ -169,8 +169,6 @@ function shuffleArray(arr) {
 	}
 };
 
-// let allClues
-
 function findCategoryClues(categories) {
   categories.forEach(category => {
     let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id)
@@ -244,24 +242,33 @@ function displaySelectedClue(event) {
 }
 
 function removeCardFromTotal(card) {
-  let cardToRemove = totalClues.indexOf(clue => clue.id === card.id)
-  totalClues.splice(cardToRemove, 1)
+  let cardToRemove = totalClues.find(clue => clue.id == card.id)
+  let indexOfCard = totalClues.indexOf(cardToRemove)
+  totalClues.splice(indexOfCard, 1)
 }
 
 function makeDailyDouble(player) {
   console.log(player)
   let dailyDouble = new DailyDouble(selectedClue)
   console.log(dailyDouble)
-  let highestScore = 
-  dailyDouble.determineWager(turns, player);
-  displayDailyDouble(dailyDouble);
+  let highestPointClue = sortClues();
+  let wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
+  displayDailyDouble(dailyDouble, wagerAmount);
 }
 
-function displayDailyDouble(clue) {
+function sortClues() {
+  let sortedClues = totalClues.sort((a, b) => {
+    return b.pointValue - a.pointValue;
+  });
+  return sortedClues[0].pointValue;
+}
+
+function displayDailyDouble(clue, wagerAmount) {
   let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
   $('.daily-double-wager').css("display", "block");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${clue.question}`);
+  $('.daily-double-wager-amount').text(`${wagerAmount}`)
 }
 
 function createDailyDouble() {
@@ -270,7 +277,7 @@ function createDailyDouble() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = 18;
+  randomNumber1 = 2;
   // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -415,6 +422,7 @@ function updateGameDisplay(player) {
 }
 
 function switchPlayer(player) {
+  console.log(clickedCard)
   removeCardFromTotal(clickedCard)
   console.log('0000000', totalClues)
   player.takeTurn();
