@@ -108,7 +108,10 @@ function instantiatePlayers() {
     let player2 = new Player(player2Input.value);
     let player3 = new Player(player3Input.value);
     players.push(player1, player2, player3);
-    showRules();
+    // showRules();
+    // TEST FINAL PAGE^^^
+    displayWinner(players[0])
+    nameInputSection.style.display = "none";
   } else {
     document.querySelector(".error").style.visibility = "visible";
   }
