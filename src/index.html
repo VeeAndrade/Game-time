@@ -95,27 +95,30 @@
           <h3>FINAL CATEGORY:</h3>
           <h4 class="final-clue-category"></h4>
           <div class="final-wager-input">
-            <h3>YOUR WAGERS</h3>
-            <label class="player-wager-label" for="player-wager-input">Player 1</label>
-            <input class="player-wager-input player1Wager" type="text" name="wager-input" placeholder="Wager">
-            <label class="player-wager-label" for="player-wager-input">Player 2</label>
-            <input class="player-wager-input player2Wager" type="text" name="wager-input" placeholder="Wager">
-            <label class="player-wager-label" for="player-wager-input">Player 3</label>
-            <input class="player-wager-input player3Wager" type="text" name="wager-input" placeholder="Wager">
+            <h3>YOUR WAGERS:</h3>
+            <label class="player-wager-label player1-label" for="player-wager-input"></label>
+            <input class="player-wager-input player1-wager" type="text" name="wager-input" placeholder="Wager">
+            <label class="player-wager-label player2-label" for="player-wager-input"></label>
+            <input class="player-wager-input player2-wager" type="text" name="wager-input" placeholder="Wager">
+            <label class="player-wager-label player3-label" for="player-wager-input"></label>
+            <input class="player-wager-input player3-wager" type="text" name="wager-input" placeholder="Wager">
             <button class="submit-wager" type="button" name="button">Submit Wagers</button>
           </div>
         </div>
         <div class="final-round-question">
           <h3>FINAL CLUE:</h3>
           <h4 class="final-clue-question"></h4>
-          <h3>YOUR GUESSES</h3>
-          <label class="player-final-label" for="player-final-input">Player 1</label>
-          <input class="player-final-input player1Final" type="text" name="final-input" placeholder="Final answer">
-          <label class="player-final-label" for="player-final-input">Player 2</label>
-          <input class="player-final-input player2Final" type="text" name="final-input" placeholder="Final answer">
-          <label class="player-final-label" for="player-final-input">Player 3</label>
-          <input class="player-final-input player3Final" type="text" name="final-input" placeholder="Final answer">
+          <h3>YOUR GUESSES:</h3>
+          <label class="player-final-label player1-label" for="player-final-input"></label>
+          <input class="player-final-input player1-final" type="text" name="final-input" placeholder="Final answer">
+          <label class="player-final-label player2-label" for="player-final-input"></label>
+          <input class="player-final-input player2-final" type="text" name="final-input" placeholder="Final answer">
+          <label class="player-final-label player3-label" for="player-final-input"></label>
+          <input class="player-final-input player3-final" type="text" name="final-input" placeholder="Final answer">
           <button class="submit-final" type="button" name="button">Submit Final Answers</button>
+        </div>
+        <div class="final-answer">
+          <h3 class="final-round-answer"></h3>
         </div>
         <div class="daily-double-wager">
           <h3>DAILY DOUBLE!</h3>
@@ -171,7 +174,7 @@
             <div class="middle-column podium">
                 <img src="images/starfish.png" alt="starfish icon" class="icon">
               <h2 class="places">1st</h2>
-              <h2 class="winner"></h2>
+              <h2 class="winner first-place-name"></h2>
               <h3 class="first-place-score"></h3>
             </div>
             <div class="right-column podium">
