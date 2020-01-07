@@ -39,6 +39,7 @@ let $player3Input = $(".player3");
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
+let response;
 let selectedClue;
 let totalClues;
 let turns = 0;
@@ -117,7 +118,7 @@ function postToLeaderBoard(winningPlayer) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      appId: "1909RNCGVA", 
+      appId: "1909RNCGVA",
         playerName: `${winningPlayer.name}`,
         playerScore: `${winningPlayer.score}`
     })
@@ -271,11 +272,7 @@ function makeDailyDouble(player) {
   let dailyDouble = new DailyDouble(selectedClue)
   let highestPointClue = sortClues();
   wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
-  console.log(dailyDouble)
-  console.log(turns)
-  console.log(highestPointClue)
-  console.log(wagerAmount)
-  displayDailyDouble(dailyDouble, wagerAmount);
+  displayDailyDouble(wagerAmount);
 }
 
 function sortClues() {
@@ -285,11 +282,11 @@ function sortClues() {
   return sortedClues[0].pointValue;
 }
 
-function displayDailyDouble(clue, wager) {
+function displayDailyDouble(wager) {
   let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
   $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
-  $('.daily-double-question').text(`${clue.question}`);
+  $('.daily-double-question').text(`${selectedClue.question}`);
   $('.daily-double-wager-amount').text(`Set your wager between 5 and ${wager} points.`)
   $('.clue-cards').css("display", "none");
   $('.selected-clue-info').css("display", "none");
@@ -299,13 +296,13 @@ function displayDailyDouble(clue, wager) {
 function evaluateDailyDoubleGuess() {
   if ($('.daily-double-input').val() === '') {
     return $('.guess-error').text("Please enter your guess below")
-  } if ($('.daily-double-input').val().toUpperCase() === clue.answer.toUpperCase()) {
+  } if ($('.daily-double-input').val().toUpperCase() === selectedClue.answer.toUpperCase()) {
     $('.answer-response').css("display", "flex");
     $(".response").text(`Correct! \n You get ${playersWager} points!`);
     response = "correct";
   } else {
     $('.answer-response').css("display", "flex");
-    $(".response").text(`Incorrect! \n The answer is ${clue.answer}. \n You lose ${playersWager} points!`)
+    $(".response").text(`Incorrect! \n The answer is ${selectedClue.answer}. \n You lose ${playersWager} points!`)
     response = "incorrect";
   }
   calculateDDScore(response);
@@ -374,7 +371,7 @@ function resetValues() {
 
 function evaluateGuess() {
   if ($(".player-guess").val() && $(`#${selectedClue.id}`).css("visibility") === "visible") {
-    let response;
+    response;
     let points = selectedClue.pointValue * game.roundCount;
     $(".answer-response").css("display", "flex");
     if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
