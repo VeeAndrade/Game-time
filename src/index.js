@@ -42,8 +42,8 @@ let currentClues;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 0;
-let turns = 0;
+let clueCount = 14;
+let turns = 14;
 let clueCategories = [];
 let usedCategories = [];
 let clueInfo = [];
@@ -262,6 +262,10 @@ function makeDailyDouble(player) {
   // console.log(dailyDouble)
   let highestPointClue = sortClues();
   wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
+  console.log(dailyDouble)
+  console.log(turns)
+  console.log(highestPointClue)
+  console.log(wagerAmount)
   displayDailyDouble(dailyDouble, wagerAmount);
 }
 
@@ -272,12 +276,12 @@ function sortClues() {
   return sortedClues[0].pointValue;
 }
 
-function displayDailyDouble(clue, wagerAmount) {
+function displayDailyDouble(clue, wager) {
   let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
   $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${clue.question}`);
-  $('.daily-double-wager-amount').text(`Set your wager between 5 and ${wagerAmount} points.`)
+  $('.daily-double-wager-amount').text(`Set your wager between 5 and ${wager} points.`)
   $('.clue-cards').css("display", "none");
   $('.selected-clue-info').css("display", "none");
   $('.game-categories').css("display", "none");
@@ -302,7 +306,7 @@ function evaluateDailyDoubleGuess() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = 2;
+  randomNumber1 = 16;
   // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -451,10 +455,16 @@ function calculateDDScore(response) {
   if (response === 'correct') {
     currentPlayer.score += (playersWager);
   } else {
+    console.log(currentPlayer.score)
     currentPlayer.score -= (playersWager);
+    console.log(currentPlayer.score)
   }
   updatePlayerScore();
   updateGameDisplay(currentPlayer);
+  $('.daily-double-wager').css("display", "none");
+  $('.daily-double-category').text('');
+  $('.daily-double-question').text('');
+  $('.daily-double-wager-amount').text('')
 }
 
 function updateClueCount() {

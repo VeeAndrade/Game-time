@@ -3,7 +3,7 @@ class Player {
   constructor(name) {
     this.name = name,
     this.turn = false,
-    this.score = 0
+    this.score = 0;
     this.wager = 0;
     this.finalGuess;
   }
