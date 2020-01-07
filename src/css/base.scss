@@ -259,6 +259,21 @@ p {
   padding-left: 5px;
 }
 
+
+.play-button {
+  width: 30%;
+  height: 4%;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.3em;
+  margin-top: 2%;
+
+  &:hover {
+    background: rgba(212,229,255,0.9);
+  }
+}
+
+
 .submit-final,
 .submit-wager,
 .submit-guess {
@@ -271,6 +286,7 @@ p {
   padding-top: 5px;
   width: 60%;
 }
+
 
 .submit-final:hover,
 .submit-wager:hover,
@@ -359,7 +375,7 @@ p {
   height: 480px;
   justify-content: center;
   margin-left: 15%;
-  margin-top: 100px;
+  margin-top: 90px;
   padding: 15px;
   position: absolute;
   text-align: center;
@@ -415,17 +431,6 @@ p {
   margin-left: 17%;
 }
 
-.play-button {
-  width: 30%;
-  height: 4%;
-  border-radius: 5px;
-  font-size: 1.3em;
-  margin-top: 5%;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
 
 
 // animation
