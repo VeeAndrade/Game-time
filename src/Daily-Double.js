@@ -16,7 +16,7 @@ class DailyDouble extends Clue{
     } else {
       wagerLimit = cluePoints;
     }
-    return `Set a wager between 5 and ${wagerLimit} points.`
+    return wagerLimit;
   }
 
   takeWager(wager) {
