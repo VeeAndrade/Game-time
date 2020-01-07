@@ -132,7 +132,7 @@ function checkInputs() {
 }
 
 function instantiatePlayers() {
-  if ($continueBtn.attr("id", "active")) {
+  if (document.getElementById("active")) {
     let player1 = new Player($player1Input.val());
     let player2 = new Player($player2Input.val());
     let player3 = new Player($player3Input.val());
