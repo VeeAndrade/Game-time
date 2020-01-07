@@ -1,6 +1,6 @@
 const Clue = require('../src/Clue')
 
-class DailyDouble extends Clue{
+class DailyDouble extends Clue {
   constructor(clueInfo) {
     super(clueInfo)
     this.ddPointValue = 0;

@@ -4,8 +4,8 @@ const Game = require('../src/Game');
 
 describe('Game', function() {
   let players = [{name: 'Carla', score: 10},
-  {name: 'Vee', score: 25},
-  {name: 'Novak', score: 20}];
+    {name: 'Vee', score: 25},
+    {name: 'Novak', score: 20}];
   let game = new Game(players);
 
   it('is a function', function() {
