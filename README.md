@@ -1,6 +1,6 @@
 # JEOPAR-SEA!
 
-##Contributors
+## Contributors
 Veronica Andrade
 Carla Geglio
 Ryan Novak
@@ -17,6 +17,6 @@ Our assignment was to create a version of Jeopardy with 3 players and 3 rounds. 
 
 
 ## In Action
-![Jeopar-Sea example gif](https://gph.is/g/ZdblqL0)
+![Jeopar-Sea example gif](https://media.giphy.com/media/MEclN71gHfWmULAk69/giphy.gif)
 
-![Winner gif](https://gph.is/g/EBO73vo)
+![Winner gif](https://media.giphy.com/media/ZDEydd5m9VUSSfa2jW/giphy.gif)
