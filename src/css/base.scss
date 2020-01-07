@@ -637,6 +637,22 @@ svg #fish6 {
   z-index: 5;
 }
 
+.winner-names-and-score {
+  width: 100%;
+  height: 10%;
+  text-align: center;
+  color: #F67280;
+  font-size: 1.3em;
+  margin: 7%;
+}
+
+.line {
+  height: 1.2px;
+  width: 80%;
+  margin: 1%;
+  background-color: #FDB1B9;
+}
+
 .hide {
   display: none;
 }
