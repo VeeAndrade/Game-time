@@ -464,9 +464,9 @@ function calculateScore(response) {
 function calculateDDScore(response) {
   let currentPlayer = players.find(player => player.turn);
   if (response === 'correct') {
-    currentPlayer.score += (playersWager);
+    currentPlayer.score += Number(playersWager);
   } else {
-    currentPlayer.score -= (playersWager);
+    currentPlayer.score -= Number(playersWager);
   }
   updatePlayerScore();
   updateGameDisplay(currentPlayer);
