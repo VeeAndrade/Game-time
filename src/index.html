@@ -97,11 +97,11 @@
           <div class="final-wager-input">
             <h3>YOUR WAGERS:</h3>
             <label class="player-wager-label player1-label" for="player-wager-input"></label>
-            <input class="player-wager-input player1-wager" type="text" name="wager-input" placeholder="Wager">
+            <input class="player-wager-input player1-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <label class="player-wager-label player2-label" for="player-wager-input"></label>
-            <input class="player-wager-input player2-wager" type="text" name="wager-input" placeholder="Wager">
+            <input class="player-wager-input player2-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <label class="player-wager-label player3-label" for="player-wager-input"></label>
-            <input class="player-wager-input player3-wager" type="text" name="wager-input" placeholder="Wager">
+            <input class="player-wager-input player3-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <button class="submit-wager" type="button" name="button">Submit Wagers</button>
           </div>
         </div>
@@ -128,7 +128,7 @@
             <h3>YOUR WAGER</h3>
             <p class="daily-double-wager-amount"></p>
             <p class="error-message"></p>
-            <input class="daily-double-wager-input" type="text" name="wager-input" placeholder="Wager amount">
+            <input class="daily-double-wager-input" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager amount">
             <button class="submit-DD-wager" type="button" name="button">Submit Wagers</button>
           </div>
         </div>

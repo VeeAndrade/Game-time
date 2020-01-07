@@ -271,6 +271,7 @@ function removeCardFromTotal(card) {
 function makeDailyDouble(player) {
   let dailyDouble = new DailyDouble(selectedClue)
   let highestPointClue = sortClues();
+  console.log(highestPointClue);
   wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
   displayDailyDouble(wagerAmount);
 }
@@ -279,6 +280,7 @@ function sortClues() {
   let sortedClues = totalClues.sort((a, b) => {
     return b.pointValue - a.pointValue;
   });
+  console.log(sortedClues)
   return sortedClues[0].pointValue;
 }
 
@@ -420,6 +422,8 @@ function checkDDWager() {
 }
 
 function displayDailyDoubleQuestion() {
+  $(".daily-double-wager-input").css("border", "none")
+  $(".error-message").text("")
   $('.daily-double-wager').css('display', 'none')
   $('.daily-double-question-div').css('display', 'block')
 }
@@ -525,6 +529,7 @@ function startRound2() {
   $(".selected-clue-category").text("");
   $(".selected-clue-points").text("");
   $(".question").text("");
+  allClues = [];
   pickCategories(2);
 }
 
