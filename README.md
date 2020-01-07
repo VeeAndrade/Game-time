@@ -1,9 +1,7 @@
 # JEOPAR-SEA!
 
 ## Contributors
-Veronica Andrade
-Carla Geglio
-Ryan Novak
+Veronica Andrade, Carla Geglio, and Ryan Novak
 
 ## About
 Our assignment was to create a version of Jeopardy with 3 players and 3 rounds. Our spin on this project was Jeopar-Sea: an underwater-themed version of the popular game show.
