@@ -145,7 +145,7 @@ function pickCategories() {
 
 function findFinalCategory() {
   let finalCategory = clueCategories.find(category => !usedCategories.includes(category));
-  let allCategoryClues = clueInfo.filter(clue => clue.categoryId === finalCategory.id);
+  let allCategoryClues = clueInfo.filter(clue => clue.categoryId == finalCategory.id);
   shuffleArray(allCategoryClues);
   let finalClue = allCategoryClues[0];
   displayFinal(finalClue, finalCategory);
@@ -166,7 +166,7 @@ function shuffleArray(arr) {
 
 function findCategoryClues(categories) {
   categories.forEach(category => {
-    let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id);
+    let categoryClues = clueInfo.filter(clue => clue.categoryId == category.id);
     shuffleArray(categoryClues);
     currentClues = [];
     let pointLevel = 1;
@@ -221,13 +221,13 @@ function displaySelectedClue(event) {
     return;
   }
   // console.log(clickedCard)
-  selectedClue = clueInfo.find(clue => clue.id === clickedCard.id)
+  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   $clueCards.addClass("no-clicks");
   turns ++;
   if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
     makeDailyDouble(currentPlayer);
   } else {
-    let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId);
+    let selectedCategory = clueCategories.find(category => category.id == selectedClue.categoryId);
     let selectedPoints = selectedClue.pointValue * game.roundCount;
     $(".selected-clue-category").text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
     $(".selected-clue-points").text(`${selectedPoints}`);
@@ -236,7 +236,7 @@ function displaySelectedClue(event) {
 }
 
 function removeCardFromTotal(card) {
-  let cardToRemove = totalClues.find(clue => clue.id === card.id);
+  let cardToRemove = totalClues.find(clue => clue.id == card.id);
   let indexOfCard = totalClues.indexOf(cardToRemove);
   totalClues.splice(indexOfCard, 1);
 }
@@ -258,7 +258,7 @@ function sortClues() {
 }
 
 function displayDailyDouble(clue, wagerAmount) {
-  let selectedCategory = clueCategories.find(category => category.id === clue.categoryId);
+  let selectedCategory = clueCategories.find(category => category.id == clue.categoryId);
   $(".daily-double-wager").css("display", "flex");
   $(".daily-double-category").text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $(".daily-double-question").text(`${clue.question}`);
