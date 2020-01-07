@@ -9,17 +9,14 @@ class DailyDouble extends Clue{
   determineWager(turns, player, cluePoints) {
     let wagerLimit = 0;
     this.ddPointValue = cluePoints;
-    // debugger
     if (turns > 16) {
       this.ddPointValue = cluePoints * 2;
-      console.log(this.ddPointValue)
     }
     if (player.score > this.ddPointValue) {
       wagerLimit = player.score
     } else {
       wagerLimit = this.ddPointValue;
     }
-    console.log('skldaf;saf', wagerLimit)
     return wagerLimit;
   }
 
