@@ -1,4 +1,3 @@
-const Game = require('../src/Game')
 class Player {
   constructor(name) {
     this.name = name,
@@ -19,7 +18,6 @@ class Player {
   takeTurn() {
     this.turn = !this.turn;
   }
-
 }
 
 module.exports = Player;

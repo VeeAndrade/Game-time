@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable brace-style */
+
 import $ from "jquery";
 import "./css/base.scss";
 
@@ -96,7 +99,7 @@ function checkInputs() {
   if ($player1Input.val() && $player2Input.val() && $player3Input.val()) {
     $continueBtn.attr("id", "active");
   }
-};
+}
 
 function instantiatePlayers() {
   if ($continueBtn.attr("id", "active")) {
@@ -108,12 +111,12 @@ function instantiatePlayers() {
   } else {
     $(".error").css("visibility", "visible");
   }
-};
+}
 
 function showRules() {
   $nameInputSection.css("display", "none");
   $gameRules.css("display", "block");
-};
+}
 
 function instantiateGame() {
   oneRandomInt(1, 16);
@@ -149,17 +152,17 @@ function findFinalCategory() {
 }
 
 function shuffleArray(arr) {
-	let currentIndex = arr.length;
-	let temporaryValue;
+  let currentIndex = arr.length;
+  let temporaryValue;
   let randomIndex;
-	while (0 !== currentIndex) {
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
-		temporaryValue = arr[currentIndex];
-		arr[currentIndex] = arr[randomIndex];
-		arr[randomIndex] = temporaryValue;
-	}
-};
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
+  }
+}
 
 function findCategoryClues(categories) {
   categories.forEach(category => {
@@ -218,7 +221,7 @@ function displaySelectedClue(event) {
     return;
   }
   // console.log(clickedCard)
-  selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
+  selectedClue = clueInfo.find(clue => clue.id === clickedCard.id)
   $clueCards.addClass("no-clicks");
   turns ++;
   if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
@@ -233,7 +236,7 @@ function displaySelectedClue(event) {
 }
 
 function removeCardFromTotal(card) {
-  let cardToRemove = totalClues.find(clue => clue.id == card.id);
+  let cardToRemove = totalClues.find(clue => clue.id === card.id);
   let indexOfCard = totalClues.indexOf(cardToRemove);
   totalClues.splice(indexOfCard, 1);
 }
@@ -332,7 +335,7 @@ function evaluateGuess() {
       $(".response").text(`Incorrect! \n The answer is ${selectedClue.answer}. \n You lose ${points} points!`)
       response = "incorrect";
     }
-  calculateScore(response);
+    calculateScore(response);
   }
   $(".player-guess").val("");
 }
@@ -376,7 +379,7 @@ function displayDailyDoubleQuestion(wager) {
 }
 
 function determineWinner() {
-  players.sort((a,b) => b.score - a.score);
+  players.sort((a, b) => b.score - a.score);
   let winner = players[0];
   showFinalAnswer(winner);
 }
@@ -417,11 +420,11 @@ function updateClueCount() {
   if (clueCount === 16) {
     game.updateRound();
     startRound2();
-  };
+  }
   if (clueCount === 32) {
     game.updateRound();
     startFinalRound();
-  };
+  }
 }
 
 function resetClue() {

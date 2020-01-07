@@ -7,7 +7,7 @@ let question;
 let clue;
 
 describe('DailyDouble', () => {
-  
+
   beforeEach(() => {
     question = {
       question: "Scorecard Report\" & \"Peter Jacobsen Plugged In\" are seen on the sports channel devoted to this",
@@ -17,7 +17,7 @@ describe('DailyDouble', () => {
     }
     clue = new Clue(question)
     dailyDoubleClue = new DailyDouble(question)
-   });
+  });
 
   it('should take a wager and change point value', () => {
     dailyDoubleClue.takeWager(300)
