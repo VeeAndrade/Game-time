@@ -52,6 +52,8 @@ let submitGuessBtn = document.querySelector(".submit-guess");
 let submitWagerBtn = document.querySelector(".submit-wager");
 let submitFinalBtn = document.querySelector(".submit-final");
 let totalClues;
+let wagerAmount;
+let ddGuessBtn = document.querySelector('.submit-DD-wager')
 
 nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
@@ -62,7 +64,7 @@ leaderButton.addEventListener('click', dropdownMenu);
 restartButton.addEventListener("click", restartGame);
 submitWagerBtn.addEventListener("click", collectWagers)
 submitFinalBtn.addEventListener("click", evaluateFinalGuess)
-
+ddGuessBtn.addEventListener('click', checkDDWager)
 
 function categoryFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -74,7 +76,7 @@ function categoryFetch() {
         category: key, id: categories[key]
       }))
     })
-    .catch(error => console.log('failure'))
+    .catch(error => console.log(error))
 }
 
 function clueFetch() {
@@ -85,7 +87,7 @@ function clueFetch() {
       let clueKeys = Object.keys(clues)
       clueKeys.forEach(key => clueInfo.push(clues[key]))
     })
-    .catch(error => console.log('failure'))
+    .catch(error => console.log(error))
 }
 
 function getFetches() {
@@ -255,7 +257,7 @@ function makeDailyDouble(player) {
   let dailyDouble = new DailyDouble(selectedClue)
   // console.log(dailyDouble)
   let highestPointClue = sortClues();
-  let wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
+  wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
   displayDailyDouble(dailyDouble, wagerAmount);
 }
 
@@ -271,12 +273,10 @@ function displayDailyDouble(clue, wagerAmount) {
   $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${clue.question}`);
-  $('.daily-double-wager-amount').text(`${wagerAmount}`)
 }
 
 function createDailyDouble() {
-  // console.log(selectedClue);
-  // console.log(player)
+  $('.daily-double-wager-amount').text(`Set your wager between 5 and ${wagerAmount} points.`)
 }
 
 function oneRandomInt(min, max) {
@@ -371,6 +371,22 @@ function evaluateFinalGuess() {
     }
   })
   determineWinner();
+}
+
+function checkDDWager() {
+  if ($('.daily-double-wager-input').val() > wagerAmount || $('.daily-double-wager-input').val() < 5) {
+    $('.daily-double-wager-input').val('')
+    $('.daily-double-wager-input').css('border', 'solid red 2px')
+    $('.error-message').text('Enter an amount between the specified range.')
+  } else {
+    let playersWager = $('.daily-double-wager-input').val();
+    displayDailyDoubleQuestion(playersWager);
+  }
+}
+
+function displayDailyDoubleQuestion(wager) {
+  $('.daily-double-wager').css('display', 'none')
+  $('.daily-double-question-div').css('display', 'block')
 }
 
 function determineWinner() {
