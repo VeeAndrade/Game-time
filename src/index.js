@@ -239,7 +239,7 @@ function displaySelectedClue(event) {
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   clueCards.classList.add('no-clicks');
   turns ++;
-  if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
+  if (turns === randomNumber1 || turns === randomNumber2 || turns === randomNumber3) {
     makeDailyDouble(currentPlayer);
   } else {
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
@@ -303,6 +303,10 @@ function evaluateDailyDoubleGuess() {
   $('.clue-cards').css("display", "grid");
   $('.selected-clue-info').css("display", "grid");
   $('.game-categories').css("display", "flex");
+  $('.daily-double-input').val('');
+  $('.daily-double-wager-input').val('');
+  $('.daily-double-wager').css("display", "none");
+  $('.daily-double-question-div').css("display", "none");
 }
 
 function oneRandomInt(min, max) {
