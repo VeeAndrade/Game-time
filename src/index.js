@@ -12,59 +12,46 @@ import Clue from '../src/Clue'
 import DailyDouble from '../src/Daily-Double'
 import '../src/Round'
 
-let nameInputSection = document.querySelector(".player-name-input-section")
-let gameRules = document.querySelector(".game-rules");
-let player1Input = document.querySelector(".player1");
-let player2Input = document.querySelector(".player2");
-let player3Input = document.querySelector(".player3");
-let player1Name = document.querySelector(".player1-name");
-let player2Name = document.querySelector(".player2-name");
-let player3Name = document.querySelector(".player3-name");
-let player1Score = document.querySelector(".player1-score");
-let player2Score = document.querySelector(".player2-score");
-let player3Score = document.querySelector(".player3-score");
-let continueBtn = document.querySelector(".continue-button");
-let gameBoard = document.querySelector(".game-board");
-let playBtn = document.querySelector(".play-button");
-let clueCards = document.querySelector(".clue-cards");
-let winnerScreen = document.querySelector(".winner-screen");
-let leaderButton = document.querySelector(".leaderboard-button");
-let dropdownMenuSection = document.querySelector(".dropdown-menu");
-let restartButton = document.querySelector(".restart-button");
-let main = document.querySelector("main");
-let players = [];
-let clue;
-let clickedCard;
-let game;
+
 let allClues = [];
+let clickedCard;
+let clue;
+let $clueCards = $(".clue-cards");
+let clueCategories = [];
+let clueCount = 0;
+let clueId = 1;
+let clueInfo = [];
+let $continueBtn = $(".continue-button");
 let currentClues;
+let game;
+let $gameBoard = $(".game-board");
+let $gameRules = $(".game-rules");
+let $nameInputSection = $(".player-name-input-section");
+let players = [];
+let $player1Input = $(".player1");
+let $player2Input = $(".player2");
+let $player3Input = $(".player3");
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 0;
-let turns = 0;
-let clueCategories = [];
-let usedCategories = [];
-let clueInfo = [];
-let clueId = 1;
 let selectedClue;
-let submitGuessBtn = document.querySelector(".submit-guess");
-let submitWagerBtn = document.querySelector(".submit-wager");
-let submitFinalBtn = document.querySelector(".submit-final");
 let totalClues;
+let turns = 0;
+let usedCategories = [];
 let wagerAmount;
-let ddGuessBtn = document.querySelector('.submit-DD-wager')
 
-nameInputSection.addEventListener("keyup", checkInputs);
-continueBtn.addEventListener("click", instantiatePlayers);
-playBtn.addEventListener("click", instantiateGame);
-clueCards.addEventListener("click", displaySelectedClue);
-submitGuessBtn.addEventListener("click", evaluateGuess);
-leaderButton.addEventListener('click', dropdownMenu);
-restartButton.addEventListener("click", restartGame);
-submitWagerBtn.addEventListener("click", collectWagers)
-submitFinalBtn.addEventListener("click", evaluateFinalGuess)
-ddGuessBtn.addEventListener('click', checkDDWager)
+
+$clueCards.click(displaySelectedClue);
+$continueBtn.click(instantiatePlayers);
+$(".leaderboard-button").click(dropdownMenu);
+$nameInputSection.keyup(checkInputs);
+$(".play-button").click(instantiateGame);
+$(".restart-button").click(restartGame);
+$('.submit-DD-wager').click(checkDDWager);
+$(".submit-final").click(evaluateFinalGuess);
+$(".submit-guess").click(evaluateGuess);
+$(".submit-wager").click(collectWagers);
+
 
 function categoryFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -106,26 +93,26 @@ function instantiateClues() {
 }
 
 function checkInputs() {
-  if (player1Input.value && player2Input.value && player3Input.value) {
-    continueBtn.id = "active";
+  if ($player1Input.val() && $player2Input.val() && $player3Input.val()) {
+    $continueBtn.attr('id', "active");
   }
 };
 
 function instantiatePlayers() {
-  if (continueBtn.id === "active") {
-    let player1 = new Player(player1Input.value);
-    let player2 = new Player(player2Input.value);
-    let player3 = new Player(player3Input.value);
+  if ($continueBtn.attr("id", "active")) {
+    let player1 = new Player($player1Input.val());
+    let player2 = new Player($player2Input.val());
+    let player3 = new Player($player3Input.val());
     players.push(player1, player2, player3);
     showRules();
   } else {
-    document.querySelector(".error").style.visibility = "visible";
+    $(".error").css("visibility", "visible");
   }
 };
 
 function showRules() {
-  nameInputSection.style.display = "none";
-  gameRules.style.display = "block";
+  $nameInputSection.css("display", "none");
+  $gameRules.css("display", "block");
 };
 
 function instantiateGame() {
@@ -206,21 +193,20 @@ function addCluesToDom(clues) {
 }
 
 function showGame() {
-  player1Name.innerText = `${player1Input.value}`;
-  player2Name.innerText = `${player2Input.value}`;
-  player3Name.innerText = `${player3Input.value}`;
-  gameRules.style.display = "none";
-  gameBoard.style.display = "grid";
+  $(".player1-name").text($player1Input.val());
+  $(".player2-name").text($player2Input.val());
+  $(".player3-name").text($player3Input.val());
+  $gameRules.css("display", "none");
+  $gameBoard.css("display", "grid");
   $('.selected-clue-info').css("display", "grid");
   $('.game-categories').css("display", "flex");
   updatePlayerScore();
 }
 
 function updatePlayerScore() {
-  player1Score.innerText = `${players[0].score}`
-  player2Score.innerText = `${players[1].score}`
-  player3Score.innerText = `${players[2].score}`
-
+  $(".player1-score").text(players[0].score);
+  $(".player2-score").text(players[1].score);
+  $(".player3-score").text(players[2].score);
 }
 
 function displaySelectedClue(event) {
@@ -233,7 +219,7 @@ function displaySelectedClue(event) {
   }
   // console.log(clickedCard)
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
-  clueCards.classList.add('no-clicks');
+  $clueCards.addClass('no-clicks');
   turns ++;
   if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
     makeDailyDouble(currentPlayer);
@@ -305,16 +291,16 @@ function displayFinal(clue, category) {
 }
 
 function dropdownMenu() {
-    dropdownMenuSection.classList.toggle('hide');
-    main.classList.toggle('no-clicks')
+    $(".dropdown-menu").toggleClass('hide');
+    $("main").toggleClass('no-clicks')
 }
 
 function restartGame() {
-  nameInputSection.style.display = "block";
-  gameRules.style.display = "none";
-  gameBoard.style.display = "none";
-  winnerScreen.style.display = "none";
-  clueCards.innerHTML = "";
+  $nameInputSection.css("display", "block");
+  $gameRules.css("display", "none");
+  $gameBoard.css("display", "none");
+  $(".winner-screen").css("display", "none");
+  $clueCards.html("");
   resetValues();
 }
 
@@ -451,7 +437,7 @@ function updateGameDisplay(player) {
   setTimeout(function() { $('.game-board').css("pointer-events", "auto")}, 1500);
   setTimeout(function() { updateClueCount(); }, 2000);
   setTimeout(function () { switchPlayer(player); }, 1500);
-  setTimeout(function () { clueCards.classList.remove('no-clicks'); }, 2000);
+  setTimeout(function () { $clueCards.removeClass('no-clicks'); }, 2000);
 }
 
 function switchPlayer(player) {
