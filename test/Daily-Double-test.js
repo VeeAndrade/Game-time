@@ -21,7 +21,7 @@ describe('DailyDouble', () => {
 
   it('should take a wager and change point value', () => {
     dailyDoubleClue.takeWager(300)
-    expect(dailyDoubleClue.pointValue).to.equal(300)
+    expect(dailyDoubleClue.ddPointValue).to.equal(300)
   });
 
 });
