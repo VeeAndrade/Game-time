@@ -35,6 +35,7 @@ let main = document.querySelector("main");
 let players = [];
 let clue;
 let clickedCard;
+let response;
 let game;
 let allClues = [];
 let currentClues;
@@ -53,7 +54,9 @@ let submitWagerBtn = document.querySelector(".submit-wager");
 let submitFinalBtn = document.querySelector(".submit-final");
 let totalClues;
 let wagerAmount;
-let ddGuessBtn = document.querySelector('.submit-DD-wager')
+let playersWager;
+let ddWagerBtn = document.querySelector('.submit-DD-wager');
+let ddSubmitBtn = document.querySelector('.daily-double-guess-btn');
 
 nameInputSection.addEventListener("keyup", checkInputs);
 continueBtn.addEventListener("click", instantiatePlayers);
@@ -64,7 +67,8 @@ leaderButton.addEventListener('click', dropdownMenu);
 restartButton.addEventListener("click", restartGame);
 submitWagerBtn.addEventListener("click", collectWagers)
 submitFinalBtn.addEventListener("click", evaluateFinalGuess)
-ddGuessBtn.addEventListener('click', checkDDWager)
+ddWagerBtn.addEventListener('click', checkDDWager)
+ddSubmitBtn.addEventListener('click', evaluateDailyDoubleGuess)
 
 function categoryFetch() {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/1903/jeopardy/data')
@@ -224,18 +228,15 @@ function updatePlayerScore() {
 }
 
 function displaySelectedClue(event) {
-  // console.log('222222', totalClues)
   let currentPlayer = players.find(player => player.turn);
-  // console.log(currentPlayer)
   clickedCard = event.target.closest(".clue-card");
   if (!clickedCard) {
     return;
   }
-  // console.log(clickedCard)
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   clueCards.classList.add('no-clicks');
   turns ++;
-  if (turns === randomNumber1 || randomNumber2 || randomNumber3) {
+  if (turns === randomNumber1 || turns === randomNumber2 || turns === randomNumber3) {
     makeDailyDouble(currentPlayer);
   } else {
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
@@ -253,11 +254,13 @@ function removeCardFromTotal(card) {
 }
 
 function makeDailyDouble(player) {
-  // console.log(player)
   let dailyDouble = new DailyDouble(selectedClue)
-  // console.log(dailyDouble)
   let highestPointClue = sortClues();
   wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
+  console.log(dailyDouble)
+  console.log(turns)
+  console.log(highestPointClue)
+  console.log(wagerAmount)
   displayDailyDouble(dailyDouble, wagerAmount);
 }
 
@@ -268,19 +271,41 @@ function sortClues() {
   return sortedClues[0].pointValue;
 }
 
-function displayDailyDouble(clue, wagerAmount) {
+function displayDailyDouble(clue, wager) {
   let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
   $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${clue.question}`);
+  $('.daily-double-wager-amount').text(`Set your wager between 5 and ${wager} points.`)
+  $('.clue-cards').css("display", "none");
+  $('.selected-clue-info').css("display", "none");
+  $('.game-categories').css("display", "none");
 }
 
-function createDailyDouble() {
-  $('.daily-double-wager-amount').text(`Set your wager between 5 and ${wagerAmount} points.`)
+function evaluateDailyDoubleGuess() {
+  if ($('.daily-double-input').val() === '') {
+    return $('.guess-error').text("Please enter your guess below")
+  } if ($('.daily-double-input').val().toUpperCase() === clue.answer.toUpperCase()) {
+    $('.answer-response').css("display", "flex");
+    $(".response").text(`Correct! \n You get ${playersWager} points!`);
+    response = "correct";
+  } else {
+    $('.answer-response').css("display", "flex");
+    $(".response").text(`Incorrect! \n The answer is ${clue.answer}. \n You lose ${playersWager} points!`)
+    response = "incorrect";
+  }
+  calculateDDScore(response);
+  $('.clue-cards').css("display", "grid");
+  $('.selected-clue-info').css("display", "grid");
+  $('.game-categories').css("display", "flex");
+  $('.daily-double-input').val('');
+  $('.daily-double-wager-input').val('');
+  $('.daily-double-wager').css("display", "none");
+  $('.daily-double-question-div').css("display", "none");
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = 5;
+  randomNumber1 = 16;
   // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -336,7 +361,6 @@ function resetValues() {
 
 function evaluateGuess() {
   if ($(".player-guess").val() && $(`#${selectedClue.id}`).css("visibility") === "visible") {
-    let response;
     let points = selectedClue.pointValue * game.roundCount
     $('.answer-response').css("display", "flex");
     if ($(".player-guess").val().toUpperCase() === selectedClue.answer.toUpperCase()) {
@@ -379,12 +403,12 @@ function checkDDWager() {
     $('.daily-double-wager-input').css('border', 'solid red 2px')
     $('.error-message').text('Enter an amount between the specified range.')
   } else {
-    let playersWager = $('.daily-double-wager-input').val();
-    displayDailyDoubleQuestion(playersWager);
+    playersWager = $('.daily-double-wager-input').val();
+    displayDailyDoubleQuestion();
   }
 }
 
-function displayDailyDoubleQuestion(wager) {
+function displayDailyDoubleQuestion() {
   $('.daily-double-wager').css('display', 'none')
   $('.daily-double-question-div').css('display', 'block')
 }
@@ -425,6 +449,21 @@ function calculateScore(response) {
   updateGameDisplay(currentPlayer);
 }
 
+function calculateDDScore(response) {
+  let currentPlayer = players.find(player => player.turn);
+  if (response === 'correct') {
+    currentPlayer.score += (playersWager);
+  } else {
+    currentPlayer.score -= (playersWager);
+  }
+  updatePlayerScore();
+  updateGameDisplay(currentPlayer);
+  $('.daily-double-wager').css("display", "none");
+  $('.daily-double-category').text('');
+  $('.daily-double-question').text('');
+  $('.daily-double-wager-amount').text('')
+}
+
 function updateClueCount() {
   resetClue();
   clueCount++;
@@ -455,9 +494,7 @@ function updateGameDisplay(player) {
 }
 
 function switchPlayer(player) {
-  // console.log(clickedCard)
   removeCardFromTotal(clickedCard)
-  // console.log('0000000', totalClues)
   player.takeTurn();
   let i = players.indexOf(player);
   $(`.player${i + 1}-sidebar`).css("background-color", "transparent");
