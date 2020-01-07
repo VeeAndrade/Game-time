@@ -41,7 +41,7 @@ let currentClues;
 let randomNumber1;
 let randomNumber2;
 let randomNumber3;
-let clueCount = 30;
+let clueCount = 0;
 let turns = 0;
 let clueCategories = [];
 let usedCategories = [];
