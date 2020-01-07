@@ -45,6 +45,7 @@ let totalClues;
 let turns = 0;
 let usedCategories = [];
 let wagerAmount;
+let main = $("main")
 
 
 $clueCards.click(displaySelectedClue);
@@ -343,7 +344,7 @@ function displayFinal(clue, category) {
 
 function dropdownMenu() {
   $(".dropdown-menu").toggleClass("hide");
-  $("main").toggleClass("no-clicks");
+  main.toggleClass("no-clicks");
 }
 
 function restartGame() {
