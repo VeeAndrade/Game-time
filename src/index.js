@@ -90,10 +90,20 @@ function clueFetch() {
     .catch(error => console.log(error))
 }
 
+function displayLeaders() {
+  return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/leaderboard')
+    .then(response => response.json())
+    .then(data => data.highScores.filter(score => score.appId === '1909RNCGVA'))
+    .then(filteredData => filteredData.sort((a, b) => b.playerScore - a.playerScore))
+    .then(sortedData => sortedData.forEach(info => $(".winners-list").append(`<li class="winner-names-and-score">${info.playerName} | ${info.playerScore} </li>
+          <div class="line"></div>`)))
+}
+
 function getFetches() {
   return Promise.all([clueFetch(), categoryFetch()])
 }
 
+displayLeaders();
 getFetches()
   .then(() => instantiateClues())
 
@@ -102,6 +112,22 @@ function instantiateClues() {
     c.id = clueId;
     clue = new Clue(c);
     clueId++;
+  })
+}
+
+$('.submit-final').on('click', postToLeaderBoard);
+
+function postToLeaderBoard(winningPlayer) {
+  return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/leaderboard', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      appId: "1909RNCGVA", 
+        playerName: `${winningPlayer.name}`,
+        playerScore: `${winningPlayer.score}`
+    })
   })
 }
 
@@ -393,6 +419,7 @@ function determineWinner() {
   players.sort((a,b) => b.score - a.score);
   let winner = players[0];
   showFinalAnswer(winner);
+  postToLeaderBoard(winner)
 }
 
 function showFinalAnswer(winner) {
