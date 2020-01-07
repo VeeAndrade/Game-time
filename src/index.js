@@ -411,7 +411,7 @@ function displayWinner(winner) {
   $('.second-place-score').text(`${players[1].score} Points`);
   $('.second-place-name').text(players[1].name);
   $('.third-place-score').text(`${players[2].score} Points`);
-  $('.third-place-name').text(players[1].name);
+  $('.third-place-name').text(players[2].name);
 }
 
 function calculateScore(response) {
