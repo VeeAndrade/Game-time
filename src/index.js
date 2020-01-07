@@ -376,11 +376,18 @@ function evaluateFinalGuess() {
 function determineWinner() {
   players.sort((a,b) => b.score - a.score);
   let winner = players[0];
-  displayWinner(winner);
+  showFinalAnswer(winner);
+}
+
+function showFinalAnswer(winner) {
+  $('.final-round-question').css("display", "none");
+  $('.final-answer').css("display", "flex");
+  $('.final-round-answer').text(`The correct answer was ${selectedClue.answer}!`);
+  setTimeout(function() { displayWinner(winner); }, 2500);
 }
 
 function displayWinner(winner) {
-  $('.final-round-question').css("display", "none");
+  $('.final-answer').css("display", "none");
   $('.game-board').css("display", "none");
   $('.winner-screen').css("display", "block");
   $('.winner').text(winner.name);

@@ -161,19 +161,29 @@ p {
   text-align: center;
 }
 
+.final-round-answer {
+  font-size: 40px;
+}
 
+.final-answer,
 .final-round-question,
 .final-round-wagers,
 .daily-double-wager,
 .daily-double-question {
   background: rgba(212,229,255,0.9);
   display: none;
-  height: 500px;
+  height: 550px;
   margin-left: 15%;
   margin-top: 20px;
   padding: 15px;
   text-align: center;
   width: 56%;
+}
+
+.final-answer {
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
 }
 
 .player-name-input-section {
@@ -201,7 +211,9 @@ p {
 
 .player-wager-label,
 .player-final-label {
-  font-size: 25px;
+  font-size: 20px;
+  color: #F67280;
+  font-weight: bold;
 }
 
 .player-name-label {
@@ -295,6 +307,18 @@ p {
     cursor: pointer;
     transform: scale(1.1);
   }
+}
+
+.first-place-score,
+.second-place-score,
+.third-place-score {
+  margin-top: 10px;
+}
+
+.first-place-name,
+.second-place-name,
+.third-place-name {
+  margin-bottom: 0;
 }
 
 .selected-clue-category {
