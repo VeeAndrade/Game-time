@@ -228,14 +228,11 @@ function updatePlayerScore() {
 }
 
 function displaySelectedClue(event) {
-  // console.log('222222', totalClues)
   let currentPlayer = players.find(player => player.turn);
-  // console.log(currentPlayer)
   clickedCard = event.target.closest(".clue-card");
   if (!clickedCard) {
     return;
   }
-  // console.log(clickedCard)
   selectedClue = clueInfo.find(clue => clue.id == clickedCard.id)
   clueCards.classList.add('no-clicks');
   turns ++;
@@ -257,9 +254,7 @@ function removeCardFromTotal(card) {
 }
 
 function makeDailyDouble(player) {
-  // console.log(player)
   let dailyDouble = new DailyDouble(selectedClue)
-  // console.log(dailyDouble)
   let highestPointClue = sortClues();
   wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
   console.log(dailyDouble)
@@ -459,9 +454,7 @@ function calculateDDScore(response) {
   if (response === 'correct') {
     currentPlayer.score += (playersWager);
   } else {
-    console.log(currentPlayer.score)
     currentPlayer.score -= (playersWager);
-    console.log(currentPlayer.score)
   }
   updatePlayerScore();
   updateGameDisplay(currentPlayer);
@@ -501,9 +494,7 @@ function updateGameDisplay(player) {
 }
 
 function switchPlayer(player) {
-  // console.log(clickedCard)
   removeCardFromTotal(clickedCard)
-  // console.log('0000000', totalClues)
   player.takeTurn();
   let i = players.indexOf(player);
   $(`.player${i + 1}-sidebar`).css("background-color", "transparent");
