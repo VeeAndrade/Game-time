@@ -268,7 +268,7 @@ function sortClues() {
 
 function displayDailyDouble(clue, wagerAmount) {
   let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
-  $('.daily-double-wager').css("display", "block");
+  $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${clue.question}`);
   $('.daily-double-wager-amount').text(`${wagerAmount}`)
@@ -296,7 +296,7 @@ function twoRandomInts(min, max) {
 
 function displayFinal(clue, category) {
   selectedClue = clue;
-  $('.final-round-wagers').css("display", "block");
+  $('.final-round-wagers').css("display", "flex");
   $('.player1-label').text(players[0].name);
   $('.player2-label').text(players[1].name);
   $('.player3-label').text(players[2].name);
@@ -353,7 +353,7 @@ function evaluateGuess() {
 
 function collectWagers() {
   $('.final-round-wagers').css("display", "none");
-  $('.final-round-question').css("display", "block");
+  $('.final-round-question').css("display", "flex");
   players[0].wager = $('.player1-wager').val();
   players[1].wager = $('.player2-wager').val();
   players[2].wager = $('.player3-wager').val();

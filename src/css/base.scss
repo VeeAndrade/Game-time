@@ -176,7 +176,10 @@ p {
   margin-left: 15%;
   margin-top: 20px;
   padding: 15px;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  flex-direction: column;
   width: 56%;
 }
 
@@ -218,6 +221,7 @@ p {
 
 .player-name-label {
   font-size: 35px;
+  margin-top: 8px;
 }
 
 .player-final-input,
@@ -243,6 +247,7 @@ p {
 
   &:hover {
     cursor: pointer;
+    background-color: #F67280;
   }
 }
 
