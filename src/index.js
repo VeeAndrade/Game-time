@@ -283,7 +283,8 @@ function sortClues() {
 }
 
 function displayDailyDouble(wager) {
-  let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
+  let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
+  console.log(selectedCategory)
   $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${selectedClue.question}`);
@@ -357,6 +358,7 @@ function resetValues() {
   players = [];
   turns = 0;
   clueCount = 0;
+  usedCategories = [];
   $(".player1").val("");
   $(".player2").val("");
   $(".player3").val("");
