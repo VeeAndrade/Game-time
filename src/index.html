@@ -96,6 +96,7 @@
           <h4 class="final-clue-category"></h4>
           <div class="final-wager-input">
             <h3>YOUR WAGERS:</h3>
+            <h2>Enter a positive number between 5 and your current total score. If your current score is less than or equal to 0, you must enter a wager of 5</h2>
             <label class="player-wager-label player1-label" for="player-wager-input"></label>
             <input class="player-wager-input player1-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <label class="player-wager-label player2-label" for="player-wager-input"></label>
@@ -103,6 +104,7 @@
             <label class="player-wager-label player3-label" for="player-wager-input"></label>
             <input class="player-wager-input player3-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <button class="submit-wager" type="button" name="button">Submit Wagers</button>
+            <h3 class="final-wager-error"></h3>
           </div>
         </div>
         <div class="final-round-question">

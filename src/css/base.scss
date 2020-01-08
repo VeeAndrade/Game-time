@@ -182,6 +182,10 @@ p {
   width: 56%;
 }
 
+.final-round-wagers {
+  padding: 40px;
+}
+
 .final-answer {
   justify-content: center;
   align-items: center;
@@ -194,7 +198,8 @@ p {
   width: 50%;
   padding-top: 20px;
   text-align: center;
-  height: 520px;
+  height: 550px;
+  position: relative;
 }
 
 .final-wager-input {
@@ -266,7 +271,7 @@ p {
 
 .play-button {
   width: 30%;
-  height: 4%;
+  height: 5.3%;
   cursor: pointer;
   border-radius: 5px;
   font-size: 1.3em;
@@ -361,14 +366,6 @@ p {
   visibility: hidden;
 }
 
-// .final-round-question {
-//   display: none;
-// }
-
-// .final-round-wagers {
-//   display: none;
-// }
-
 
 
 .answer-response {
@@ -413,6 +410,7 @@ p {
   background-size: contain;
   background-position: center;
   margin-top: -5%;
+  position: relative;
 }
 
 .instruction-heading-container {
@@ -582,6 +580,7 @@ svg #fish6 {
   margin: 3% 10% 3% 10%;
   padding: 3%;
   background: rgba(212,229,255,0.9);
+  position: relative;
 }
 
 .podium-section {
@@ -634,6 +633,7 @@ svg #fish6 {
   text-align: center;
   width: 30%;
   z-index: 5;
+  overflow: scroll;
 }
 
 .winner-names-and-score {
