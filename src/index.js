@@ -22,7 +22,7 @@ let clickedCard;
 let clue;
 let $clueCards = $(".clue-cards");
 let clueCategories = [];
-let clueCount = 13;
+let clueCount = 0;
 let clueId = 1;
 let clueInfo = [];
 let $continueBtn = $(".continue-button");
@@ -45,6 +45,7 @@ let totalClues;
 let turns = 0;
 let usedCategories = [];
 let wagerAmount;
+let main = $("main")
 
 
 $clueCards.click(displaySelectedClue);
@@ -269,6 +270,7 @@ function removeCardFromTotal(card) {
 function makeDailyDouble(player) {
   let dailyDouble = new DailyDouble(selectedClue)
   let highestPointClue = sortClues();
+  console.log(highestPointClue);
   wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
   displayDailyDouble(wagerAmount);
 }
@@ -277,6 +279,7 @@ function sortClues() {
   let sortedClues = totalClues.sort((a, b) => {
     return b.pointValue - a.pointValue;
   });
+  console.log(sortedClues)
   return sortedClues[0].pointValue;
 }
 
@@ -315,7 +318,8 @@ function evaluateDailyDoubleGuess() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+  // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+  randomNumber1 = 1;
 }
 
 function twoRandomInts(min, max) {
@@ -340,7 +344,7 @@ function displayFinal(clue, category) {
 
 function dropdownMenu() {
   $(".dropdown-menu").toggleClass("hide");
-  $("main").toggleClass("no-clicks");
+  main.toggleClass("no-clicks");
 }
 
 function restartGame() {
@@ -455,6 +459,8 @@ function checkDDWager() {
 }
 
 function displayDailyDoubleQuestion() {
+  $(".daily-double-wager-input").css("border", "none")
+  $(".error-message").text("")
   $('.daily-double-wager').css('display', 'none')
   $('.daily-double-question-div').css('display', 'block')
 }
@@ -553,6 +559,7 @@ function startRound2() {
   $(".selected-clue-category").text("");
   $(".selected-clue-points").text("");
   $(".question").text("");
+  allClues = [];
   pickCategories(2);
 }
 

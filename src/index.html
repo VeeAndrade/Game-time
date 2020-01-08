@@ -98,11 +98,11 @@
             <h3>YOUR WAGERS:</h3>
             <h2>Enter a positive number between 5 and your current total score. If your current score is less than or equal to 0, you must enter a wager of 5</h2>
             <label class="player-wager-label player1-label" for="player-wager-input"></label>
-            <input class="player-wager-input player1-wager" type="text" name="wager-input" placeholder="Wager">
+            <input class="player-wager-input player1-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <label class="player-wager-label player2-label" for="player-wager-input"></label>
-            <input class="player-wager-input player2-wager" type="text" name="wager-input" placeholder="Wager">
+            <input class="player-wager-input player2-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <label class="player-wager-label player3-label" for="player-wager-input"></label>
-            <input class="player-wager-input player3-wager" type="text" name="wager-input" placeholder="Wager">
+            <input class="player-wager-input player3-wager" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager">
             <button class="submit-wager" type="button" name="button">Submit Wagers</button>
             <h3 class="final-wager-error"></h3>
           </div>
@@ -123,24 +123,26 @@
           <h3 class="final-round-answer"></h3>
         </div>
         <div class="daily-double-wager">
-          <h2>DAILY DOUBLE!</h2>
-          <h3>THE CATEGORY IS</h3>
-          <h4 class="daily-double-category"></h4>
+          <h2 class="dd-header">DAILY DOUBLE!</h2>
+          <h3 class="dd-category">THE CATEGORY IS</h3>
+          <h4 class="daily-double-category dd-card"></h4>
           <div class="daily-double-wager-div">
-            <h3>YOUR WAGER</h3>
+            <h3 class="dd">YOUR WAGER</h3>
             <p class="daily-double-wager-amount"></p>
-            <p class="error-message"></p>
-            <input class="daily-double-wager-input" type="text" name="wager-input" placeholder="Wager amount">
-            <button class="submit-DD-wager" type="button" name="button">Submit Wagers</button>
+            <p class="error-message dd-error"></p>
+            <div class="button-input">
+              <input class="daily-double-wager-input dd-input" type="number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 190" name="wager-input" placeholder="Wager amount">
+              <button class="submit-DD-wager dd-button" type="button" name="button">Submit Wagers</button>
+            </div>
           </div>
         </div>
         <div class="daily-double-question-div">
-          <h2>DAILY DOUBLE!</h2>
-          <h4 class="daily-double-question"></h4>
-          <h3>YOUR GUESS</h3>
-          <p class="guess-error"></p>
-          <input class="daily-double-input" type="text" name="guess-input" placeholder="Answer">
-          <button class="daily-double-guess-btn">Submit Guess</button>
+          <h2 class="dd-header">DAILY DOUBLE!</h2>
+          <h4 class="daily-double-question dd-card"></h4>
+          <h3 class="dd">YOUR GUESS</h3>
+          <p class="guess-error dd-error"></p>
+          <input class="daily-double-input dd-input" type="text" name="guess-input" placeholder="Answer">
+          <button class="daily-double-guess-btn dd-button">Submit Guess</button>
         </div>
         <section class="game-categories">
           <h3 class="clue-categories category1"></h3>
