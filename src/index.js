@@ -109,8 +109,6 @@ function instantiateClues() {
   })
 }
 
-$('.submit-final').on('click', postToLeaderBoard);
-
 function postToLeaderBoard(winningPlayer) {
   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/leaderboard', {
     method: "POST",
@@ -405,7 +403,8 @@ function evaluateFinalGuess() {
       player.decreaseScore(player.wager);
     }
   })
-  determineWinner();
+  let winner = game.determineWinner();
+  showFinalAnswer(winner);
 }
 
 function checkDDWager() {
@@ -422,13 +421,6 @@ function checkDDWager() {
 function displayDailyDoubleQuestion() {
   $('.daily-double-wager').css('display', 'none')
   $('.daily-double-question-div').css('display', 'block')
-}
-
-function determineWinner() {
-  players.sort((a, b) => b.score - a.score);
-  let winner = players[0];
-  showFinalAnswer(winner);
-  postToLeaderBoard(winner)
 }
 
 function showFinalAnswer(winner) {

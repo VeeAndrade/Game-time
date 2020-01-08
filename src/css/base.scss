@@ -196,6 +196,7 @@ p {
   padding-top: 20px;
   text-align: center;
   height: 520px;
+  position: relative;
 }
 
 .final-wager-input {
@@ -267,7 +268,7 @@ p {
 
 .play-button {
   width: 30%;
-  height: 4%;
+  height: 5.3%;
   cursor: pointer;
   border-radius: 5px;
   font-size: 1.3em;
@@ -414,6 +415,7 @@ p {
   background-size: contain;
   background-position: center;
   margin-top: -5%;
+  position: relative;
 }
 
 .instruction-heading-container {
@@ -583,6 +585,7 @@ svg #fish6 {
   margin: 3% 10% 3% 10%;
   padding: 3%;
   background: rgba(212,229,255,0.9);
+  position: relative;
 }
 
 .podium-section {
@@ -635,6 +638,7 @@ svg #fish6 {
   text-align: center;
   width: 30%;
   z-index: 5;
+  overflow: scroll;
 }
 
 .winner-names-and-score {
