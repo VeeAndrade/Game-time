@@ -1,3 +1,12 @@
+$primary-color: rgba(212, 229, 255, 0.9);
+$secondary-color: #F67280;
+
+@mixin column-design($height, $color) {
+  width: 200px;
+  height: $height;
+  background-color: $color;
+}
+
 * {
   font-family: 'Josefin Sans', sans-serif;
 }
@@ -33,7 +42,6 @@ h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 50px;
   align-self: center;
-  // margin: 0 auto;
 }
 
 h2 {
@@ -42,7 +50,7 @@ h2 {
 }
 
 h4 {
-  color: #F67280;
+  color: $secondary-color;
   font-size: 25px;
   margin: 10px;
 }
@@ -52,7 +60,7 @@ p {
 }
 
 .score {
-  color: #F67280;
+  color: $secondary-color;
   font-size: 50px;
   margin: 10px;
 }
@@ -154,7 +162,7 @@ p {
 }
 
 .sidebar {
-  background: rgba(212,229,255,0.9);
+  background: $primary-color;
   margin: 20px 20px 0px 20px;
   padding-top: 20px;
   text-align: center;
@@ -169,7 +177,7 @@ p {
 .final-round-wagers,
 .daily-double-wager,
 .daily-double-question-div {
-  background: rgba(212,229,255,0.9);
+  background: $primary-color;
   display: none;
   height: 550px;
   margin-left: 15%;
@@ -193,11 +201,14 @@ p {
 }
 
 .player-name-input-section {
-  background: rgba(212,229,255,0.9);
+  background: $primary-color;
   margin: 50px auto;
   width: 50%;
   padding-top: 20px;
+  display: flex;
   text-align: center;
+  flex-direction: column;
+  align-items: center;
   height: 550px;
   position: relative;
 }
@@ -219,7 +230,7 @@ p {
 .player-wager-label,
 .player-final-label {
   font-size: 20px;
-  color: #F67280;
+  color: $secondary-color;
   font-weight: bold;
 }
 
@@ -251,7 +262,7 @@ p {
 
   &:hover {
     cursor: pointer;
-    background-color: #F67280;
+    background-color: $secondary-color;
   }
 }
 
@@ -278,7 +289,7 @@ p {
   margin-top: 2%;
 
   &:hover {
-    background: rgba(212,229,255,0.9);
+    background: $primary-color;
   }
 }
 
@@ -294,18 +305,15 @@ p {
   height: 25px;
   padding-top: 5px;
   width: 60%;
-}
 
-
-.submit-final:hover,
-.submit-wager:hover,
-.submit-guess:hover {
-  background-color: #F67280;
+  &:hover {
+    background-color: $secondary-color;
+  }
 }
 
 .clue-categories {
   align-items: center;
-  background: rgba(212,229,255,0.9);
+  background: $primary-color;
   display: flex;
   height: 50px;
   justify-content: center;
@@ -370,7 +378,7 @@ p {
 
 .answer-response {
   align-content: center;
-  background: rgba(212,229,255,0.9);
+  background: $primary-color;
   display: none;
   flex-wrap: wrap;
   height: 480px;
@@ -388,10 +396,6 @@ p {
 .response {
   font-size: 60px;
 }
-
-
-
-// instructions
 
 .instructional-container {
   width: 100%;
@@ -433,15 +437,178 @@ p {
   margin-left: 17%;
 }
 
+.congrats-message {
+  color: #35477D;
+  font-size: 50px;
+  text-align: center;
+  margin: 0;
+}
 
+.winner-screen {
+  height: 80%;
+  display: none;
+  margin: 3% 10% 3% 10%;
+  padding: 3%;
+  background: $primary-color;
+  position: relative;
+}
 
-// animation
+.podium-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 30%;
+  margin-top: 28%;
+  text-align: center;
+}
 
+.left-column {
+  @include column-design(300px, #FDB1B9);
+}
+
+.middle-column {
+  @include column-design(420px, $secondary-color);
+}
+
+.right-column {
+  @include column-design(220px, #E1737E);
+}
+
+.podium {
+
+  padding: 15px;
+}
+
+.places {
+  color: white;
+  font-size: 30px;
+  margin: 10px;
+}
+
+.icon {
+  height: 100px;
+}
+
+.dropdown-menu {
+  background-color: white;
+  height: 300px;
+  margin-top: 70px;
+  position: absolute;
+  text-align: center;
+  width: 30%;
+  z-index: 5;
+  overflow: scroll;
+}
+
+.winner-names-and-score {
+  width: 100%;
+  height: 10%;
+  text-align: center;
+  color: $secondary-color;
+  font-size: 1.3em;
+  margin: 7%;
+}
+
+.line {
+  height: 1.2px;
+  width: 80%;
+  margin: 1%;
+  background-color: #FDB1B9;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.leaderboard-button {
+  height: 45px;
+  width: 200px;
+  font-size: 25px;
+  margin-top: 15px;
+  border-radius: 4px;
+  color: white;
+  background: url('../images/underwater-light.jpg') no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+}
+
+.restart-button {
+  @extend .leaderboard-button;
+  justify-self: flex-end;
+}
+
+.send-to-back{
+  filter: brightness(30%);
+  pointer-events: none;
+}
+
+.no-clicks {
+  pointer-events: none;
+}
+
+.dd-header {
+  font-size: 45px;
+}
+
+.dd-category {
+  font-size: 35px;
+}
+
+.dd-card {
+  font-size: 30px;
+}
+
+.dd {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.daily-double-wager-amount {
+  font-size: 25px;
+}
+
+.dd-error {
+  margin-top: 10px;
+}
+
+.dd-input {
+  height: 1.5em;
+  width: 50%;
+  border-radius: 5px;
+  font-size: 18px;
+  padding-left: 5px;
+}
+
+.dd-button {
+  height: 33px;
+  width: 51%;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.button-input {
+  display: flex;
+  flex-flow: column;
+  height: 125px;
+  margin-top: 10px;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Fish Animation */
 svg#fish {
   top: 10em;
 }
 
-/* Fish Animation */
 svg.fish {
   overflow: visible;
 }
@@ -564,190 +731,4 @@ svg #fish6 {
   75% {
     transform: translateY(-3px);
   }
-}
-
-
-.congrats-message {
-  color: #35477D;
-  font-size: 50px;
-  text-align: center;
-  margin: 0;
-}
-
-.winner-screen {
-  height: 80%;
-  display: none;
-  margin: 3% 10% 3% 10%;
-  padding: 3%;
-  background: rgba(212,229,255,0.9);
-  position: relative;
-}
-
-.podium-section {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 30%;
-  margin-top: 28%;
-  text-align: center;
-}
-
-.left-column {
-  width: 200px;
-  height: 300px;
-  background-color: #FDB1B9;
-}
-
-.middle-column {
-  width: 200px;
-  height: 420px;
-  background-color: #F67280;
-}
-
-.right-column {
-  width: 200px;
-  height: 220px;
-  background-color: #E1737E;
-}
-
-.podium {
-
-  padding: 15px;
-}
-
-.places {
-  color: white;
-  font-size: 30px;
-  margin: 10px;
-}
-
-.icon {
-  height: 100px;
-}
-
-.dropdown-menu {
-  background-color: white;
-  height: 300px;
-  margin-top: 70px;
-  position: absolute;
-  text-align: center;
-  width: 30%;
-  z-index: 5;
-  overflow: scroll;
-}
-
-.winner-names-and-score {
-  width: 100%;
-  height: 10%;
-  text-align: center;
-  color: #F67280;
-  font-size: 1.3em;
-  margin: 7%;
-}
-
-.line {
-  height: 1.2px;
-  width: 80%;
-  margin: 1%;
-  background-color: #FDB1B9;
-}
-
-.hide {
-  display: none;
-}
-
-.show {
-  display: block;
-}
-
-.leaderboard-button {
-  height: 45px;
-  width: 200px;
-  font-size: 25px;
-  margin-top: 15px;
-  border-radius: 4px;
-  color: white;
-  background: url('../images/underwater-light.jpg') no-repeat;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: 'Montserrat', sans-serif;
-  cursor: pointer;
-}
-
-.restart-button {
-  justify-self: flex-end;
-  height: 45px;
-  width: 200px;
-  font-size: 25px;
-  margin-top: 15px;
-  border-radius: 4px;
-  color: white;
-  background: url('../images/underwater-light.jpg') no-repeat;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: 'Montserrat', sans-serif;
-  cursor: pointer;
-}
-
-.send-to-back{
-  filter: brightness(30%);
-  pointer-events: none;
-}
-
-.delete {
-  // display: none;
-}
-
-.no-clicks {
-  pointer-events: none;
-}
-
-.dd-header {
-  font-size: 45px;
-}
-
-.dd-category {
-  font-size: 35px;
-}
-
-.dd-card {
-  font-size: 30px;
-}
-
-.dd {
-  font-size: 30px;
-  margin-bottom: 10px;
-}
-
-.daily-double-wager-amount {
-  font-size: 25px;
-}
-
-.dd-error {
-  margin-top: 10px;
-}
-
-.dd-input {
-  height: 1.5em;
-  width: 50%;
-  border-radius: 5px;
-  font-size: 18px;
-  padding-left: 5px;
-}
-
-.dd-button {
-  height: 33px;
-  width: 51%;
-  border-radius: 5px;
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-.button-input {
-  display: flex;
-  flex-flow: column;
-  height: 125px;
-  margin-top: 10px;
-  justify-content: space-around;
-  align-items: center;
 }

@@ -17,7 +17,7 @@ class Game {
       body: JSON.stringify({
         appId: "1909RNCGVA",
         playerName: `${winningPlayer.name}`,
-        playerScore: `${winningPlayer.score}`
+        playerScore: Number(`${winningPlayer.score}`)
       })
     })
   }
