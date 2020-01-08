@@ -368,6 +368,7 @@ function resetValues() {
   $(".player1-final").val("");
   $(".player2-final").val("");
   $(".player3-final").val("");
+  $(".continue-button#active").removeAttr('id');
   resetClue();
 }
 
