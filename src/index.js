@@ -22,7 +22,7 @@ let clickedCard;
 let clue;
 let $clueCards = $(".clue-cards");
 let clueCategories = [];
-let clueCount = 29;
+let clueCount = 13;
 let clueId = 1;
 let clueInfo = [];
 let $continueBtn = $(".continue-button");
@@ -164,9 +164,9 @@ function pickCategories() {
   let currentCategories = [];
   while (currentCategories.length !== 4) {
     if (!usedCategories.includes(clueCategories[`${currentIndex}`])) {
-      $(`.category${currentIndex + 1}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
       currentCategories.push(clueCategories[`${currentIndex}`]);
       usedCategories.push(clueCategories[`${currentIndex}`]);
+      $(`.category${currentCategories.length}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
     }
     currentIndex++;
   }
@@ -175,7 +175,7 @@ function pickCategories() {
 
 function findFinalCategory() {
   let finalCategory = clueCategories.find(category => !usedCategories.includes(category));
-  let allCategoryClues = clueInfo.filter(clue => clue.categoryId == finalCategory.id);
+  let allCategoryClues = clueInfo.filter(clue => clue.categoryId === finalCategory.id);
   shuffleArray(allCategoryClues);
   let finalClue = allCategoryClues[0];
   displayFinal(finalClue, finalCategory);
@@ -196,7 +196,7 @@ function shuffleArray(arr) {
 
 function findCategoryClues(categories) {
   categories.forEach(category => {
-    let categoryClues = clueInfo.filter(clue => clue.categoryId == category.id);
+    let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id);
     shuffleArray(categoryClues);
     currentClues = [];
     let pointLevel = 1;
