@@ -22,7 +22,7 @@ let clickedCard;
 let clue;
 let $clueCards = $(".clue-cards");
 let clueCategories = [];
-let clueCount = 13;
+let clueCount = 0;
 let clueId = 1;
 let clueInfo = [];
 let $continueBtn = $(".continue-button");
@@ -282,7 +282,6 @@ function sortClues() {
 
 function displayDailyDouble(wager) {
   let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
-  console.log(selectedCategory)
   $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${selectedClue.question}`);
@@ -357,6 +356,9 @@ function resetValues() {
   turns = 0;
   clueCount = 0;
   usedCategories = [];
+  $(`.player1-sidebar`).css("background-color", "transparent");
+  $(`.player2-sidebar`).css("background-color", "transparent");
+  $(`.player3-sidebar`).css("background-color", "transparent");
   $(".player1").val("");
   $(".player2").val("");
   $(".player3").val("");
