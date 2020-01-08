@@ -22,7 +22,7 @@ let clickedCard;
 let clue;
 let $clueCards = $(".clue-cards");
 let clueCategories = [];
-let clueCount = 0;
+let clueCount = 31;
 let clueId = 1;
 let clueInfo = [];
 let $continueBtn = $(".continue-button");
@@ -319,7 +319,8 @@ function evaluateDailyDoubleGuess() {
 }
 
 function oneRandomInt(min, max) {
-  randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+  // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
+  randomNumber1 = 1;
 }
 
 function twoRandomInts(min, max) {
