@@ -8,9 +8,25 @@ class Game {
     this.roundCount++;
   }
 
+  postToLeaderBoard(winningPlayer) {
+    return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/leaderboard', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        appId: "1909RNCGVA",
+        playerName: `${winningPlayer.name}`,
+        playerScore: `${winningPlayer.score}`
+      })
+    })
+  }
+
   determineWinner() {
-    let sortedScores = this.players.slice().sort(function(a, b) { return  b.score - a.score})
-    return sortedScores[0];
+    let winnerArray = this.players.sort((a, b) => b.score - a.score);
+    let winner = winnerArray[0];
+    this.postToLeaderBoard(winner)
+    return winner;
   }
 }
 
