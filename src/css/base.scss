@@ -183,6 +183,10 @@ p {
   width: 56%;
 }
 
+.final-round-wagers {
+  padding: 40px;
+}
+
 .final-answer {
   justify-content: center;
   align-items: center;
@@ -195,7 +199,7 @@ p {
   width: 50%;
   padding-top: 20px;
   text-align: center;
-  height: 520px;
+  height: 550px;
   position: relative;
 }
 
@@ -362,14 +366,6 @@ p {
 .error {
   visibility: hidden;
 }
-
-// .final-round-question {
-//   display: none;
-// }
-
-// .final-round-wagers {
-//   display: none;
-// }
 
 
 

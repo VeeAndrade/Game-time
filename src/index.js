@@ -22,7 +22,7 @@ let clickedCard;
 let clue;
 let $clueCards = $(".clue-cards");
 let clueCategories = [];
-let clueCount = 0;
+let clueCount = 13;
 let clueId = 1;
 let clueInfo = [];
 let $continueBtn = $(".continue-button");
@@ -56,7 +56,7 @@ $(".restart-button").click(restartGame);
 $(".submit-DD-wager").click(checkDDWager);
 $(".submit-final").click(evaluateFinalGuess);
 $(".submit-guess").click(evaluateGuess);
-$(".submit-wager").click(collectWagers);
+$(".submit-wager").click(checkFinalWagers);
 $('.daily-double-guess-btn').click(evaluateDailyDoubleGuess);
 
 
@@ -130,7 +130,7 @@ function checkInputs() {
 }
 
 function instantiatePlayers() {
-  if ($continueBtn.attr("id", "active")) {
+  if (document.getElementById("active")) {
     let player1 = new Player($player1Input.val());
     let player2 = new Player($player2Input.val());
     let player3 = new Player($player3Input.val());
@@ -162,9 +162,9 @@ function pickCategories() {
   let currentCategories = [];
   while (currentCategories.length !== 4) {
     if (!usedCategories.includes(clueCategories[`${currentIndex}`])) {
-      $(`.category${currentIndex + 1}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
       currentCategories.push(clueCategories[`${currentIndex}`]);
       usedCategories.push(clueCategories[`${currentIndex}`]);
+      $(`.category${currentCategories.length}`).text(`${clueCategories[`${currentIndex}`].category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
     }
     currentIndex++;
   }
@@ -173,7 +173,7 @@ function pickCategories() {
 
 function findFinalCategory() {
   let finalCategory = clueCategories.find(category => !usedCategories.includes(category));
-  let allCategoryClues = clueInfo.filter(clue => clue.categoryId == finalCategory.id);
+  let allCategoryClues = clueInfo.filter(clue => clue.categoryId === finalCategory.id);
   shuffleArray(allCategoryClues);
   let finalClue = allCategoryClues[0];
   displayFinal(finalClue, finalCategory);
@@ -194,7 +194,7 @@ function shuffleArray(arr) {
 
 function findCategoryClues(categories) {
   categories.forEach(category => {
-    let categoryClues = clueInfo.filter(clue => clue.categoryId == category.id);
+    let categoryClues = clueInfo.filter(clue => clue.categoryId === category.id);
     shuffleArray(categoryClues);
     currentClues = [];
     let pointLevel = 1;
@@ -281,7 +281,8 @@ function sortClues() {
 }
 
 function displayDailyDouble(wager) {
-  let selectedCategory = clueCategories.find(category => category.id === clue.categoryId)
+  let selectedCategory = clueCategories.find(category => category.id === selectedClue.categoryId)
+  console.log(selectedCategory)
   $('.daily-double-wager').css("display", "flex");
   $('.daily-double-category').text(`${selectedCategory.category.split(/(?=[A-Z])/).join(" ").toUpperCase()}`);
   $('.daily-double-question').text(`${selectedClue.question}`);
@@ -355,6 +356,7 @@ function resetValues() {
   players = [];
   turns = 0;
   clueCount = 0;
+  usedCategories = [];
   $(".player1").val("");
   $(".player2").val("");
   $(".player3").val("");
@@ -384,7 +386,41 @@ function evaluateGuess() {
   $(".player-guess").val("");
 }
 
+function checkFinalWagers() {
+  if ($(".player1-wager").val() && $(".player2-wager").val() && $(".player3-wager").val()) {
+    let wager1 = {wager: $(".player1-wager").val(), playerScore: players[0].score};
+    let wager2 = {wager: $(".player2-wager").val(), playerScore: players[1].score};
+    let wager3 = {wager: $(".player3-wager").val(), playerScore: players[2].score};
+    let acceptableWagers = [];
+    let allWagers = [wager1, wager2, wager3]
+    allWagers.forEach(w => {
+      if (Number(w.wager) <= 0) {
+        $(".final-wager-error").text("You must input wagers greater than or equal to 5!");
+      }
+      if (w.playerScore > 0) {
+        if (Number(w.wager) <= w.playerScore && Number(w.wager) >= 5) {
+          acceptableWagers.push(w.wager)
+        } else {
+          $(".final-wager-error").text("Your wager must be a positive number between 5 and your current total score!");
+        }
+      } else {
+        if (Number(w.wager) === 5) {
+          acceptableWagers.push(w.wager)
+        } else {
+          $(".final-wager-error").text("Your wager must be 5 if your current score is 0 or less");
+        }
+      }
+    })
+    if (acceptableWagers.length === 3) {
+      collectWagers();
+    }
+  } else {
+    $(".final-wager-error").text("You must input 3 wagers!");
+  }
+}
+
 function collectWagers() {
+  $(".final-wager-error").text("");
   $(".final-round-wagers").css("display", "none");
   $(".final-round-question").css("display", "flex");
   players[0].wager = $(".player1-wager").val();
@@ -456,9 +492,9 @@ function calculateScore(response) {
 function calculateDDScore(response) {
   let currentPlayer = players.find(player => player.turn);
   if (response === 'correct') {
-    currentPlayer.score += (playersWager);
+    currentPlayer.score += Number(playersWager);
   } else {
-    currentPlayer.score -= (playersWager);
+    currentPlayer.score -= Number(playersWager);
   }
   updatePlayerScore();
   updateGameDisplay(currentPlayer);
