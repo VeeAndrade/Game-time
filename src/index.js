@@ -14,8 +14,6 @@ import Player from "../src/Player"
 import Game from "../src/Game"
 import Clue from "../src/Clue"
 import DailyDouble from "../src/Daily-Double"
-import "../src/Round"
-
 
 let allClues = [];
 let clickedCard;
@@ -45,11 +43,10 @@ let totalClues;
 let turns = 0;
 let usedCategories = [];
 let wagerAmount;
-let main = $("main")
-
 
 $clueCards.click(displaySelectedClue);
 $continueBtn.click(instantiatePlayers);
+$('.daily-double-guess-btn').click(evaluateDailyDoubleGuess);
 $(".leaderboard-button").click(dropdownMenu);
 $nameInputSection.keyup(checkInputs);
 $(".play-button").click(instantiateGame);
@@ -58,7 +55,6 @@ $(".submit-DD-wager").click(checkDDWager);
 $(".submit-final").click(evaluateFinalGuess);
 $(".submit-guess").click(evaluateGuess);
 $(".submit-wager").click(checkFinalWagers);
-$('.daily-double-guess-btn').click(evaluateDailyDoubleGuess);
 
 
 function categoryFetch() {
@@ -110,19 +106,19 @@ function instantiateClues() {
   })
 }
 
-function postToLeaderBoard(winningPlayer) {
-  return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/leaderboard', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      appId: "1909RNCGVA",
-        playerName: `${winningPlayer.name}`,
-        playerScore: `${winningPlayer.score}`
-    })
-  })
-}
+// function postToLeaderBoard(winningPlayer) {
+//   return fetch('https://fe-apps.herokuapp.com/api/v1/gametime/leaderboard', {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       appId: "1909RNCGVA",
+//         playerName: `${winningPlayer.name}`,
+//         playerScore: `${winningPlayer.score}`
+//     })
+//   })
+// }
 
 function checkInputs() {
   if ($player1Input.val() && $player2Input.val() && $player3Input.val()) {
@@ -340,7 +336,7 @@ function displayFinal(clue, category) {
 
 function dropdownMenu() {
   $(".dropdown-menu").toggleClass("hide");
-  main.toggleClass("no-clicks");
+  $("main").toggleClass("no-clicks");
 }
 
 function restartGame() {
