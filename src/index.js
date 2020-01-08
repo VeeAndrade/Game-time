@@ -270,7 +270,6 @@ function removeCardFromTotal(card) {
 function makeDailyDouble(player) {
   let dailyDouble = new DailyDouble(selectedClue)
   let highestPointClue = sortClues();
-  console.log(highestPointClue);
   wagerAmount = dailyDouble.determineWager(turns, player, highestPointClue);
   displayDailyDouble(wagerAmount);
 }
@@ -279,7 +278,6 @@ function sortClues() {
   let sortedClues = totalClues.sort((a, b) => {
     return b.pointValue - a.pointValue;
   });
-  console.log(sortedClues)
   return sortedClues[0].pointValue;
 }
 
@@ -317,8 +315,7 @@ function evaluateDailyDoubleGuess() {
 }
 
 function oneRandomInt(min, max) {
-  // randomNumber1 = Math.floor(Math.random() * (max - min) + min);
-  randomNumber1 = 1;
+  randomNumber1 = Math.floor(Math.random() * (max - min) + min);
 }
 
 function twoRandomInts(min, max) {
